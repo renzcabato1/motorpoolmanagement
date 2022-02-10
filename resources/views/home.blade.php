@@ -185,4 +185,7 @@
                 var ctx2 = document.getElementById("barChart").getContext("2d");
                     
     </script>
+     <script src="{{ asset('bootstrap/js/jquery-3.1.1.min.js') }}"></script>
+       <script src="{{ asset('bootstrap/js/plugins/chartJs/Chart.min.js') }}"></script>
+       <script src="{{ asset('bootstrap/js/demo/chartjs-demo.js') }}"></script>
 @endsection

@@ -102,8 +102,11 @@
                     <li @if($header == 'Requests') class='active' @endif>
                         <a href="{{ url('/requests') }}" class='active' onclick='show()' ><i class="fa fa-clipboard"></i> <span class="nav-label">Requests</span> </a>
                     </li>
-                    <li @if($header == 'Dispatch') class='active' @endif>
-                        <a href="{{ url('/Dispatch') }}" class='active' onclick='show()' ><i class="fa fa-send-o"></i> <span class="nav-label">Dispatch</span> </a>
+                    <li @if($header == 'For Approval') class='active' @endif>
+                        <a href="{{ url('/for-approval') }}" class='active' onclick='show()' ><i class="fa fa-check-circle-o"></i> <span class="nav-label">For Approval</span> </a>
+                    </li>
+                    <li @if($header == 'For Dispatch') class='active' @endif>
+                        <a href="{{ url('/for-dispatch') }}" class='active' onclick='show()' ><i class="fa fa-send-o"></i> <span class="nav-label">For Dispatch</span> </a>
                     </li>
                     <li @if($header == 'Equipments') class='active' @endif>
                         <a href="{{ url('/equipments') }}" class='active' onclick='show()' ><i class="fa fa-truck"></i> <span class="nav-label">Equipments</span> </a>
@@ -216,8 +219,7 @@
             {{-- <script src="{{ asset('bootstrap/js/inspinia.js') }}"></script> --}}
             <script src="{{ asset('bootstrap/js/plugins/pace/pace.min.js') }}"></script>
             
-            <script src="{{ asset('bootstrap/js/plugins/chartJs/Chart.min.js') }}"></script>
-            <script src="{{ asset('bootstrap/js/demo/chartjs-demo.js') }}"></script>
+         
             <!-- jQuery UI -->
             {{-- <script src="{{ asset('bootstrap/js/plugins/jquery-ui/jquery-ui.min.js') }}"></script> --}}
             {{-- <script src="{{ asset('bootstrap/js/plugins/touchpunch/jquery.ui.touch-punch.min.js') }}"></script> --}}
@@ -245,6 +247,7 @@
                 <!-- Jquery Validate -->
                 {{-- <script src="{{ asset('bootstrap/js/plugins/validate/jquery.validate.min.js') }}"></script> --}}
                     <!-- Date range picker -->
+                    
                 <script src="{{ asset('bootstrap/js/plugins/daterangepicker/daterangepicker.js') }}"></script>
 
                    <!-- Data picker -->
@@ -256,7 +259,10 @@
                 {{-- <script src="{{ asset('bootstrap/js/demo/flot-demo.js') }}"></script> --}}
                 <script>
                 //   
-               
+                    
+                    $(document).ready(function () {
+                      
+                    });
                     $('.category').chosen({width: "100%"});
                      $(".touchspin1").TouchSpin({
                         buttondown_class: 'btn btn-white',

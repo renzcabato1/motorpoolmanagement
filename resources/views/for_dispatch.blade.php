@@ -15,8 +15,8 @@
         <div class="col-lg-12 ">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Requests
-                        <button class="btn btn-primary" data-target="#new_request" data-toggle="modal" type="button"><i class="fa fa-plus-circle"></i>&nbsp;</button>
+                    <h5>For Dispatch
+                        {{-- <button class="btn btn-primary" data-target="#new_request" data-toggle="modal" type="button"><i class="fa fa-plus-circle"></i>&nbsp;</button> --}}
                     </h5>
                     <div ibox-tools></div>
                 </div>
@@ -24,21 +24,22 @@
 
                     <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
                         <thead>
-                            <tr>
-                                {{-- <th>Logo</th> --}}
-                                <th>Request Number</th>
-                                <th>Request Date</th>
-                                <th>Name</th>
-                                <th>Company</th>
-                                <th>Department</th>
-                                <th>Equipment Class</th>
-                                <th>Date Needed / Time Needed</th>
-                                <th>Project ID</th>
-                                <th>Area</th>
-                                <th>Location</th>
-                                <th>Remarks</th>
-                                <th>Action</th>
-                            </tr>   
+                        <tr>
+                            {{-- <th>Logo</th> --}}
+                            <th>Request Number</th>
+                            <th>Request Date</th>
+                            <th>Name</th>
+                            <th>Company</th>
+                            <th>Department</th>
+                            <th>Equipment Class</th>
+                            <th>Date Needed / Time Needed</th>
+                            <th>Project ID</th>
+                            <th>Area</th>
+                            <th>Location</th>
+                            <th>Remarks</th>
+                            <th>Approved By</th>
+                            <th>Action</th>
+                        </tr>
                         </thead>
                         <tbody>
                           
@@ -50,6 +51,6 @@
         </div>
        
     </div>
-    @include('new_request')
+  
 </div>
 @endsection

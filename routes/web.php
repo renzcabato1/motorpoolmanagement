@@ -68,6 +68,13 @@ Route::group( ['middleware' => 'auth'], function()
      //Request
      Route::get('requests','RequestController@requests');
 
+     //For Approval
+     Route::get('for-approval','RequestController@for_approval');
+
+     //For Dispatch
+     Route::get('for-dispatch','RequestController@for_dispatch');
+
+
 });
 
 

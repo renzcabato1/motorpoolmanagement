@@ -15,8 +15,8 @@
         <div class="col-lg-12 ">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Requests
-                        <button class="btn btn-primary" data-target="#new_request" data-toggle="modal" type="button"><i class="fa fa-plus-circle"></i>&nbsp;</button>
+                    <h5>For Approval
+                        {{-- <button class="btn btn-primary" data-target="#new_request" data-toggle="modal" type="button"><i class="fa fa-plus-circle"></i>&nbsp;</button> --}}
                     </h5>
                     <div ibox-tools></div>
                 </div>
@@ -38,7 +38,7 @@
                                 <th>Location</th>
                                 <th>Remarks</th>
                                 <th>Action</th>
-                            </tr>   
+                            </tr>
                         </thead>
                         <tbody>
                           
@@ -50,6 +50,6 @@
         </div>
        
     </div>
-    @include('new_request')
+  
 </div>
 @endsection
