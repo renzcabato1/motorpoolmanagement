@@ -27,10 +27,7 @@
                             <tr>
                                 {{-- <th>Logo</th> --}}
                                 <th>Request Number</th>
-                                <th>Request Date</th>
                                 <th>Name</th>
-                                <th>Company</th>
-                                <th>Department</th>
                                 <th>Equipment Class</th>
                                 <th>Date Needed / Time Needed</th>
                                 <th>Project ID</th>
@@ -41,6 +38,36 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($requests as $request)
+                            <tr id='row{{$request->id}}'>
+                                {{-- <th>Logo</th> --}}
+                                <td>RN-{{str_pad($request->id, 4, '0', STR_PAD_LEFT)}}</td>
+                                <td>
+                                    <small>
+                                        {{$request->user->name}}
+                                        <br>
+                                        {{$request->company->company_name}}
+                                        <br>
+                                        {{$request->department->department_name}}
+                                </td>
+                                <td>{{$request->class->class_description}}</td>
+                                <td>
+                                    <small>
+                                        Date : {{date('M d, Y',strtotime($request->date_from_needed))}} - {{date('M d, Y',strtotime($request->date_to_needed))}} <br>
+                                        Time : {{date('h:m a',strtotime($request->time_from_needed))}} - {{date('h:m a',strtotime($request->time_to_needed))}}
+                                    </small>
+                                </td>
+                                <td>{{$request->project_id}}</td>
+                                <td>{{$request->area}}</td>
+                                <td>{{$request->location}}</td>
+                                <td>{!! nl2br(e($request->remarks)) !!}</td>
+                                {{-- <th><small class="label label-warning">Pending</small></th> --}}
+                                <td data-id='{{$request->id}}'>
+                                    <button class="btn btn-sm btn-info"  title='Approve Request' data-target="#approved_request{{$request->id}}" data-toggle="modal"><i class="fa fa-check-square-o"></i></button>
+                                    <button class="btn btn-sm btn-danger declined-request" title='Decline Request' ><i class="fa fa-window-close-o"></i></button>
+                                </td>
+                            </tr>
+                            @endforeach
                           
                         </tbody>
                     </table>

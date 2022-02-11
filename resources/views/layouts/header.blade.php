@@ -182,7 +182,8 @@
             </script>
            
             <script src="{{ asset('bootstrap/js/jquery-3.1.1.min.js') }}"></script>
-            {{-- <script src="{{ asset('bootstrap/js/popper.min.js') }}"></script> --}}
+            <script src="{{ asset('bootstrap/js/popper.min.js') }}"></script>
+            {{-- <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script> --}}
             <script src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
             <script src="{{ asset('bootstrap/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
             <script src="{{ asset('bootstrap/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
@@ -216,12 +217,12 @@
             {{-- <script src="{{ asset('bootstrap/js/plugins/footable/footable.all.min.js') }}"></script> --}}
             
             <!-- Custom and plugin javascript -->
-            {{-- <script src="{{ asset('bootstrap/js/inspinia.js') }}"></script> --}}
+            <script src="{{ asset('bootstrap/js/inspinia.js') }}"></script>
             <script src="{{ asset('bootstrap/js/plugins/pace/pace.min.js') }}"></script>
             
          
             <!-- jQuery UI -->
-            {{-- <script src="{{ asset('bootstrap/js/plugins/jquery-ui/jquery-ui.min.js') }}"></script> --}}
+            <script src="{{ asset('bootstrap/js/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
             {{-- <script src="{{ asset('bootstrap/js/plugins/touchpunch/jquery.ui.touch-punch.min.js') }}"></script> --}}
              
                 <script src="{{ asset('bootstrap/js/plugins/dataTables/datatables.min.js') }}"></script>
@@ -242,7 +243,7 @@
                 {{-- <script src="{{ asset('bootstrap/js/plugins/summernote/summernote-bs4.js') }}"></script> --}}
                 
                 <!-- blueimp gallery -->
-                {{-- <script src="{{ asset('bootstrap/js/plugins/blueimp/jquery.blueimp-gallery.min.js') }}"></script> --}}
+                <script src="{{ asset('bootstrap/js/plugins/blueimp/jquery.blueimp-gallery.min.js') }}"></script>
                 
                 <!-- Jquery Validate -->
                 {{-- <script src="{{ asset('bootstrap/js/plugins/validate/jquery.validate.min.js') }}"></script> --}}
@@ -413,6 +414,44 @@
                                 document.getElementById('statusinsurancetd'+id).innerHTML = "<small class='label label-danger'>Inactive</small>";
                                 document.getElementById('actioninsurancetd'+id).innerHTML = "<button class='btn btn-sm btn-primary activate-insurance' title='Activate'><i class='fa fa-check'></i></button>";
                                 swal("Deactivated!", "Insurance has been deactivated.", "success");
+
+                            });
+
+                        });
+                        $("body").on("click",".remove-request",function(){
+                            // var base_path = location.hostname;
+                            var id = $(this).parent("td").data('id');
+                            // alert(id);
+                            swal({
+                                title: "Are you sure you want to cancel this request?",
+                                // text: "You will not be able to recover this!",
+                                type: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Yes, cancel it!",
+                                closeOnConfirm: false
+                            }, function (isConfirm) {
+                                // alert(isConfirm);
+                                if(isConfirm == true)
+                                {
+                                    // $("#"+id).remove();
+                                    $.ajax({
+                                        dataType: 'json',
+                                        type:'POST',
+                                        url:  'cancel-request',
+                                        data:{id:id},
+                                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                                    }).done(function(data){
+                                        console.log(data);
+                                        // c_obj.remove();
+                                        // var id = $("#" + id + " > .firstname").html();
+                                        // alert(newusername
+                                        swal("Cancelled!", "Request has been cancelled.", "success");
+                                    });
+                                
+                                }
+                                $('#row'+id).remove();
+                                swal("Cancelled!", "Request has been cancelled.", "success");
 
                             });
 

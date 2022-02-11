@@ -67,6 +67,9 @@ Route::group( ['middleware' => 'auth'], function()
 
      //Request
      Route::get('requests','RequestController@requests');
+     Route::post('new-request','RequestController@new_request');
+     Route::post('cancel-request','RequestController@cancel_request');
+     Route::post('edit-request/{id}','RequestController@edit_request');
 
      //For Approval
      Route::get('for-approval','RequestController@for_approval');
