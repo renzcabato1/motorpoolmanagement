@@ -63,7 +63,7 @@
                                 <td>{!! nl2br(e($request->remarks)) !!}</td>
                                 {{-- <th><small class="label label-warning">Pending</small></th> --}}
                                 <td data-id='{{$request->id}}'>
-                                    <button class="btn btn-sm btn-info"  title='Approve Request' data-target="#approved_request{{$request->id}}" data-toggle="modal"><i class="fa fa-check-square-o"></i></button>
+                                    <button class="btn btn-sm btn-info approve-request"  title='Approve Request' ><i class="fa fa-check-square-o"></i></button>
                                     <button class="btn btn-sm btn-danger declined-request" title='Decline Request' ><i class="fa fa-window-close-o"></i></button>
                                 </td>
                             </tr>
@@ -75,8 +75,7 @@
                 </div>
             </div>
         </div>
-       
     </div>
-  
 </div>
+@include('approved_request')
 @endsection

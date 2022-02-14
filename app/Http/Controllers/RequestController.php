@@ -163,4 +163,32 @@ class RequestController extends Controller
 
          return back();
     }
+    public function approve_request(Request $request)
+    {
+        $req = RequestData::where('id',$request->id)->first();
+        $req->status = "Approved";
+        $req->save();
+
+        $history = new RequestHistory;
+        $history->request_data_id = $request->id;
+        $history->action = "Approved Request";
+        $history->user_id = auth()->user()->id;
+        $history->remarks = $request->remarks;
+        $history->save();
+        return "success";
+    }
+    public function declined_request(Request $request)
+    {
+        $req = RequestData::where('id',$request->id)->first();
+        $req->status = "Declined";
+        $req->save();
+
+        $history = new RequestHistory;
+        $history->request_data_id = $request->id;
+        $history->action = "Declined Request";
+        $history->user_id = auth()->user()->id;
+        $history->remarks = $request->remarks;
+        $history->save();
+        return "success";
+    }
 }

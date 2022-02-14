@@ -303,31 +303,17 @@
                            
                         });
                         $('.dataTables-example').DataTable({
-                            lengthMenu: [[10, 25, 50,-1], [10, 25, 50,"All"]],
-                            // pageLength: -1,
-                            scrollY:        true,
+                            // lengthMenu: [[10, 25, 50,-1], [10, 25, 50,"All"]],
+                            pageLength: -1,
+                            pagging: false,
+                            scrollY: true,
                             responsive: true,
                             searching: true,
-                            ordering: false,
-                            dom: '<"html5buttons"B>lTfgitp',
-                            buttons: [
-                            // { extend: 'copy'},
-                            {extend: 'csv', title: '{{date("Y-m-d")}}'},
-                            {extend: 'excel', title: '{{date("Y-m-d")}}'},
-                            {extend: 'pdf', title: '{{date("Y-m-d")}}'},
-                            
-                            {
-                                extend: 'print',
-                                customize: function (win)
-                                {
-                                    $(win.document.body).addClass('white-bg');
-                                    $(win.document.body).css('font-size', '10px');
-                                    
-                                    $(win.document.body).find('table')
-                                    .addClass('compact')
-                                    .css('font-size', 'inherit');
-                                }
-                            }]
+                            ordering: true,
+                            lengthChange: false,
+                            info: false,
+                            dom: "lfrti"
+                           
                             
                         });
                         // var indexLastColumn = $(".company-report").find('tr')[0].cells.length-1;
@@ -366,13 +352,14 @@
                                         // alert(newusername
                                         swal("Deactivated!", "Brand has been deactivated.", "success");
                                     });
+                                    document.getElementById('statustd'+id).innerHTML = "<small class='label label-danger'>Inactive</small>";
+                                    document.getElementById('actiontd'+id).innerHTML = "<button class='btn btn-sm btn-primary activate-brand' title='Activate'><i class='fa fa-check'></i></button>";
+                                    swal("Deactivated!", "Brand has been deactivated.", "success");
                                 
                                 }
                                 // alert(id);
                                 // $('#'+table).find('tr#'+rowId).find('td:eq(colNum)').html(newValue);
-                                document.getElementById('statustd'+id).innerHTML = "<small class='label label-danger'>Inactive</small>";
-                                document.getElementById('actiontd'+id).innerHTML = "<button class='btn btn-sm btn-primary activate-brand' title='Activate'><i class='fa fa-check'></i></button>";
-                                swal("Deactivated!", "Brand has been deactivated.", "success");
+                                
 
                             });
 
@@ -407,13 +394,14 @@
                                         // alert(newusername
                                         swal("Deactivated!", "Insurance has been deactivated.", "success");
                                     });
+                                    document.getElementById('statusinsurancetd'+id).innerHTML = "<small class='label label-danger'>Inactive</small>";
+                                    document.getElementById('actioninsurancetd'+id).innerHTML = "<button class='btn btn-sm btn-primary activate-insurance' title='Activate'><i class='fa fa-check'></i></button>";
+                                    swal("Deactivated!", "Insurance has been deactivated.", "success");
                                 
                                 }
                                 // alert(id);
                                 // $('#'+table).find('tr#'+rowId).find('td:eq(colNum)').html(newValue);
-                                document.getElementById('statusinsurancetd'+id).innerHTML = "<small class='label label-danger'>Inactive</small>";
-                                document.getElementById('actioninsurancetd'+id).innerHTML = "<button class='btn btn-sm btn-primary activate-insurance' title='Activate'><i class='fa fa-check'></i></button>";
-                                swal("Deactivated!", "Insurance has been deactivated.", "success");
+                             
 
                             });
 
@@ -448,11 +436,12 @@
                                         // alert(newusername
                                         swal("Cancelled!", "Request has been cancelled.", "success");
                                     });
-                                
-                                }
-                                $('#row'+id).remove();
+                                    $('#row'+id).remove();
                                 swal("Cancelled!", "Request has been cancelled.", "success");
 
+                                
+                                }
+                             
                             });
 
                         });
@@ -486,13 +475,14 @@
                                         // alert(newusername
                                         swal("Deactivated!", "User has been deactivated.", "success");
                                     });
+                                    document.getElementById('statususer'+id).innerHTML = "<small class='label label-danger'>Inactive</small>";
+                                document.getElementById('actionuser'+id).innerHTML = "<button class='btn btn-sm btn-primary activate-user' title='Activate'><i class='fa fa-check'></i></button>";
+                                swal("Deactivated!", "User has been deactivated.", "success");
                                 
                                 }
                                 // alert(id);
                                 // $('#'+table).find('tr#'+rowId).find('td:eq(colNum)').html(newValue);
-                                document.getElementById('statususer'+id).innerHTML = "<small class='label label-danger'>Inactive</small>";
-                                document.getElementById('actionuser'+id).innerHTML = "<button class='btn btn-sm btn-primary activate-user' title='Activate'><i class='fa fa-check'></i></button>";
-                                swal("Deactivated!", "User has been deactivated.", "success");
+                               
 
                             });
 
@@ -524,11 +514,12 @@
                                         console.log(data);
                                         swal("Deactivated!", "Company has been deactivated.", "success");
                                     });
-                                
-                                }
-                                document.getElementById('statuscompanytd'+id).innerHTML = "<small class='label label-danger'>Inactive</small>";
+                                    document.getElementById('statuscompanytd'+id).innerHTML = "<small class='label label-danger'>Inactive</small>";
                                 document.getElementById('actioncompanytd'+id).innerHTML = "<button class='btn btn-sm btn-primary activate-company' title='Activate'><i class='fa fa-check'></i></button>";
                                 swal("Deactivated!", "Company has been deactivated.", "success");
+                                
+                                }
+                               
 
                             });
 
@@ -540,6 +531,7 @@
                             swal({
                                 title: "Are you sure you want to deactivate this?",
                                 // text: "You will not be able to recover this!",
+                                input: 'textarea',
                                 type: "warning",
                                 showCancelButton: true,
                                 confirmButtonColor: "#DD6B55",
@@ -560,12 +552,13 @@
                                         console.log(data);
                                         swal("Deactivated!", "Class has been deactivated.", "success");
                                     });
-                                
-                                }
-                                document.getElementById('statusclass'+id).innerHTML = "<small class='label label-danger'>Inactive</small>";
+                                    document.getElementById('statusclass'+id).innerHTML = "<small class='label label-danger'>Inactive</small>";
                                 document.getElementById('actionclasstd'+id).innerHTML = "<button class='btn btn-sm btn-primary activate-class' title='Activate'><i class='fa fa-check'></i></button>";
                                 swal("Deactivated!", "Class has been deactivated.", "success");
 
+                                
+                                }
+                               
                             });
 
                         });
@@ -596,11 +589,12 @@
                                         console.log(data);
                                         swal("Deactivated!", "Category has been deactivated.", "success");
                                     });
+                                    document.getElementById('statuscategory'+id).innerHTML = "<small class='label label-danger'>Inactive</small>";
+                                    document.getElementById('actioncategorytd'+id).innerHTML = "<button class='btn btn-sm btn-primary activate-category' title='Activate'><i class='fa fa-check'></i></button>";
+                                    swal("Deactivated!", "Category has been deactivated.", "success");
                                 
                                 }
-                                document.getElementById('statuscategory'+id).innerHTML = "<small class='label label-danger'>Inactive</small>";
-                                document.getElementById('actioncategorytd'+id).innerHTML = "<button class='btn btn-sm btn-primary activate-category' title='Activate'><i class='fa fa-check'></i></button>";
-                                swal("Deactivated!", "Category has been deactivated.", "success");
+                               
 
                             });
 
@@ -632,15 +626,16 @@
                                         // c_obj.remove();
                                         swal("Activated!", "Brand has been Activated.", "success");
                                     });
-                                
-                                }
-
-                                document.getElementById('statustd'+id).innerHTML = "<small class='label label-primary'>Active</small>";
+                                    document.getElementById('statustd'+id).innerHTML = "<small class='label label-primary'>Active</small>";
                                 var buttons = "<button class='btn btn-sm btn-info'  title='Edit' data-target='#editBrand"+id+"' data-toggle='modal'><i class='fa fa-edit'></i></button>&nbsp;";
                                     buttons += "<button class='btn btn-sm btn-danger deactivate-brand' title='Deactivate' ><i class='fa fa-trash'></i></button>";
                                 document.getElementById('actiontd'+id).innerHTML = buttons;
                              
                                 swal("Activated!", "Brand has been Activated.", "success");
+                                
+                                }
+
+                              
 
                             });
 
@@ -672,17 +667,26 @@
                                         // c_obj.remove();
                                         swal("Activated!", "User has been Activated.", "success");
                                     });
-                                
-                                }
-
-                                document.getElementById('statususer'+id).innerHTML = "<small class='label label-primary'>Active</small>";
+                                    document.getElementById('statususer'+id).innerHTML = "<small class='label label-primary'>Active</small>";
                                 var buttons = "<button class='btn btn-sm btn-info'  title='Edit' data-target='#editUser"+id+"' data-toggle='modal'><i class='fa fa-edit'></i></button>&nbsp;";
                                     buttons += "<button class='btn btn-sm btn-danger deactivate-user' title='Deactivate' ><i class='fa fa-trash'></i></button>";
                                 document.getElementById('actionuser'+id).innerHTML = buttons;
                              
                                 swal("Activated!", "User has been Activated.", "success");
+                                
+                                }
+
+                                
 
                             });
+
+                        });
+                        $("body").on("click",".approve-request",function(){
+                            $('#approved_request').modal('show'); 
+                            var id = $(this).parent("td").data('id');
+                            $('#id_row').val(id);
+                            $('#remarks').val("");
+                         
 
                         });
                         $("body").on("click",".activate-category",function(){
@@ -712,16 +716,17 @@
                                         // c_obj.remove();
                                         swal("Activated!", "Category has been Activated.", "success");
                                     });
-                                
-                                }
-
-                                document.getElementById('statuscategory'+id).innerHTML = "<small class='label label-primary'>Active</small>";
+                                    document.getElementById('statuscategory'+id).innerHTML = "<small class='label label-primary'>Active</small>";
                                 var buttons = "<button class='btn btn-sm btn-info'  title='Edit' data-target='#editCategory"+id+"' data-toggle='modal'><i class='fa fa-edit'></i></button>&nbsp;";
                                     buttons += "<button class='btn btn-sm btn-danger deactivate-category' title='Deactivate' ><i class='fa fa-trash'></i></button>";
                                 document.getElementById('actioncategorytd'+id).innerHTML = buttons;
                              
                                 swal("Activated!", "Category has been Activated.", "success");
 
+                                
+                                }
+
+                               
                             });
 
                         });
@@ -752,15 +757,16 @@
                                         // c_obj.remove();
                                         swal("Activated!", "Class has been Activated.", "success");
                                     });
-                                
-                                }
-
-                                document.getElementById('statusclass'+id).innerHTML = "<small class='label label-primary'>Active</small>";
+                                    document.getElementById('statusclass'+id).innerHTML = "<small class='label label-primary'>Active</small>";
                                 var buttons = "<button class='btn btn-sm btn-info'  title='Edit' data-target='#editClass"+id+"' data-toggle='modal'><i class='fa fa-edit'></i></button>&nbsp;";
                                     buttons += "<button class='btn btn-sm btn-danger deactivate-class' title='Deactivate' ><i class='fa fa-trash'></i></button>";
                                 document.getElementById('actionclasstd'+id).innerHTML = buttons;
                              
                                 swal("Activated!", "Brand has been Activated.", "success");
+                                
+                                }
+
+                               
 
                             });
 
@@ -792,15 +798,16 @@
                                         // c_obj.remove();
                                         swal("Activated!", "Company has been Activated.", "success");
                                     });
-                                
-                                }
-
+                                    
                                 document.getElementById('statuscompanytd'+id).innerHTML = "<small class='label label-primary'>Active</small>";
                                 var buttons = "<button class='btn btn-sm btn-info'  title='Edit' data-target='#editCompany"+id+"' data-toggle='modal'><i class='fa fa-edit'></i></button>&nbsp;";
                                     buttons += "<button class='btn btn-sm btn-danger deactivate-company' title='Deactivate' ><i class='fa fa-trash'></i></button>";
                                 document.getElementById('actioncompanytd'+id).innerHTML = buttons;
                              
                                 swal("Activated!", "Brand has been Activated.", "success");
+                                
+                                }
+
 
                             });
 
@@ -832,26 +839,21 @@
                                         // c_obj.remove();
                                         swal("Activated!", "Insurance has been Activated.", "success");
                                     });
-                                
-                                }
-
-                                document.getElementById('statusinsurancetd'+id).innerHTML = "<small class='label label-primary'>Active</small>";
+                                    document.getElementById('statusinsurancetd'+id).innerHTML = "<small class='label label-primary'>Active</small>";
                                 var buttons = "<button class='btn btn-sm btn-info'  title='Edit' data-target='#editInsurance"+id+"' data-toggle='modal'><i class='fa fa-edit'></i></button>&nbsp;";
                                     buttons += "<button class='btn btn-sm btn-danger deactivate-insurance' title='Deactivate' ><i class='fa fa-trash'></i></button>";
                                 document.getElementById('actioninsurancetd'+id).innerHTML = buttons;
                              
                                 swal("Activated!", "Brand has been Activated.", "success");
+                                
+                                }
+
+                               
 
                             });
 
                         });
-                        var loadFile = function(event) {
-                            var output = document.getElementById('output');
-                            output.src = URL.createObjectURL(event.target.files[0]);
-                            output.onload = function() {
-                            URL.revokeObjectURL(output.src) // free memory
-                            }
-                        };
+                    
                 </script>
             </body>
             </html>
