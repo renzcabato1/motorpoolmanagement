@@ -15,10 +15,10 @@
             <form onsubmit='declined();return false;'  enctype="multipart/form-data" >
                 <div class="modal-body">
                     {{-- {{ csrf_field() }} --}}
-                    <input type='hidden' value='' id='id_row' required>
+                    <input type='hidden' value='' id='id_row_declined' required>
                     <div class='col-md-12'>
                         Remarks :
-                        <textarea class='form-control' name='remarks' id='remarks' idrequired></textarea>
+                        <textarea class='form-control' name='remarks' id='remarks_declined' idrequired></textarea>
                      </div>
                  
                 </div>
@@ -34,8 +34,8 @@
 
     function declined()
     {   
-        var id = document.getElementById('id_row').value;
-        var remarks = document.getElementById('remarks').value;
+        var id = document.getElementById('id_row_declined').value;
+        var remarks = document.getElementById('remarks_declined').value;
         // alert(id);
         var remarks = "remarks";
         $.ajax({
@@ -50,7 +50,7 @@
             swal("Succefully!", "Request has been declined.", "success");
         });
         $("#row"+id).remove();
-        $('#approved_request').modal('toggle'); 
+        $('#declined_request').modal('toggle'); 
         swal("Succefully!", "Request has been declined.", "success");
     }
 </script>

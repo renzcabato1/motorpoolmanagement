@@ -689,6 +689,14 @@
                          
 
                         });
+                        $("body").on("click",".declined-request",function(){
+                            $('#declined_request').modal('show'); 
+                            var id = $(this).parent("td").data('id');
+                            $('#id_row_declined').val(id);
+                            $('#remarks_declined').val("");
+                         
+
+                        });
                         $("body").on("click",".activate-category",function(){
                             // var base_path = location.hostname;
                             var id = $(this).parent("td").data('id');

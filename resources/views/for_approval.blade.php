@@ -78,4 +78,5 @@
     </div>
 </div>
 @include('approved_request')
+@include('decline_request')
 @endsection

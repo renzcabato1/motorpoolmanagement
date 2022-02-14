@@ -6,6 +6,8 @@ use App\User;
 use App\RequestData;
 use App\RequestHistory;
 use App\Notifications\RequestAction;
+use App\Notifications\ApproveAction;
+use App\Notifications\DeclineAction;
 use Illuminate\Http\Request;
 
 class RequestController extends Controller
@@ -169,6 +171,8 @@ class RequestController extends Controller
         $req->status = "Approved";
         $req->save();
 
+        $re = User::where('id',$req->user_id)->first();
+        $re->notify(new ApproveAction($req));
         $history = new RequestHistory;
         $history->request_data_id = $request->id;
         $history->action = "Approved Request";
@@ -182,6 +186,12 @@ class RequestController extends Controller
         $req = RequestData::where('id',$request->id)->first();
         $req->status = "Declined";
         $req->save();
+
+        $re = User::where('id',$req->user_id)->first();
+        $re->notify(new DeclineAction($req,$request));
+
+
+
 
         $history = new RequestHistory;
         $history->request_data_id = $request->id;
