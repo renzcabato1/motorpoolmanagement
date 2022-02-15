@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\EquipmentData;
 use App\Company;
+use App\RequestData;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -28,8 +29,12 @@ class HomeController extends Controller
         $subheader = "";
 
         $equipments = EquipmentData::get();
-        $companies = Company::get();
-        $active_equipment = EquipmentData::where('status','OPERATIONAL')->count();
+        $companies = Company::whereHas('equipment')->get();
+        $all_request = RequestData::where('user_id',auth()->user()->id)->count();
+        $approved_requests = RequestData::where('user_id',auth()->user()->id)->where('status','Approved')->count();
+        $pending_requests = RequestData::where('user_id',auth()->user()->id)->where('status','Pending')->count();
+        $declined_requests = RequestData::where('user_id',auth()->user()->id)->where('status','Declined')->orWhere('status','Cancelled')->count();
+        $active_equipment = EquipmentData::where('status','Operational')->count();
         $for_repair_equipment = EquipmentData::where('status','Breakdown')->count();
         $inactive_equipment = EquipmentData::where('status','Disposal')->count();
         return view('home', 
@@ -41,6 +46,10 @@ class HomeController extends Controller
             'active_equipment' => $active_equipment,
             'inactive_equipment' => $inactive_equipment,
             'for_repair_equipment' => $for_repair_equipment,
+            'all_request' => $all_request,
+            'approved_requests' => $approved_requests,
+            'declined_requests' => $declined_requests,
+            'pending_requests' => $pending_requests,
         )
         );
     }

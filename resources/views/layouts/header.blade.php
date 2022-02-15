@@ -150,7 +150,7 @@
             <form id="logout-form"  action="{{ route('logout') }}"  method="POST" style="display: none;">
                 {{ csrf_field() }}
             </form>
-            <div class="row wrapper border-bottom white-bg page-heading">
+            {{-- <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">
                     <h2>{{$header}}</h2>
                     <ol class="breadcrumb">
@@ -165,7 +165,7 @@
                 <div class="col-lg-2">
                 </div>
             </div>
-            
+             --}}
             @yield('content')
         </div>
         {{-- <script> --}}
