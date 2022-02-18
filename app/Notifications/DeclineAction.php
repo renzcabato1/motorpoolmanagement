@@ -43,7 +43,7 @@ class DeclineAction extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        ->subject('Declined Request')
+        ->subject('RN-'.str_pad($this->req->id, 4, '0', STR_PAD_LEFT).' Declined Request')
         ->greeting('Good day,')
         ->line('Your request RN-'.str_pad($this->req->id, 4, '0', STR_PAD_LEFT).' has been declined.')
         ->line('Please click the button provided for faster transaction')

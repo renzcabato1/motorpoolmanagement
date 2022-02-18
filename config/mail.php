@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'motorpool@obanana.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'adminportal@premiummegastructures.com'),
         'name' => env('MAIL_FROM_NAME', 'no-reply-motorpool'),
     ],
 

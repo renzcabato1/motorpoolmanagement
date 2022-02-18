@@ -44,10 +44,10 @@
                                     <td id='actiontd{{$brand->id}}' data-id='{{$brand->id}}'>
                                         
                                         @if($brand->status)
-                                        <button class="btn btn-sm btn-primary activate-brand" title="Activate"><i class="fa fa-check"></i></button>
+                                            <button class="btn btn-sm btn-primary activate-brand" title="Activate"><i class="fa fa-check"></i></button>
                                         @else
-                                        <button class="btn btn-sm btn-info"  title='Edit' data-target="#editBrand{{$brand->id}}" data-toggle="modal"><i class="fa fa-edit"></i></button>
-                                        <button class="btn btn-sm btn-danger deactivate-brand" title='Deactivate' ><i class="fa fa-trash"></i></button>
+                                            <button class="btn btn-sm btn-info"  title='Edit' data-target="#editBrand{{$brand->id}}" data-toggle="modal"><i class="fa fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger deactivate-brand" title='Deactivate' ><i class="fa fa-trash"></i></button>
                                         @endif
                                         {{-- <button class="btn btn-sm btn-info" data-target="#change_pass{{$company->id}}" data-toggle="modal">Change Password</button> --}}
                                         {{-- <button class="btn btn-sm btn-danger delete-comp" data-target="#deletecomp{{$company->id}}" data-toggle="modal">Delete</button> --}}

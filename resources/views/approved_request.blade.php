@@ -47,10 +47,10 @@
         }).done(function(data){
             $("#row"+id).remove();
             console.log(data);
-            swal("Succefully!", "Request has been approved.", "success");
+            swal("Successfully!", "Request has been approved.", "success");
         });
         $("#row"+id).remove();
         $('#approved_request').modal('toggle'); 
-        swal("Succefully!", "Request has been approved.", "success");
+        swal("Successfully!", "Request has been approved.", "success");
     }
 </script>

@@ -43,7 +43,7 @@ class ApproveAction extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                ->subject('Approved Request')
+                ->subject('RN-'.str_pad($this->req->id, 4, '0', STR_PAD_LEFT).' Approved Request')
                 ->greeting('Good day,')
                 ->line('Your request RN-'.str_pad($this->req->id, 4, '0', STR_PAD_LEFT).' has been approved.')
                 ->line('Please click the button provided for faster transaction')

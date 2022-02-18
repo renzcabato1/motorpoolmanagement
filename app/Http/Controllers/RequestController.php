@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\ClassEquipment;
-use App\User;
 use App\RequestData;
 use App\RequestHistory;
+use App\Project;
+use App\User;
 use App\Notifications\RequestAction;
 use App\Notifications\ApproveAction;
 use App\Notifications\DeclineAction;
@@ -16,11 +17,12 @@ class RequestController extends Controller
     public function requests()
     {
         $classes = ClassEquipment::with('category')->get();
-        $requests = RequestData::with('user','company','department','class')
+        $requests = RequestData::with('user','company','department','class','approver','project')
         ->where('user_id',auth()->user()->id)
         ->where('status','Pending')
         ->orderBy('id','desc')
         ->get();
+        $projects = Project::with('company')->get();
         // dd($requests)
         $header = "Requests";
         $subheader = "";
@@ -30,6 +32,7 @@ class RequestController extends Controller
             'subheader' => $subheader,
             'classes' => $classes,
             'requests' => $requests,
+            'projects' => $projects,
         )
         );
     }
@@ -95,6 +98,7 @@ class RequestController extends Controller
         $history = new RequestHistory;
         $history->request_data_id = $req->id;
         $history->action = "Create Request";
+        $history->remarks = $request->remarks;
         $history->user_id = auth()->user()->id;
         $history->save();
 
@@ -158,6 +162,7 @@ class RequestController extends Controller
          $history = new RequestHistory;
          $history->request_data_id = $id;
          $history->action = "Edit Request";
+         $history->remarks = $request->remarks;
          $history->user_id = auth()->user()->id;
          $history->save();
 

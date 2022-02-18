@@ -12,6 +12,10 @@ class RequestData extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function approver()
+    {
+        return $this->belongsTo(User::class,'approver_id','id');
+    }
     public function company()
     {
         return $this->belongsTo(Company::class);
@@ -23,5 +27,13 @@ class RequestData extends Model
     public function class()
     {
         return $this->belongsTo(ClassEquipment::class,'class_id','id');
+    }
+    public  function histories()
+    {
+        return $this->hasMany(RequestHistory::class,'request_data_id','id')->orderBy('id','desc');
+    }
+    public  function project()
+    {
+        return $this->belongsTo(Project::class);
     }
 }

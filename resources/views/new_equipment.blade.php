@@ -74,7 +74,23 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class='col-md-12'>
+                    <div class='col-md-6'>
+                        Model :
+                        <input class='form-control-sm form-control' id='model' name='model'  required>
+                    </div>
+                    <div class='col-md-6'>
+                        Chasis Number :
+                        <input class='form-control-sm form-control' id='chasis_number' name='chasis_number'  required>
+                    </div>
+                    <div class='col-md-6'>
+                        Date Acquired:
+                        <input class='form-control-sm form-control' type='date' name='date_acquired'  required>
+                    </div>
+                    <div class='col-md-6'>
+                        Acquisition Cost:
+                        <input class='form-control-sm form-control' type='number'  name='acquisition_cost'  required>
+                    </div>
+                    <div class='col-md-6'>
                         Remarks :
                         <textarea class='form-control' name='remarks' required></textarea>
                     </div>
@@ -84,7 +100,11 @@
                    <div class='row'>
                         <div class='col-md-4'>
                             Plate Number :
-                            <input name='plate_number' class='form-control-sm form-control' type='text' required>
+                            <input name='plate_number' class='form-control-sm form-control' type='text' >
+                        </div>
+                        <div class='col-md-4'>
+                            Conduction Sticker :
+                            <input name='conduction_sticker' class='form-control-sm form-control' type='text' required>
                         </div>
                         <div class='col-md-4'>
                             Engine Number :
@@ -107,17 +127,17 @@
                     
                    </div>
                    <hr>
-                   <h2>Insurance</h2>
+                   <h2>Insurance <input type="checkbox" id='insurance_yes' name="insurance_yes" onchange="insurance_change();"  value="1"> </h2>
                    <div class='row'>
                         <div class='col-md-4'>
                             Policy Number :
-                            <input name='policy_number' class='form-control-sm form-control' type='text' required>
+                            <input name='policy_number' id='policy_number' class='form-control-sm form-control' type='text' readonly>
                         </div>
                     </div>
                    <div class='row'>
                     <div class='col-md-4'>
                         Insurance Company :
-                        <select name='insurance' class='form-control-sm form-control category' required>
+                        <select name='insurance' id='insurance' class='form-control-sm form-control' readonly>
                             <option value=""></option>
                             @foreach($insurances as $key => $insurance )
                                 @if($insurance->status)
@@ -129,11 +149,11 @@
                     </div>
                     <div class='col-md-4'>
                         Insured From :
-                        <input name='insured_from' class='form-control-sm form-control' max='{{date('Y-m-d')}}' onchange='insurance_from(this.value);' type='date'  required>
+                        <input name='insured_from' id='insured_from' class='form-control-sm form-control' max='{{date('Y-m-d')}}' onchange='insurance_from(this.value);' type='date'  readonly>
                     </div>
                     <div class='col-md-4'>
                         Insured To :
-                        <input name='insured_to' class='form-control-sm form-control' id='insured_expiration' type='date'  required>
+                        <input name='insured_to' id='insured_to'  class='form-control-sm form-control' id='insured_expiration' type='date'  readonly>
                     </div>
                    </div>
                 </div>
@@ -182,6 +202,34 @@
         // alert(value);
         document.getElementById("insured_expiration").min = value;
     }
-
+    
+    function insurance_change()
+    {
+        var check = $('#insurance_yes').is(':checked'); 
+        if(check == true)
+        {
+            $("#policy_number").attr("readonly", false); 
+            $("#policy_number").prop('required',true);
+            $("#insured_from").attr("readonly", false); 
+            $("#insured_from").prop('required',true);
+            $("#insured_to").attr("readonly", false); 
+            $("#insured_to").prop('required',true);
+            $("#insurance").prop('required',true);
+            $('#insurance').prop("disabled", false);
+            $("#insurance").attr("readonly", false);
+        }
+        else
+        {
+            $("#policy_number").attr("readonly", true); 
+            $("#policy_number").prop('required',false);
+            $("#insured_from").attr("readonly", true); 
+            $("#insured_from").prop('required',false);
+            $("#insured_to").attr("readonly", true); 
+            $("#insured_to").prop('required',false);
+            $("#insurance").prop('required',false);
+            $('#insurance').prop("disabled", true);
+            $("#insurance").attr("readonly", true);
+        }
+    }
   
 </script>

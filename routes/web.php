@@ -78,8 +78,17 @@ Route::group( ['middleware' => 'auth'], function()
 
      //For Dispatch
      Route::get('for-dispatch','RequestController@for_dispatch');
+
+
+     //Projects
+     Route::get('project','ProjectController@project');
+     Route::post('new-project','ProjectController@new_project');
+     Route::post('deactivate-project','ProjectController@deactivate_project');
+     Route::post('activate-project','ProjectController@activate_project');
+     Route::post('edit-project/{id}','ProjectController@edit_project');
     
 
 });
+    
 
 

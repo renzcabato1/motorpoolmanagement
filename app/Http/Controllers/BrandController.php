@@ -84,7 +84,5 @@ class BrandController extends Controller
         $brand->save();
 
         return "success";
-        // return $brand;
-
     }
 }

@@ -47,7 +47,7 @@ class RequestAction extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('For Approval Notification')
+            ->subject('RN-'.str_pad($this->req->id, 4, '0', STR_PAD_LEFT).' For Approval')
             ->greeting('Good day,')
             ->line('Request for Approval.')
             ->line('Name : '.$this->requestor->name)

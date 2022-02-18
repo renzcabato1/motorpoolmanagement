@@ -52,9 +52,15 @@
                             &nbsp;<br>
                             <label> <input type="checkbox" id='project{{$request->id}}' name="project" onchange="project_control_edit({{$request->id}})" @if($request->is_project == 1) checked @endif  value="1"> Is Project?</label>
                         </div>
-                        <div class='col-md-3'>
+                        <div class='col-md-3' id='project_id_data{{$request->id}}' @if($request->is_project == "") style='display:none;' @endif  >
                             Project ID : 
-                            <input type="text" class="form-control-sm form-control "  id='project_id{{$request->id}}' value="{{$request->project_id}}"  name="project_id"  @if($request->is_project == 1) required @else readonly @endif />
+                            <select name='project_id' id='project_id{{$request->id}}' class='form-control-sm form-control category'  onchange='select_project_edit(this.value,{{$request->id}})' @if($request->is_project == 1) required @else readonly @endif >
+                                <option value="" ></option>
+                                @foreach($projects as $project)
+                                <option value="{{$project->id}}" @if($project->id == $request->project_id) selected @endif>{{$project->project_id}}</option>
+                                @endforeach
+                            </select>    
+                            {{-- <input type="text" class="form-control-sm form-control "  id='project_id{{$request->id}}' value="{{$request->project_id}}"  name="project_id"  @if($request->is_project == 1) required @else readonly @endif /> --}}
                         </div>
                     </div>
                     <Br>
@@ -87,11 +93,11 @@
                     <div class='row'>
                         <div class='col-md-6'>
                             Location : 
-                             <input type="text" class="form-control-sm form-control " value="{{$request->location}}"  name="location" required/>
+                             <input type="text" id='location{{$request->id}}' class="form-control-sm form-control " @if($request->project_id) readonly @endif value="{{$request->location}}"  name="location" required/>
                         </div>
                         <div class='col-md-6'>
                             Area : 
-                            <select name='area' class='form-control-sm form-control category' required>
+                            <select name='area' id='area{{$request->id}}' class='form-control-sm form-control' @if($request->project_id) readonly @endif required>
                                 <option value=""></option>
                                 <option value="Luzon" @if($request->area == "Luzon") selected @endif>Luzon</option>
                                 <option value="Visayas" @if($request->area == "Visayas") selected @endif>Visayas</option>
@@ -116,20 +122,47 @@
     </div>
 </div>
 <script>
+     var projects = {!! json_encode($projects->toArray()) !!};
+    function select_project_edit(value,id)
+    {
+
+        for(var i = 0;i<projects.length;i++)
+        {
+            if(projects[i].id  == value)
+            {
+                // alert(id);
+                $("#location"+id).val(projects[i].location);
+                $("#area"+id).val(projects[i].area);
+                break;
+            }
+        }
+          
+
+    }
     function project_control_edit(id)
     {
         var check = $('#project'+id).is(':checked'); 
         if(check == true)
         {
             $("#project_id"+id).attr("readonly", false); 
+            document.getElementById("project_id_data"+id).style.display="block";
             $("#project_id"+id).prop('required',true);
+            $("#location"+id).attr("readonly", true); 
+            $("#area"+id).attr("readonly", true); 
+            $("#location"+id).val('');
+            $("#area"+id).val('');
 
         }
         else
         {
             $("#project_id"+id).attr("readonly", true); 
             $("#project_id"+id).prop('required',false);
+            document.getElementById("project_id_data"+id).style.display="none";
             $('#project_id'+id).val('');  
+            $("#location"+id).attr("readonly", false); 
+            $("#area"+id).attr("readonly", false); 
+            $("#location"+id).val('');
+            $("#area"+id).val('');
         }
     }
 </script>

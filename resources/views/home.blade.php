@@ -46,7 +46,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-danger pull-right">as of Today</span>
-                    <h5>Declined Requests</h5>
+                    <h5>Declined/Cancelled Requests</h5>
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins">{{$declined_requests}}</h1>
@@ -55,6 +55,62 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-warning pull-right">This month ({{date('M Y')}})</span>
+                    <h5>Expected Revenue</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">0</h1>
+                    {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
+                    <small>&nbsp;</small>
+                </div>
+            </div>
+        </div>
+       
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-success pull-right">This month ({{date('M Y')}})</span>
+                    <h5>Equipment for Expiry</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">0</h1>
+                    {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
+                    <small>&nbsp;</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-danger pull-right">This month ({{date('M Y')}})</span>
+                    <h5>Equipment under Maintenance</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">0</h1>
+                    {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
+                    <small>&nbsp;</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">This month ({{date('M Y')}})</span>
+                    <h5>Total Equipment Dispatch</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">0</h1>
+                    {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
+                    <small>&nbsp;</small>
+                </div>
+            </div>
+        </div>
+      
     </div>
     <div class="row">
         <div class="col-lg-8">
@@ -110,125 +166,140 @@
                 </div>
             </div>
         </div>
-    </div>
-    {{-- <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Equipment per Company</h5>
+                    <h5>Requests</h5>
                 </div>
-                <div class="ibox-content">
-                    <div>
-                        <canvas id="barChart" height="140"></canvas>
+                <div class="ibox-content" style='height:350px;'>
+                    <div class='full-height-scroll'>
+                    <table class="table table-hover no-margins pending-request" >
+                        <thead>
+                        <tr>
+                            
+                            <th>Date Request</th>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        
+                        <tbody >
+                            @foreach($all_requests as $reque)
+                                {{-- @if(($reque->status == "Pending") || ($reque->status == "Approved")) --}}
+                                    <tr class='pointer' data-target="#view_request{{$reque->id}}" data-toggle="modal" data-id='{{$reque->id}}'>
+                                        <td><small>{{date('M d, Y',strtotime($reque->created_at))}}</small></td>
+                                        <td>RN-{{str_pad($reque->id, 4, '0', STR_PAD_LEFT)}}</td>
+                                        <td>{{$reque->user->name}}</td>
+                                        <td><small class='label label'>{{$reque->status}}</small></td>
+                                    </tr>
+                                    @include('view_request')
+                                {{-- @endif --}}
+                            @endforeach
+                        </tbody>
+                    </table>
                     </div>
                 </div>
             </div>
         </div>
-    </div> --}}
-
+    </div>
 </div>
+<script src="{{ asset('bootstrap/js/jquery-3.1.1.min.js') }}"></script>
+<script src="{{ asset('bootstrap/js/plugins/chartJs/Chart.min.js') }}"></script>
 <script>
-    
-
-                
-                    
-    </script>
-     <script src="{{ asset('bootstrap/js/jquery-3.1.1.min.js') }}"></script>
-       <script src="{{ asset('bootstrap/js/plugins/chartJs/Chart.min.js') }}"></script>
-       <script>
-          var companies = {!! json_encode($companies->toArray()) !!};
-     var equipments = {!! json_encode($equipments->toArray()) !!};
-     var active_equipment = {!! json_encode($active_equipment) !!};
-     var for_repair_equipment = {!! json_encode($for_repair_equipment) !!};
-     var inactive_equipment = {!! json_encode($inactive_equipment) !!};
-    //  console.log(active_equipment);
-    //  console.log(companies);
-                var comp = [];
-                var active_per_comp = [];
-                var inactive_per_comp = [];
-                var total_per_comp = [];
-                var repair_per_comp = [];
-                for(var i =0;i< companies.length;i++)
-                {   
-                    comp[i] = companies[i].company_code;
-                    var active_comp = 0;
-                    var total_comp = 0;
-                    var inactive_comp = 0;
-                    var repair_comp = 0;
-                    for(var z=0;z< equipments.length;z++)
-                    {
-                        // console.log(active_equipment[z].company_id);
-                        if((companies[i].id == equipments[z].company_id))
-                        {
-                            total_comp = total_comp + 1;
-                        }
-                        if((companies[i].id == equipments[z].company_id) && (equipments[z].status == "Operational"))
-                        {
-                            active_comp = active_comp + 1;
-                        }
-                        if((companies[i].id == equipments[z].company_id) && (equipments[z].status == "Disposal"))
-                        {
-                            inactive_comp = inactive_comp + 1;
-                        }
-                        if((companies[i].id == equipments[z].company_id) && (equipments[z].status == "Breakdown"))
-                        {
-                            repair_comp = repair_comp + 1;
-                        }
-                    }
-                    
-                    active_per_comp[i] = active_comp;
-                    inactive_per_comp[i] = inactive_comp;
-                    total_per_comp[i] = total_comp;
-                    repair_per_comp[i] = repair_comp;
+    var companies = {!! json_encode($companies->toArray()) !!};
+var equipments = {!! json_encode($equipments->toArray()) !!};
+var active_equipment = {!! json_encode($active_equipment) !!};
+var for_repair_equipment = {!! json_encode($for_repair_equipment) !!};
+var inactive_equipment = {!! json_encode($inactive_equipment) !!};
+//  console.log(active_equipment);
+//  console.log(companies);
+        var comp = [];
+        var active_per_comp = [];
+        var inactive_per_comp = [];
+        var total_per_comp = [];
+        var repair_per_comp = [];
+        for(var i =0;i< companies.length;i++)
+        {   
+            comp[i] = companies[i].company_code;
+            var active_comp = 0;
+            var total_comp = 0;
+            var inactive_comp = 0;
+            var repair_comp = 0;
+            for(var z=0;z< equipments.length;z++)
+            {
+                // console.log(active_equipment[z].company_id);
+                if((companies[i].id == equipments[z].company_id))
+                {
+                    total_comp = total_comp + 1;
                 }
-                console.log(companies);
-                var barData = {
-                    labels: comp,
+                if((companies[i].id == equipments[z].company_id) && (equipments[z].status == "Operational"))
+                {
+                    active_comp = active_comp + 1;
+                }
+                if((companies[i].id == equipments[z].company_id) && (equipments[z].status == "Disposal"))
+                {
+                    inactive_comp = inactive_comp + 1;
+                }
+                if((companies[i].id == equipments[z].company_id) && (equipments[z].status == "Breakdown"))
+                {
+                    repair_comp = repair_comp + 1;
+                }
+            }
+            
+            active_per_comp[i] = active_comp;
+            inactive_per_comp[i] = inactive_comp;
+            total_per_comp[i] = total_comp;
+            repair_per_comp[i] = repair_comp;
+        }
+        // console.log(companies);
+        var barData = {
+            labels: comp,
+            
+            datasets: [
+                {
+                    label: "Total Equipment",
+                    backgroundColor: 'rgba(220, 220, 220, 0.5)',
+                    pointBorderColor: "#fff",
+                    data: total_per_comp,
                     
-                    datasets: [
-                        {
-                            label: "Total Equipment",
-                            backgroundColor: 'rgba(220, 220, 220, 0.5)',
-                            pointBorderColor: "#fff",
-                            data: total_per_comp,
-                            
-                        },
-                        {
-                            label: "Active Equiement",
-                            backgroundColor: 'rgba(26,179,148,0.5)',
-                            borderColor: "rgba(26,179,148,0.7)",
-                            pointBackgroundColor: "rgba(26,179,148,1)",
-                            pointBorderColor: "#fff",
-                            data: active_per_comp
-                        },
-                        {
-                            label: "For Repair Equipment",
-                            backgroundColor: 'rgba(224, 163, 133,0.5)',
-                            borderColor: "rgba(255, 153, 102,0.7)",
-                            pointBackgroundColor: "rgba(26,179,148,1)",
-                            pointBorderColor: "#fff",
-                            data: repair_per_comp
-                        },
-                        {
-                            label: "Disposed Equipment",
-                            backgroundColor: 'rgba(255, 128, 128,0.5)',
-                            borderColor: "rgba(255, 0, 0,0.7)",
-                            pointBackgroundColor: "rgba(26,179,148,1)",
-                            pointBorderColor: "#fff",
-                            data: inactive_per_comp
-                        },
+                },
+                {
+                    label: "Active Equiement",
+                    backgroundColor: 'rgba(26,179,148,0.5)',
+                    borderColor: "rgba(26,179,148,0.7)",
+                    pointBackgroundColor: "rgba(26,179,148,1)",
+                    pointBorderColor: "#fff",
+                    data: active_per_comp
+                },
+                {
+                    label: "For Repair Equipment",
+                    backgroundColor: 'rgba(224, 163, 133,0.5)',
+                    borderColor: "rgba(255, 153, 102,0.7)",
+                    pointBackgroundColor: "rgba(26,179,148,1)",
+                    pointBorderColor: "#fff",
+                    data: repair_per_comp
+                },
+                {
+                    label: "Disposed Equipment",
+                    backgroundColor: 'rgba(255, 128, 128,0.5)',
+                    borderColor: "rgba(255, 0, 0,0.7)",
+                    pointBackgroundColor: "rgba(26,179,148,1)",
+                    pointBorderColor: "#fff",
+                    data: inactive_per_comp
+                },
 
-                    ]
-                };
+            ]
+        };
 
-                var barOptions = {
-                    responsive: true,
-                    
-                };
+        var barOptions = {
+            responsive: true,
+            
+        };
 
-                var ctx2 = document.getElementById("barChart").getContext("2d");
-                
-                new Chart(ctx2, {type: 'bar', data: barData, options:barOptions});
-          
-       </script>
+        var ctx2 = document.getElementById("barChart").getContext("2d");
+        
+        new Chart(ctx2, {type: 'bar', data: barData, options:barOptions});
+    
+</script>
 @endsection

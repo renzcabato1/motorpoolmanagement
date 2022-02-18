@@ -22,39 +22,51 @@
                 </div>
                 <div class="ibox-content">
 
-                    <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
+                    <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-equipments">
                         <thead>
                         <tr>
                             <th>Code</th>
                             <th>Brand</th>
                             <th>Owned By</th>
-                            <th>Registration</th>
-                            <th>Insurance</th>
+                            <th>Information</th>
+                            <th>Location</th>
+                            <th>Area</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
                           @foreach($equipments as $equip)
                             <tr>
-                                <td style='text-align: center;'  > 
+                                <td style='text-align: center;width:10%'  > 
                                     {{$equip->company->company_code}}-{{$equip->category->category_code}}-{{$equip->class->class_code}}-{{str_pad($equip->equipment_number, 4, '0', STR_PAD_LEFT)}}
                                 </td >
                                 <td > 
-                                    
+                                    @if($equip->brand){{$equip->brand->brand_name}}@endif
                                 </td >
                                 <td > 
                                     {{$equip->company->company_name}}
                                 </td >
                                 <td > 
-                                    {{-- Registristation Number: {{$equip->registration_number}} <br> --}}
-                                    {{-- Validaty Date : {{date('F d, Y',strtotime($equip->date_of_registration))}} - {{date('F d, Y',strtotime($equip->date_of_expiration))}}</small> --}}
+                                  <small>Plate Number : {{$equip->plate_number}} <br>
+                                
+                                    Engine Number :  {{$equip->engine_number}}<br>
+                               
+                                    Model :  {{$equip->model}}<br>
+                               
+                                    Chasis Number : {{$equip->chasis_number}}</small>
                                 </td >
                                 <td > 
-                                     {{-- Insurance Company : {{$equip->insurance->company}}  <br> --}}
-                                     {{-- Insurance Policy Number : {{$equip->insurance_policy_number}}  <br> --}}
-                                     {{-- Validaty Date : {{date('F d, Y',strtotime($equip->insured_from))}} - {{date('F d, Y',strtotime($equip->insured_to))}} --}}
+                                    {{$equip->location}}
                                 </td >
                                 <td > 
+                                    {{$equip->area}}
+                                </td >
+                                <td > 
+                                    {{$equip->status}}
+                                </td >
+                                <td > 
+                                    <button class="btn btn-sm btn-info"  title='Edit' data-target="#editBrand{{$equip->id}}" data-toggle="modal"><i class="fa fa-edit"></i></button>
                                 </td >
                             </tr>
                           @endforeach

@@ -17,7 +17,6 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-    
     <!-- Styles -->
     <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('bootstrap/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
@@ -36,6 +35,7 @@
     <link href="{{ asset('bootstrap/css/plugins/daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet">
     <link href="{{ asset('bootstrap/css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('bootstrap/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('bootstrap/css/plugins/select2/select2.min.css') }}" rel="stylesheet">
     
     <style>
         input::-webkit-outer-spin-button,
@@ -43,6 +43,7 @@
             -webkit-appearance: none;
             margin: 0;
         }
+        .pointer {cursor: pointer;}
         
         /* Firefox */
         input[type=number] {
@@ -122,6 +123,9 @@
                     </li>
                     <li @if($header == 'Equipment Class') class='active' @endif>
                         <a href="{{ url('/class-equipment') }}" class='active' onclick='show()' ><i class="fa fa-list-alt"></i> <span class="nav-label">Equipment Class</span> </a>
+                    </li>
+                    <li @if($header == 'Projects') class='active' @endif>
+                        <a href="{{ url('/project') }}" class='active' onclick='show()' ><i class="fa fa-file-text-o"></i> <span class="nav-label">Projects</span> </a>
                     </li>
                    
                   
@@ -211,11 +215,8 @@
             <script src="{{ asset('bootstrap/js/plugins/flot/jquery.flot.symbol.js') }}"></script>
             <script src="{{ asset('bootstrap/js/plugins/flot/jquery.flot.time.js') }}"></script>
             <link href="{{ asset('bootstrap/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css') }}" rel="stylesheet">
-            <!-- Peity -->
-            {{-- <script src="{{ asset('bootstrap/js/plugins/peity/jquery.peity.min.js') }}"></script> --}}
-            <!-- FooTable -->
-            {{-- <script src="{{ asset('bootstrap/js/plugins/footable/footable.all.min.js') }}"></script> --}}
-            
+           <!-- Select2 -->
+            <script src="{{ asset('bootstrap/js/plugins/select2/select2.full.min.js') }}"></script>
             <!-- Custom and plugin javascript -->
             <script src="{{ asset('bootstrap/js/inspinia.js') }}"></script>
             <script src="{{ asset('bootstrap/js/plugins/pace/pace.min.js') }}"></script>
@@ -262,6 +263,12 @@
                 //   
                     
                     $(document).ready(function () {
+
+                        $(".project_id").select2({
+                            placeholder: "Select a project",
+                            allowClear: true,
+                            width: "100%"
+                        });
                       
                     });
                     $('.category').chosen({width: "100%"});
@@ -294,12 +301,12 @@
                         var d = ("{{date('m-d-Y')}}");
                         var dateToday = new Date();
                         $('#data_5 .input-daterange').datepicker({
-                            
+                      
                             keyboardNavigation: false,
                             forceParse: false,
                             autoclose: true,
                             format: 'mm-dd-yyyy',
-                            startDate: '-0m',
+                            // startDate: '-0m',
                            
                         });
                         $('.dataTables-example').DataTable({
@@ -315,6 +322,40 @@
                             dom: "lfrti"
                            
                             
+                        });
+                        $('.dataTables-equipments').DataTable({
+                            pageLength: 10,
+                            responsive: true,
+                            dom: '<"html5buttons"B>lTfgitp',
+                            buttons: [
+                                { extend: 'copy'},
+                                {extend: 'csv'},
+                                {extend: 'excel', title: 'ExampleFile'},
+                                {extend: 'pdf', title: 'ExampleFile'},
+
+                                {extend: 'print',
+                                customize: function (win){
+                                        $(win.document.body).addClass('white-bg');
+                                        $(win.document.body).css('font-size', '10px');
+
+                                        $(win.document.body).find('table')
+                                                .addClass('compact')
+                                                .css('font-size', 'inherit');
+                                    }
+                                }
+                            ]
+                        });
+                        $('.pending-request').DataTable({
+                            // lengthMenu: [[10, 25, 50,-1], [10, 25, 50,"All"]],
+                            pageLength: -1,
+                            pagging: false,
+                            scrollY: true,
+                            responsive: true,
+                            searching: true,
+                            ordering: true,
+                            lengthChange: false,
+                            info: false,
+                            dom: "lfrti"
                         });
                         // var indexLastColumn = $(".company-report").find('tr')[0].cells.length-1;
   
@@ -524,6 +565,43 @@
                             });
 
                         });
+                        $("body").on("click",".deactivate-project",function(){
+                            // var base_path = location.hostname;
+                            var id = $(this).parent("td").data('id');
+                            // alert(id);
+                            swal({
+                                title: "Are you sure you want to deactivate this?",
+                                // text: "You will not be able to recover this!",
+                                type: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Yes, deactivate it!",
+                                closeOnConfirm: false
+                            }, function (isConfirm) {
+                                // alert(isConfirm);
+                                if(isConfirm == true)
+                                {
+                                    // $("#"+id).remove();
+                                    $.ajax({
+                                        dataType: 'json',
+                                        type:'POST',
+                                        url:  'deactivate-project',
+                                        data:{id:id},
+                                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                                    }).done(function(data){
+                                        console.log(data);
+                                        swal("Deactivated!", "Project has been deactivated.", "success");
+                                    });
+                                    document.getElementById('statustd'+id).innerHTML = "<small class='label label-danger'>Inactive</small>";
+                                    document.getElementById('actiontd'+id).innerHTML = "<button class='btn btn-sm btn-primary activate-project' title='Activate'><i class='fa fa-check'></i></button>";
+                                    swal("Deactivated!", "Project has been deactivated.", "success");
+                                
+                                }
+                               
+
+                            });
+
+                        });
                         $("body").on("click",".deactivate-class",function(){
                             // var base_path = location.hostname;
                             var id = $(this).parent("td").data('id');
@@ -673,6 +751,47 @@
                                 document.getElementById('actionuser'+id).innerHTML = buttons;
                              
                                 swal("Activated!", "User has been Activated.", "success");
+                                
+                                }
+
+                                
+
+                            });
+
+                        });
+                        $("body").on("click",".activate-project",function(){
+                            // var base_path = location.hostname;
+                            var id = $(this).parent("td").data('id');
+                            // alert(id);
+                            swal({
+                                title: "Are you sure you want to Activate this?",
+                                // text: "You will not be able to recover this!",
+                                type: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Yes, Activate it!",
+                                closeOnConfirm: false
+                            }, function (isConfirm) {
+                                // alert(isConfirm);
+                                if(isConfirm == true)
+                                {
+                                    // $("#"+id).remove();
+                                    $.ajax({
+                                        dataType: 'json',
+                                        type:'POST',
+                                        url:  'activate-project',
+                                        data:{id:id},
+                                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                                    }).done(function(data){
+                                        // c_obj.remove();
+                                        swal("Activated!", "Project has been Activated.", "success");
+                                    });
+                                    document.getElementById('statustd'+id).innerHTML = "<small class='label label-primary'>Active</small>";
+                                var buttons = "<button class='btn btn-sm btn-info'  title='Edit' data-target='#editProject"+id+"' data-toggle='modal'><i class='fa fa-edit'></i></button>&nbsp;";
+                                    buttons += "<button class='btn btn-sm btn-danger deactivate-project' title='Deactivate' ><i class='fa fa-trash'></i></button>";
+                                document.getElementById('actiontd'+id).innerHTML = buttons;
+                             
+                                swal("Activated!", "Project has been Activated.", "success");
                                 
                                 }
 

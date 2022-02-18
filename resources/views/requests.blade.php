@@ -58,11 +58,11 @@
                                             Time : {{date('h:m a',strtotime($request->time_from_needed))}} - {{date('h:m a',strtotime($request->time_to_needed))}}
                                         </small>
                                     </td>
-                                    <td>{{$request->project_id}}</td>
+                                    <td>@if($request->project){{$request->project->project_id}}@endif</td>
                                     <td>{{$request->area}}</td>
                                     <td>{{$request->location}}</td>
                                     <td>{!! nl2br(e($request->remarks)) !!}</td>
-                                    {{-- <th><small class="label label-warning">Pending</small></th> --}}
+                                {{-- <th><small class="label label-warning">Pending</small></th> --}}
                                     <td data-id='{{$request->id}}'>
                                         <button class="btn btn-sm btn-info"  title='Edit' data-target="#edit_request{{$request->id}}" data-toggle="modal"><i class="fa fa-edit"></i></button>
                                         <button class="btn btn-sm btn-danger remove-request" title='Cancel' ><i class="fa fa-trash"></i></button>

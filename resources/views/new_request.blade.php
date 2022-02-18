@@ -48,13 +48,23 @@
                             </select>
                             <input type='hidden' name='approver_id' value='{{Auth::user()->approver->id}}'>
                         </div>
-                        <div class='col-md-3 text-right'>
+                        <div class='col-md-2 text-right'>
                             &nbsp;<br>
                             <label> <input type="checkbox" id='project' name="project" onchange="project_control()"  value="1"> Is Project?</label>
                         </div>
-                        <div class='col-md-3'>
-                            Project ID : 
-                            <input type="text" class="form-control-sm form-control "  id='project_id' value="{{ old('project_id') }}"  name="project_id" readonly/>
+                        <div class='col-md-4' id='project_id_data' style='display:none;'>
+                            
+                           
+                              
+                                    Project ID : 
+                                <select name='project_id' id='project_id' class='form-control-sm form-control category'  onchange='select_project(this.value)' readonly="readonly">
+                                    <option value="" ></option>
+                                    @foreach($projects as $project)
+                                    <option value="{{$project->id}}" >{{$project->project_id}}</option>
+                                    @endforeach
+                                </select>    
+                               
+                            {{-- <input type="text" class="form-control-sm form-control "  id='project_id' value="{{ old('project_id') }}"  name="project_id" readonly/> --}}
                         </div>
                     </div>
                     <Br>
@@ -91,21 +101,20 @@
                         </div>
                         <div class='col-md-6'>
                             Area : 
-                            <select name='area' class='form-control-sm form-control category' required>
-                                <option value=""></option>
-                                <option value="Luzon">Luzon</option>
-                                <option value="Visayas">Visayas</option>
-                                <option value="Mindanao">Mindanao</option>
-                            </select>    
+                        <select name='area' id='area' class='form-control-sm form-control' required>
+                            <option value=""></option>
+                            <option value="Luzon">Luzon</option>
+                            <option value="Visayas">Visayas</option>
+                            <option value="Mindanao">Mindanao</option>
+                        </select>    
                         </div>
                     </div>
-                    <Br>
-                        <div class='row'>
-                            <div class='col-md-12'>
-                                Remarks : 
-                                <textarea class='form-control' name='remarks' required></textarea>
-                            </div>
+                    <div class='row'>
+                        <div class='col-md-12'>
+                            Remarks : 
+                            <textarea class='form-control' name='remarks' required></textarea>
                         </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -116,19 +125,49 @@
     </div>
 </div>
 <script>
+   var projects = {!! json_encode($projects->toArray()) !!};
+
+    function select_project(value)
+    {
+
+        for(var i = 0;i<projects.length;i++)
+        {
+            if(projects[i].id  == value)
+           
+            {
+                $("#location").val(projects[i].location);
+                $("#area").val(projects[i].area);
+                break;
+            }
+        }
+          
+
+    }
     function project_control()
     {
         var check = $('#project').is(':checked'); 
         if(check == true)
         {
+            
             $("#project_id").attr("readonly", false); 
+            document.getElementById("project_id_data").style.display="block";
             $("#project_id").prop('required',true);
+            $("#location").attr("readonly", true); 
+            $("#area").attr("readonly", true); 
+            $("#location").val('');
+            $("#area").val('');
         }
         else
         {
+            $("#project_id_chosen a span").html("Please select Project");
+            document.getElementById("project_id_data").style.display="none";
             $("#project_id").attr("readonly", true); 
             $("#project_id").prop('required',false);
             $('#project_id').val('');  
+            $("#location").attr("readonly", false); 
+            $("#area").attr("readonly", false); 
+            $("#location").val('');
+            $("#area").val('');
         }
     }
 </script>

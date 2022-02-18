@@ -47,10 +47,10 @@
         }).done(function(data){
             $("#row"+id).remove();
             console.log(data);
-            swal("Succefully!", "Request has been declined.", "success");
+            swal("Successfully!", "Request has been declined.", "success");
         });
         $("#row"+id).remove();
         $('#declined_request').modal('toggle'); 
-        swal("Succefully!", "Request has been declined.", "success");
+        swal("Successfully!", "Request has been declined.", "success");
     }
 </script>
