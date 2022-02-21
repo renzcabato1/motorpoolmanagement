@@ -127,6 +127,9 @@
                     <li @if($header == 'Projects') class='active' @endif>
                         <a href="{{ url('/project') }}" class='active' onclick='show()' ><i class="fa fa-file-text-o"></i> <span class="nav-label">Projects</span> </a>
                     </li>
+                    <li @if($header == 'Fuels') class='active' @endif>
+                        <a href="{{ url('/fuels') }}" class='active' onclick='show()' ><i class="fa fa-free-code-camp"></i> <span class="nav-label">Fuels</span> </a>
+                    </li>
                    
                   
                 </ul>

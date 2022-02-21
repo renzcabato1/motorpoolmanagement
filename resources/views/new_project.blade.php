@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class='col-md-10'>
-                    <h5 class="modal-title" id="exampleModalLabel">New Brand</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">New</h5>
                 </div>
                 <div class='col-md-2'>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" >

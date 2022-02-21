@@ -86,6 +86,10 @@ Route::group( ['middleware' => 'auth'], function()
      Route::post('deactivate-project','ProjectController@deactivate_project');
      Route::post('activate-project','ProjectController@activate_project');
      Route::post('edit-project/{id}','ProjectController@edit_project');
+
+
+     //Fuels
+     Route::get('fuels','FuelController@view_fuel');
     
 
 });
