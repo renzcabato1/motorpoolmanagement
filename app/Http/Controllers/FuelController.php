@@ -15,7 +15,7 @@ class FuelController extends Controller
         return view('fuels',
         array(
             'subheader' => '',
-            'header' => "Fuel",
+            'header' => "Fuels",
             'fuels' => $fuels,
             'equipments' => $equipments,
         ));

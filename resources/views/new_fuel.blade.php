@@ -24,7 +24,7 @@
                     <div class='row'>
                         <div class='col-md-12'>
                             Equipment :
-                            <select name='equipment_category' class='form-control-sm form-control category' required>
+                            <select name='equipment_category' class='form-control-sm form-control category' onchange='start_data(value)' required>
                                 <option value=""></option>
                                 @foreach($equipments as $key => $equipment )
                                 
@@ -54,7 +54,7 @@
                     </div>
                     <div class='row'>
                         <div class='col-md-6'>
-                        Starting Odometer :
+                        Previous Odometer :
                             <input type="text" class="input-sm form-control"  name="starting_odometer" autocomplete="off" readonly/>
                         </div>
                         <div class='col-md-6'>
@@ -71,3 +71,11 @@
         </div>
     </div>
 </div>
+<script>
+    var equipments = {!! json_encode($equipments->toArray()) !!};
+    function start_data(data)
+    {
+        alert(data);
+    }
+
+</script>
