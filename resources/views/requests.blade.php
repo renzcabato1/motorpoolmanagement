@@ -64,6 +64,7 @@
                                     <td>{!! nl2br(e($request->remarks)) !!}</td>
                                 {{-- <th><small class="label label-warning">Pending</small></th> --}}
                                     <td data-id='{{$request->id}}'>
+                                        {{-- <button class="btn btn-sm btn-info approve-request"  title='Approve Request' ><i class="fa fa-check-square-o"></i></button> --}}
                                         <button class="btn btn-sm btn-info"  title='Edit' data-target="#edit_request{{$request->id}}" data-toggle="modal"><i class="fa fa-edit"></i></button>
                                         <button class="btn btn-sm btn-danger remove-request" title='Cancel' ><i class="fa fa-trash"></i></button>
                                     </td>

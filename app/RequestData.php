@@ -16,6 +16,10 @@ class RequestData extends Model
     {
         return $this->belongsTo(User::class,'approver_id','id');
     }
+    public function approve_by()
+    {
+        return $this->belongsTo(User::class,'approver_id','id');
+    }
     public function company()
     {
         return $this->belongsTo(Company::class);

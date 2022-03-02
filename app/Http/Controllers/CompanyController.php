@@ -15,8 +15,8 @@ class CompanyController extends Controller
         $insurances = InsuranceCompany::get();
         return view('companies',
         array(
-            'subheader' => '',
-            'header' => "Companies",
+            'subheader' => 'Companies',
+            'header' => "Settings",
             'companies' => $companies,
             'insurances' => $insurances,
         ));

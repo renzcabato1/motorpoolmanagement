@@ -20,8 +20,8 @@ class UserController extends Controller
         $roles = Role::get();
         return view('users',
         array(
-            'subheader' => '',
-            'header' => "Users",
+            'subheader' => 'Users',
+            'header' => "Settings",
             'users' => $users,
             'companies' => $companies,
             'departments' => $departments,

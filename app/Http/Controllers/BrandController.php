@@ -14,8 +14,8 @@ class BrandController extends Controller
         $brands = Brand::get();
         return view('brands',
         array(
-            'subheader' => '',
-            'header' => "Brands",
+            'subheader' => 'Brands',
+            'header' => "Settings",
             'brands' => $brands,
         ));
     }

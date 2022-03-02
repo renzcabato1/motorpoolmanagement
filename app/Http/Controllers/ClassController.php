@@ -14,8 +14,8 @@ class ClassController extends Controller
         $categories = Category::get();
         return view('class_equipments',
         array(
-            'subheader' => '',
-            'header' => "Equipment Class",
+            'subheader' => 'Equipment Class',
+            'header' => "Settings",
             'class_equipments' => $class_equipments,
             'categories' => $categories,
         ));

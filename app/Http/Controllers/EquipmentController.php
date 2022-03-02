@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\EquipmentData;
 use App\Company;
+use App\RequestDeployment;
 use App\InsuranceCompany;
 use App\ClassEquipment;
 use App\Category;
@@ -23,8 +24,8 @@ class EquipmentController extends Controller
         // dd($equipments);
         return view('equipments',
         array(
-            'subheader' => '',
-            'header' => "Equipments",
+            'subheader' => 'Equipments',
+            'header' => "Settings",
             'equipments' => $equipments,
             'companies' => $companies,
             'insurances' => $insurances,
@@ -87,8 +88,32 @@ class EquipmentController extends Controller
         $new_equipment->insured_from  = $request->insured_from;
         $new_equipment->insured_to  = $request->insured_to;
         $new_equipment->remarks  = $request->remarks;
+        $new_equipment->status  = "Operational";
         $new_equipment->save();
         $request->session()->flash('status','Successfully created');
         return back();
     }
+    public function maintenance ()
+    {
+        $equipments = EquipmentData::with('category','class','company','brand','insurance')->where('status','Breakdown')->get();
+        // dd($equipments);
+        return view('maintenance',
+        array(
+            'subheader' => '',
+            'header' => "Under Maintenance",
+            'equipments' => $equipments,
+        ));
+    }
+    public function dispatch_equipments()
+    {
+        $equipments = [];
+        
+        return view('maintenance',
+        array(
+            'subheader' => '',
+            'header' => "Dispatch Equipment",
+            'equipments' => $equipments,
+        ));
+    }
+    
 }

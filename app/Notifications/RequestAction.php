@@ -53,7 +53,7 @@ class RequestAction extends Notification
             ->line('Name : '.$this->requestor->name)
             ->line('Request ID : RN-'.str_pad($this->req->id, 4, '0', STR_PAD_LEFT))
             ->line('Request : '.$this->data_final_data)
-            ->line('Remarks : '.$this->req->remarks)
+        ->line('Remarks : '.$this->req->remarks)
 
             ->line('Please click the button provided for faster transaction')
             ->action('Pending For Approval', url('/for-approval'))

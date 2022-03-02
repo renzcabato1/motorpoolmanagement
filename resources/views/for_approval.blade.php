@@ -57,7 +57,7 @@
                                         Time : {{date('h:m a',strtotime($request->time_from_needed))}} - {{date('h:m a',strtotime($request->time_to_needed))}}
                                     </small>
                                 </td>
-                                <td>{{$request->project_id}}</td>
+                                <td>@if($request->project){{$request->project->project_id}}@endif</td>
                                 <td>{{$request->area}}</td>
                                 <td>{{$request->location}}</td>
                                 <td>{!! nl2br(e($request->remarks)) !!}</td>

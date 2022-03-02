@@ -109,20 +109,14 @@
                     <li @if($header == 'For Dispatch') class='active' @endif>
                         <a href="{{ url('/for-dispatch') }}" class='active' onclick='show()' ><i class="fa fa-send-o"></i> <span class="nav-label">For Dispatch</span> </a>
                     </li>
-                    <li @if($header == 'Equipments') class='active' @endif>
-                        <a href="{{ url('/equipments') }}" class='active' onclick='show()' ><i class="fa fa-truck"></i> <span class="nav-label">Equipments</span> </a>
+                    <li @if($header == 'Dispatch Approval') class='active' @endif>
+                        <a href="{{ url('/dispatch-approval') }}" class='active' onclick='show()' ><i class="fa fa-check-square-o"></i> <span class="nav-label">Dispatch Approval</span> </a>
                     </li>
-                    <li @if($header == 'Brands') class='active' @endif>
-                        <a href="{{ url('/brands') }}" class='active' onclick='show()' ><i class="fa fa-car"></i> <span class="nav-label">Brands</span> </a>
+                    <li @if($header == 'Dispatch Equipment') class='active' @endif>
+                        <a href="{{ url('/dispatch') }}" class='active' onclick='show()' ><i class="fa fa-external-link-square"></i> <span class="nav-label">Dispatch Equipments</span> </a>
                     </li>
-                    <li @if($header == 'Companies') class='active' @endif>
-                        <a href="{{ url('/companies') }}" class='active' onclick='show()' ><i class="fa fa-list-ul"></i> <span class="nav-label">Companies</span> </a>
-                    </li>
-                    <li @if($header == 'Users') class='active' @endif>
-                        <a href="{{ url('/users') }}" class='active' onclick='show()' ><i class="fa fa-user"></i> <span class="nav-label">Users</span> </a>
-                    </li>
-                    <li @if($header == 'Equipment Class') class='active' @endif>
-                        <a href="{{ url('/class-equipment') }}" class='active' onclick='show()' ><i class="fa fa-list-alt"></i> <span class="nav-label">Equipment Class</span> </a>
+                    <li @if($header == 'Under Maintenance') class='active' @endif>
+                        <a href="{{ url('/maintenance') }}" class='active' onclick='show()' ><i class="fa fa-exclamation-triangle"></i> <span class="nav-label">Under Maintenance</span> </a>
                     </li>
                     <li @if($header == 'Projects') class='active' @endif>
                         <a href="{{ url('/project') }}" class='active' onclick='show()' ><i class="fa fa-file-text-o"></i> <span class="nav-label">Projects</span> </a>
@@ -130,8 +124,16 @@
                     <li @if($header == 'Fuels') class='active' @endif>
                         <a href="{{ url('/fuels') }}" class='active' onclick='show()' ><i class="fa fa-free-code-camp"></i> <span class="nav-label">Fuels</span> </a>
                     </li>
-                   
-                  
+                    <li @if($header == 'Settings') class='active' @endif>
+                        <a href="#"><i class="fa fa-wrench"></i> <span class="nav-label">Settings</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li  @if($subheader == 'Brands') class='active' @endif><a href="{{ url('/brands') }}" class='active' onclick='show()' ><i class="fa fa-car"></i> <span class="nav-label">Brands</span> </a></li>
+                            <li  @if($subheader == 'Companies') class='active' @endif> <a href="{{ url('/companies') }}" class='active' onclick='show()' ><i class="fa fa-list-ul"></i> <span class="nav-label">Companies</span> </a></li>
+                            <li  @if($subheader == 'Equipment Class') class='active' @endif> <a href="{{ url('/class-equipment') }}" class='active' onclick='show()' ><i class="fa fa-list-alt"></i> <span class="nav-label">Equipment Class</span> </a></li>
+                            <li  @if($subheader == 'Equipments') class='active' @endif> <a href="{{ url('/equipments') }}" class='active' onclick='show()' ><i class="fa fa-truck"></i> <span class="nav-label">Equipments</span> </a></li>
+                            <li  @if($subheader == 'Users') class='active' @endif> <a href="{{ url('/users') }}" class='active' onclick='show()' ><i class="fa fa-user"></i> <span class="nav-label">Users</span> </a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -816,8 +818,38 @@
                             var id = $(this).parent("td").data('id');
                             $('#id_row_declined').val(id);
                             $('#remarks_declined').val("");
-                         
+                        });
+                        $("body").on("click",".Dispatch-Equipment",function(){
+                            document.getElementById("brand").innerHTML="";
+                            document.getElementById("plate_number").innerHTML="";
+                            document.getElementById("engine_number").innerHTML="";
+                            document.getElementById("model").innerHTML="";
+                            document.getElementById("chasis_number").innerHTML="";
+                            $('#dispatch_equipment').modal('show'); 
+                            $('#equipment_data').remove(); 
+                            $('#equipment_data_chosen').remove(); 
+                            var id = $(this).parent("td").data('id');
+                            $('#id_row_upload').val(id);
+                          
+                        //    console.log(equipments);
+                           var requestsData = requests.find(x => x.id === id);
+                           var data = "<select name='equipment' id='equipment_data' onchange='data_change(this.value);' class='form-control-sm form-control category' required>";
+                            data += '<option value="">Select Option</option>';
+                           for(var i=0;i<equipments.length;i++)
+                           {
+                                if(equipments[i].class_id == requestsData.class_id)
+                                {
+                                    // console.log(equipments[i]);
+                                    data += '<option value="'+equipments[i].id+'-'+i+'">'+equipments[i].company.company_code+'-'+equipments[i].category.category_code+'-'+equipments[i].class.class_code+'-'+("00000" + equipments[i].equipment_number).slice(-4)+'</option>';
+                                }
+                           }
+                                data += "</select>";
+                                $("#equipment_datas").append(data);
 
+                            // console.log(requestsData);
+                            $('.category').chosen({width: "100%"});
+
+                            $('#remarks_dispatch').val("");
                         });
                         $("body").on("click",".activate-category",function(){
                             // var base_path = location.hostname;

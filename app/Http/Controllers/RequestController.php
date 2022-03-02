@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use App\ClassEquipment;
 use App\RequestData;
 use App\RequestHistory;
+use App\EquipmentData;
 use App\Project;
+use App\RequestDeployment;
 use App\User;
 use App\Notifications\RequestAction;
 use App\Notifications\ApproveAction;
@@ -55,16 +57,43 @@ class RequestController extends Controller
     }
     public function for_dispatch()
     {
+        $requests = RequestData::with('approve_by','user','company','department','class','histories')
+        ->where('approver_id',auth()->user()->id)
+        ->where('status','Approved')
+        ->orderBy('id','desc')
+        ->get();
+        $equipments = EquipmentData::with('category','class','company','brand','insurance')->where('status','Operational')->get();
         $header = "For Dispatch";
         $subheader = "";
         return view('for_dispatch', 
         array(
             'header' => $header,
             'subheader' => $subheader,
+            'requests' => $requests,
+            'equipments' => $equipments,
         )
         );
     }
+    public function dispatch_approval()
+    {
+        $requests = RequestData::with('approve_by','user','company','department','class','histories')
+        ->where('approver_id',auth()->user()->id)
+        ->where('status','Reserved')
+        ->orderBy('id','desc')
+        ->get();
+        $equipments = EquipmentData::with('category','class','company','brand','insurance')->where('status','Operational')->get();
+        $header = "Dispatch Approval";
+        $subheader = "";
+        return view('for_dispatch', 
+        array(
+            'header' => $header,
+            'subheader' => $subheader,
+            'requests' => $requests,
+            'equipments' => $equipments,
+        )
+        );
 
+    }
     public function new_request(Request $request)
     {
         // dd($request->date_start);
@@ -112,7 +141,6 @@ class RequestController extends Controller
         // $req->
         
     }
-
     public function cancel_request(Request $request)
     {
         $req = RequestData::where('id',$request->id)->first();
@@ -127,7 +155,6 @@ class RequestController extends Controller
 
         return "success";
     }
-
     public function edit_request(Request $request,$id)
     {
         
@@ -174,6 +201,7 @@ class RequestController extends Controller
     {
         $req = RequestData::where('id',$request->id)->first();
         $req->status = "Approved";
+        $req->approved_by = auth()->user()->id;
         $req->save();
 
         $re = User::where('id',$req->user_id)->first();
@@ -205,5 +233,30 @@ class RequestController extends Controller
         $history->remarks = $request->remarks;
         $history->save();
         return "success";
+    }
+    public function dispatch_equip(Request $request)
+    {
+        $equipmentID =  explode("-",$request->id);
+        // dd($equipmentID);
+        $requestData = RequestData::where('id',$request->id_row_upload)->first();        
+        $requestData->status = "Reserved";
+        $requestData->save();
+
+        $history = new RequestHistory;
+        $history->request_data_id = $requestData->id;
+        $history->action = "Reserved Equipment";
+        $history->user_id = auth()->user()->id;
+        $history->remarks = $request->remarks;
+        $history->save();
+
+        $requestDep = new RequestDeployment;
+        $requestDep->equipment_datas_id = $equipmentID[0];
+        $requestDep->request_id = $requestData->id;
+        $requestDep->deployed_by = auth()->user()->id;
+        $requestDep->status = "Reserved";
+        $requestDep->remarks = $request->remarks;
+        $requestDep->save();
+        
+        return $request;
     }
 }

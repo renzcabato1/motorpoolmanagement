@@ -27,10 +27,7 @@
                         <tr>
                             {{-- <th>Logo</th> --}}
                             <th>Request Number</th>
-                            <th>Request Date</th>
-                            <th>Name</th>
-                            <th>Company</th>
-                            <th>Department</th>
+                            <th>Requestor</th>
                             <th>Equipment Class</th>
                             <th>Date Needed / Time Needed</th>
                             <th>Project ID</th>
@@ -42,15 +39,52 @@
                         </tr>
                         </thead>
                         <tbody>
-                          
+                            @foreach($requests as $request)
+                            <tr id='row{{$request->id}}'>
+                                {{-- <th>Logo</th> --}}
+                                <td>RN-{{str_pad($request->id, 4, '0', STR_PAD_LEFT)}}</td>
+                             
+                                <td><small>
+                                    Name : {{$request->user->name}}
+                                    <br>
+                                    Company : {{$request->company->company_code}}
+                                    <br>
+                                    Department : {{$request->department->department_name}}
+                                    <br>
+                                    Date Request : {{date('M d, Y',strtotime($request->created_at))}}
+                                </td>
+                                <td>
+                                    {{$request->class->class_description}}
+                                </td>
+                                <td>
+                                    <small>
+                                        Date : {{date('M d, Y',strtotime($request->date_from_needed))}} - {{date('M d, Y',strtotime($request->date_to_needed))}} <br>
+                                        Time : {{date('h:m a',strtotime($request->time_from_needed))}} - {{date('h:m a',strtotime($request->time_to_needed))}}
+                                    </small>
+                                </td>
+                                <td>@if($request->project){{$request->project->project_id}}@endif</td>
+                                <td>{{$request->area}}</td>
+                                <td>{{$request->location}}</td>
+                                <td>{!! nl2br(e($request->remarks)) !!}</td>
+                                <td>
+                                    <small>
+                                    Name : {{$request->approve_by->name}} <br>
+                                    Date Approved : {{$request->approve_by->name}} <br>
+                                    Remarks : {{$request->histories[0]->remarks}} <br>
+                                    </small>
+                                </td>
+                                <td data-id='{{$request->id}}'>
+                                    <button class="btn btn-sm btn-info Dispatch-Equipment"  title='Dispatch Equipment' ><i class="fa fa-upload"></i></button>
+                                    {{-- <button class="btn btn-sm btn-danger declined-request" title='Decline Request' ><i class="fa fa-window-close-o"></i></button> --}}
+                                </td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
-
                 </div>
             </div>
         </div>
-       
     </div>
-  
 </div>
+@include('dispatch_equipment')
 @endsection

@@ -27,4 +27,8 @@ class EquipmentData extends Model
     {
         return $this->belongsTo(InsuranceCompany::class,'insurance_company_id','id');
     }
+    public function fuel()
+    {
+        return $this->hasMany(Fuel::class,'equipment_id','id')->orderBy('id','desc');
+    }
 }

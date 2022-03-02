@@ -18,7 +18,7 @@
                     <input type='hidden' value='' id='id_row' required>
                     <div class='col-md-12'>
                         Remarks :
-                        <textarea class='form-control' name='remarks' id='remarks' idrequired></textarea>
+                        <textarea class='form-control' name='remarks' id='remarks' required></textarea>
                      </div>
                  
                 </div>
@@ -37,7 +37,7 @@
         var id = document.getElementById('id_row').value;
         var remarks = document.getElementById('remarks').value;
         // alert(id);
-        var remarks = "remarks";
+        // var remarks = "remarks";
         $.ajax({
             dataType: 'json',
             type:'POST',

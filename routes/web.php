@@ -64,12 +64,15 @@ Route::group( ['middleware' => 'auth'], function()
      //Equipments
      Route::get('equipments','EquipmentController@equipments');
      Route::post('new-equipment','EquipmentController@new_equipment');
+     Route::get('maintenance','EquipmentController@maintenance');
+     Route::get('dispatch','EquipmentController@dispatch_equipments');
 
      //Request
      Route::get('requests','RequestController@requests');
      Route::post('new-request','RequestController@new_request');
      Route::post('cancel-request','RequestController@cancel_request');
      Route::post('edit-request/{id}','RequestController@edit_request');
+     
 
      //For Approval
      Route::get('for-approval','RequestController@for_approval');
@@ -78,6 +81,8 @@ Route::group( ['middleware' => 'auth'], function()
 
      //For Dispatch
      Route::get('for-dispatch','RequestController@for_dispatch');
+     Route::post('distpach-equipment','RequestController@dispatch_equip');
+     Route::get('dispatch-approval','RequestController@dispatch_approval');
 
 
      //Projects
@@ -86,12 +91,10 @@ Route::group( ['middleware' => 'auth'], function()
      Route::post('deactivate-project','ProjectController@deactivate_project');
      Route::post('activate-project','ProjectController@activate_project');
      Route::post('edit-project/{id}','ProjectController@edit_project');
-
-
+     
      //Fuels
      Route::get('fuels','FuelController@view_fuel');
-    
-
+     Route::post('new-fuel','FuelController@new_fuel');
 });
     
 
