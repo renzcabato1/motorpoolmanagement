@@ -65,7 +65,6 @@ Route::group( ['middleware' => 'auth'], function()
      Route::get('equipments','EquipmentController@equipments');
      Route::post('new-equipment','EquipmentController@new_equipment');
      Route::get('maintenance','EquipmentController@maintenance');
-     Route::get('dispatch','EquipmentController@dispatch_equipments');
 
      //Request
      Route::get('requests','RequestController@requests');
@@ -83,6 +82,8 @@ Route::group( ['middleware' => 'auth'], function()
      Route::get('for-dispatch','RequestController@for_dispatch');
      Route::post('distpach-equipment','RequestController@dispatch_equip');
      Route::get('dispatch-approval','RequestController@dispatch_approval');
+     Route::post('approve-dispatch','RequestController@approved_dispatch');
+     Route::get('dispatch-equipments','RequestController@dispatch_equipments');
 
 
      //Projects

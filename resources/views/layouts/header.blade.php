@@ -100,30 +100,44 @@
                     <li @if($header == 'Dashboard') class='active' @endif>
                         <a href="{{ url('/home') }}" class='active' onclick='show()' ><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> </a>
                     </li>
+                    {{-- {{auth()->user()->role}} --}}
+                    @if(auth()->user()->role_id == 2)
                     <li @if($header == 'Requests') class='active' @endif>
                         <a href="{{ url('/requests') }}" class='active' onclick='show()' ><i class="fa fa-clipboard"></i> <span class="nav-label">Requests</span> </a>
                     </li>
+                    @endif
+                    @if(auth()->user()->role_id == 4)
                     <li @if($header == 'For Approval') class='active' @endif>
                         <a href="{{ url('/for-approval') }}" class='active' onclick='show()' ><i class="fa fa-check-circle-o"></i> <span class="nav-label">For Approval</span> </a>
                     </li>
+                    @endif
+                    @if(auth()->user()->role_id == 3)
                     <li @if($header == 'For Dispatch') class='active' @endif>
                         <a href="{{ url('/for-dispatch') }}" class='active' onclick='show()' ><i class="fa fa-send-o"></i> <span class="nav-label">For Dispatch</span> </a>
                     </li>
+                    @endif
                     <li @if($header == 'Dispatch Approval') class='active' @endif>
                         <a href="{{ url('/dispatch-approval') }}" class='active' onclick='show()' ><i class="fa fa-check-square-o"></i> <span class="nav-label">Dispatch Approval</span> </a>
                     </li>
-                    <li @if($header == 'Dispatch Equipment') class='active' @endif>
-                        <a href="{{ url('/dispatch') }}" class='active' onclick='show()' ><i class="fa fa-external-link-square"></i> <span class="nav-label">Dispatch Equipments</span> </a>
+                    <li @if($header == 'Dispatch Equipments') class='active' @endif>
+                        <a href="{{ url('/dispatch-equipments') }}" class='active' onclick='show()' ><i class="fa fa-external-link-square"></i> <span class="nav-label">Dispatch Equipments</span> </a>
                     </li>
+                    @if(auth()->user()->role_id == 1)
                     <li @if($header == 'Under Maintenance') class='active' @endif>
                         <a href="{{ url('/maintenance') }}" class='active' onclick='show()' ><i class="fa fa-exclamation-triangle"></i> <span class="nav-label">Under Maintenance</span> </a>
                     </li>
+                    @endif
+                    @if(auth()->user()->role_id == 1)
                     <li @if($header == 'Projects') class='active' @endif>
                         <a href="{{ url('/project') }}" class='active' onclick='show()' ><i class="fa fa-file-text-o"></i> <span class="nav-label">Projects</span> </a>
                     </li>
+                    @endif
+                    @if(auth()->user()->role_id == 1)
                     <li @if($header == 'Fuels') class='active' @endif>
                         <a href="{{ url('/fuels') }}" class='active' onclick='show()' ><i class="fa fa-free-code-camp"></i> <span class="nav-label">Fuels</span> </a>
                     </li>
+                    @endif
+                    @if(auth()->user()->role_id == 1)
                     <li @if($header == 'Settings') class='active' @endif>
                         <a href="#"><i class="fa fa-wrench"></i> <span class="nav-label">Settings</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -134,6 +148,7 @@
                             <li  @if($subheader == 'Users') class='active' @endif> <a href="{{ url('/users') }}" class='active' onclick='show()' ><i class="fa fa-user"></i> <span class="nav-label">Users</span> </a></li>
                         </ul>
                     </li>
+                    @endif
                 </ul>
             </div>
         </nav>
@@ -715,6 +730,45 @@
                                 document.getElementById('actiontd'+id).innerHTML = buttons;
                              
                                 swal("Activated!", "Brand has been Activated.", "success");
+                                
+                                }
+
+                              
+
+                            });
+
+                        });
+                        $("body").on("click",".approve-dispatch",function(){
+                            // var base_path = location.hostname;
+                            var id = $(this).parent("td").data('id');
+                            // alert(id);
+                            swal({
+                                title: "Are you sure you want to approved this?",
+                                // text: "You will not be able to recover this!",
+                                type: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Yes, Approved it!",
+                                closeOnConfirm: false
+                            }, function (isConfirm) {
+                                // alert(isConfirm);
+                                if(isConfirm == true)
+                                {
+                                    // $("#"+id).remove();
+                                    $.ajax({
+                                        dataType: 'json',
+                                        type:'POST',
+                                        url:  'approve-dispatch',
+                                        data:{id:id},
+                                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                                    }).done(function(data){
+                                        // c_obj.remove();
+                                        $('#row'+id).remove(); 
+                                        swal("Activated!", "Dispatch has been approved.", "success");
+                                    });
+                                
+                             
+                                swal("Activated!", "Dispatch has been approved.", "success");
                                 
                                 }
 

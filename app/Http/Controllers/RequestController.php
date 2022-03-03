@@ -77,19 +77,33 @@ class RequestController extends Controller
     public function dispatch_approval()
     {
         $requests = RequestData::with('approve_by','user','company','department','class','histories')
-        ->where('approver_id',auth()->user()->id)
         ->where('status','Reserved')
         ->orderBy('id','desc')
         ->get();
-        $equipments = EquipmentData::with('category','class','company','brand','insurance')->where('status','Operational')->get();
         $header = "Dispatch Approval";
         $subheader = "";
-        return view('for_dispatch', 
+        return view('dispatch_approval', 
         array(
             'header' => $header,
             'subheader' => $subheader,
             'requests' => $requests,
-            'equipments' => $equipments,
+        )
+        );
+
+    }
+    public function dispatch_equipments ()
+    {
+        $requests = RequestData::with('approve_by','user','company','department','class','histories','deploy')
+        ->where('status','Dispatch')
+        ->orderBy('id','desc')
+        ->get();
+        $header = "Dispatch Equipments";
+        $subheader = "";
+        return view('dispatch_equipments', 
+        array(
+            'header' => $header,
+            'subheader' => $subheader,
+            'requests' => $requests,
         )
         );
 
@@ -154,6 +168,24 @@ class RequestController extends Controller
         $history->save();
 
         return "success";
+    }
+    public function approved_dispatch(Request $request)
+    {
+        $req = RequestData::where('id',$request->id)->first();
+        $req->status = "Dispatch";
+        $req->save();
+
+        $history = new RequestHistory;
+        $history->request_data_id = $request->id;
+        $history->action = "Approved Dispatch";
+        $history->user_id = auth()->user()->id;
+        $history->save();
+
+        $requestDep = RequestDeployment::where('request_id',$request->id)->first();
+        $requestDep->status = "Dispatch";
+        $requestDep->save();
+
+        return $request;
     }
     public function edit_request(Request $request,$id)
     {

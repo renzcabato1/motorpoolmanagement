@@ -40,4 +40,8 @@ class RequestData extends Model
     {
         return $this->belongsTo(Project::class);
     }
+    public  function deploy()
+    {
+        return $this->hasOne(RequestDeployment::class,'request_id','id');
+    }
 }
