@@ -53,18 +53,13 @@
                             <label> <input type="checkbox" id='project' name="project" onchange="project_control()"  value="1"> Is Project?</label>
                         </div>
                         <div class='col-md-4' id='project_id_data' style='display:none;'>
-                            
-                           
-                              
-                                    Project ID : 
-                                <select name='project_id' id='project_id' class='form-control-sm form-control category'  onchange='select_project(this.value)' readonly="readonly">
-                                    <option value="" ></option>
-                                    @foreach($projects as $project)
-                                    <option value="{{$project->id}}" >{{$project->project_id}}</option>
-                                    @endforeach
-                                </select>    
-                               
-                            {{-- <input type="text" class="form-control-sm form-control "  id='project_id' value="{{ old('project_id') }}"  name="project_id" readonly/> --}}
+                            Project ID : 
+                            <select name='project_id' id='project_id' class='form-control-sm form-control category'  onchange='select_project(this.value)' readonly="readonly">
+                                <option value="" ></option>
+                                @foreach($projects as $project)
+                                <option value="{{$project->id}}" >{{$project->project_id}}</option>
+                                @endforeach
+                            </select>    
                         </div>
                     </div>
                     <Br>
@@ -135,8 +130,9 @@
             if(projects[i].id  == value)
            
             {
+                $("#area").empty();
                 $("#location").val(projects[i].location);
-                $("#area").val(projects[i].area);
+                $("#area").append("<option value='"+projects[i].area+"' selected>"+projects[i].area+"</option>");
                 break;
             }
         }
@@ -148,7 +144,8 @@
         var check = $('#project').is(':checked'); 
         if(check == true)
         {
-            
+            $("#area").empty();
+                
             $("#project_id").attr("readonly", false); 
             document.getElementById("project_id_data").style.display="block";
             $("#project_id").prop('required',true);
@@ -159,6 +156,11 @@
         }
         else
         {
+            $("#area").empty();
+            $("#area").append("<option value='' selected></option>");   
+            $("#area").append("<option value='Luzon'>Luzon</option>");   
+            $("#area").append("<option value='Visayas' selected>Visayas</option>");   
+            $("#area").append("<option value='Mindanao' selected>Mindanao</option>");   
             $("#project_id_chosen a span").html("Please select Project");
             document.getElementById("project_id_data").style.display="none";
             $("#project_id").attr("readonly", true); 

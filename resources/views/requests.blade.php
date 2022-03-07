@@ -4,6 +4,60 @@
 
 
 <div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-success pull-right">as of Today</span>
+                    <h5>Total Requests</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{{($all_request)}}</h1>
+                    {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
+                    <small>&nbsp;</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-warning pull-right">as of Today</span>
+                    <h5> Pending Requests</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{{$pending_requests}}</h1>
+                    {{-- <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div> --}}
+                    <small>&nbsp;</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">as of Today</span>
+                    <h5>Approved Requests</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{{$approved_requests}}</h1>
+                    {{-- <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div> --}}
+                    <small>&nbsp;</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-danger pull-right">as of Today</span>
+                    <h5>Declined/Cancelled Requests</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{{$declined_requests}}</h1>
+                    {{-- <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div> --}}
+                    <small>&nbsp;</small>
+                </div>
+            </div>
+        </div>
+    </div>
 @if(session()->has('status'))
 <div class="alert alert-success alert-dismissable">
     <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
@@ -34,13 +88,13 @@
                                 <th>Area</th>
                                 <th>Location</th>
                                 <th>Remarks</th>
-                                {{-- <th>Status</th> --}}
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>   
                         </thead>
                         <tbody>
                             @foreach($requests as $request)
-                                <tr id='row{{$request->id}}'>
+                                <tr id='row{{$request->id}}' class='pointer' data-target="#view_request{{$request->id}}" data-toggle="modal" data-id='{{$request->id}}'>
                                     {{-- <th>Logo</th> --}}
                                     <td>RN-{{str_pad($request->id, 4, '0', STR_PAD_LEFT)}}</td>
                                     <td>
@@ -62,13 +116,19 @@
                                     <td>{{$request->area}}</td>
                                     <td>{{$request->location}}</td>
                                     <td>{!! nl2br(e($request->remarks)) !!}</td>
+                                    <td><small class='label label'>{{$request->status}}</small></td>
                                 {{-- <th><small class="label label-warning">Pending</small></th> --}}
                                     <td data-id='{{$request->id}}'>
+                                        @if($request->status == "Pending")
                                         {{-- <button class="btn btn-sm btn-info approve-request"  title='Approve Request' ><i class="fa fa-check-square-o"></i></button> --}}
                                         <button class="btn btn-sm btn-info"  title='Edit' data-target="#edit_request{{$request->id}}" data-toggle="modal"><i class="fa fa-edit"></i></button>
                                         <button class="btn btn-sm btn-danger remove-request" title='Cancel' ><i class="fa fa-trash"></i></button>
+                                        @else
+                                        
+                                        @endif
                                     </td>
                                 </tr>
+                            @include('view_request_re')
                             @include('edit_request') 
                             @endforeach
                         </tbody>

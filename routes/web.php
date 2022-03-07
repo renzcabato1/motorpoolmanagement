@@ -15,9 +15,11 @@
 Auth::routes();
 Route::group( ['middleware' => 'auth'], function()
 {
-    
+    Route::group(['middleware' => ['admin']], function () {
+        
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/home', 'HomeController@index')->name('home');
+    });
 
     //acounts
      Route::get('users','UserController@users');
@@ -77,6 +79,8 @@ Route::group( ['middleware' => 'auth'], function()
      Route::get('for-approval','RequestController@for_approval');
      Route::post('approve-request','RequestController@approve_request');
      Route::post('decline-request','RequestController@declined_request');
+     Route::get('all-approved-requests','RequestController@all_approved_requests');
+     Route::get('all-declined-requests','RequestController@all_declined_requests');
 
      //For Dispatch
      Route::get('for-dispatch','RequestController@for_dispatch');

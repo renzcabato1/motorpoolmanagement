@@ -37,6 +37,10 @@
         var id = document.getElementById('id_row_declined').value;
         var remarks = document.getElementById('remarks_declined').value;
         // alert(id);
+        var for_approval_request_count = document.getElementById('for_approval_request_count').innerHTML;
+        var declined_request_count = document.getElementById('declined_request_count').innerHTML;
+        document.getElementById('for_approval_request_count').innerHTML = for_approval_request_count-1;
+        document.getElementById('declined_request_count').innerHTML = parseInt(declined_request_count)+1;
         var remarks = "remarks";
         $.ajax({
             dataType: 'json',

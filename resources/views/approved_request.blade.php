@@ -36,6 +36,11 @@
     {   
         var id = document.getElementById('id_row').value;
         var remarks = document.getElementById('remarks').value;
+        var for_approval_request_count = document.getElementById('for_approval_request_count').innerHTML;
+        var approved_request_count = document.getElementById('approved_request_count').innerHTML;
+        document.getElementById('for_approval_request_count').innerHTML = for_approval_request_count-1;
+        document.getElementById('approved_request_count').innerHTML = parseInt(approved_request_count)+1;
+        // return false;
         // alert(id);
         // var remarks = "remarks";
         $.ajax({

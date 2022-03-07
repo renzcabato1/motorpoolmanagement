@@ -18,10 +18,17 @@ class RequestController extends Controller
     //
     public function requests()
     {
+        $all_request = RequestData::where('user_id',auth()->user()->id)->count();
+        $pending_requests = RequestData::where('user_id',auth()->user()->id)->where('status','Pending')->count();
+        $approved_requests = RequestData::where('user_id',auth()->user()->id)->where('status','Approved')->count();
+        $declined_requests = RequestData::where('user_id',auth()->user()->id)->where(function($q){
+            $q->where('status', "Declined")
+              ->orWhere('status', "Cancelled");
+        })->count();
         $classes = ClassEquipment::with('category')->get();
         $requests = RequestData::with('user','company','department','class','approver','project')
         ->where('user_id',auth()->user()->id)
-        ->where('status','Pending')
+        // ->where('status','Pending')
         ->orderBy('id','desc')
         ->get();
         $projects = Project::with('company')->get();
@@ -35,6 +42,10 @@ class RequestController extends Controller
             'classes' => $classes,
             'requests' => $requests,
             'projects' => $projects,
+            'all_request' => $all_request,
+            'pending_requests' => $pending_requests,
+            'approved_requests' => $approved_requests,
+            'declined_requests' => $declined_requests,
         )
         );
     }
@@ -45,6 +56,23 @@ class RequestController extends Controller
         ->where('status','Pending')
         ->orderBy('id','desc')
         ->get();
+        $requests_approved = RequestData::with('user','company','department','class')
+        ->where('approver_id',auth()->user()->id)
+        ->where(function($q){
+            $q->where('status','=',"Approved")
+              ->orWhere('status','=',"Reserved")
+              ->orWhere('status','=',"Dispatch");
+        })
+        ->orderBy('id','desc')
+        ->get();
+        $requests_declined = RequestData::with('user','company','department','class')
+        ->where('approver_id',auth()->user()->id)
+        ->where(function($q){
+            $q->where('status',"Declined");
+        })
+        ->orderBy('id','desc')
+        ->get();
+
         $header = "For Approval";
         $subheader = "";
         return view('for_approval', 
@@ -52,6 +80,8 @@ class RequestController extends Controller
             'header' => $header,
             'subheader' => $subheader,
             'requests' => $requests,
+            'requests_approved' => $requests_approved,
+            'requests_declined' => $requests_declined,
         )
         );
     }
@@ -71,6 +101,51 @@ class RequestController extends Controller
             'subheader' => $subheader,
             'requests' => $requests,
             'equipments' => $equipments,
+        )
+        );
+    }
+    public function all_approved_requests()
+    {
+        
+        $requests_approved = RequestData::with('user','company','department','class')
+        ->where('approver_id',auth()->user()->id)
+        ->where(function($q){
+            $q->where('status','=',"Approved")
+              ->orWhere('status','=',"Reserved")
+              ->orWhere('status','=',"Dispatch");
+        })
+        ->orderBy('id','desc')
+        ->get();
+      
+
+        $header = "Approved Request";
+        $subheader = "";
+        return view('all_approved_requests', 
+        array(
+            'header' => $header,
+            'subheader' => $subheader,
+            'requests_approved' => $requests_approved,
+        )
+        );
+    }
+    public function all_declined_requests()
+    {
+      
+        $requests_declined = RequestData::with('user','company','department','class')
+        ->where('approver_id',auth()->user()->id)
+        ->where(function($q){
+            $q->where('status',"Declined");
+        })
+        ->orderBy('id','desc')
+        ->get();
+
+        $header = "Declined Request";
+        $subheader = "";
+        return view('all_declined_requests', 
+        array(
+            'header' => $header,
+            'subheader' => $subheader,
+            'requests_declined' => $requests_declined,
         )
         );
     }

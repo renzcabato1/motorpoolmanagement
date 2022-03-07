@@ -56,7 +56,7 @@ class RequestAction extends Notification
         ->line('Remarks : '.$this->req->remarks)
 
             ->line('Please click the button provided for faster transaction')
-            ->action('Pending For Approval', url('/for-approval'))
+            ->action('Pending For Approval', url('/'))
             ->line('Thank you for using our application!');
     }
 

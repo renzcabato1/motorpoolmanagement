@@ -97,9 +97,11 @@
                             MMS
                         </div>
                     </li>
+                    @if(auth()->user()->role_id == 1)
                     <li @if($header == 'Dashboard') class='active' @endif>
                         <a href="{{ url('/home') }}" class='active' onclick='show()' ><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> </a>
                     </li>
+                    @endif
                     {{-- {{auth()->user()->role}} --}}
                     @if(auth()->user()->role_id == 2)
                     <li @if($header == 'Requests') class='active' @endif>
@@ -111,17 +113,31 @@
                         <a href="{{ url('/for-approval') }}" class='active' onclick='show()' ><i class="fa fa-check-circle-o"></i> <span class="nav-label">For Approval</span> </a>
                     </li>
                     @endif
+                    @if(auth()->user()->role_id == 4)
+                    <li @if($header == 'Approved Request') class='active' @endif>
+                        <a href="{{ url('/all-approved-requests') }}" class='active' onclick='show()' ><i class="fa fa-check-square-o"></i> <span class="nav-label">Approved Requests</span> </a>
+                    </li>
+                    @endif
+                    @if(auth()->user()->role_id == 4)
+                    <li @if($header == 'Declined Request') class='active' @endif>
+                        <a href="{{ url('/all-declined-requests') }}" class='active' onclick='show()' ><i class="fa fa-window-close-o"></i> <span class="nav-label">Declined Requests</span> </a>
+                    </li>
+                    @endif
                     @if(auth()->user()->role_id == 3)
                     <li @if($header == 'For Dispatch') class='active' @endif>
                         <a href="{{ url('/for-dispatch') }}" class='active' onclick='show()' ><i class="fa fa-send-o"></i> <span class="nav-label">For Dispatch</span> </a>
                     </li>
                     @endif
+                    @if(auth()->user()->role_id == 5)
                     <li @if($header == 'Dispatch Approval') class='active' @endif>
                         <a href="{{ url('/dispatch-approval') }}" class='active' onclick='show()' ><i class="fa fa-check-square-o"></i> <span class="nav-label">Dispatch Approval</span> </a>
                     </li>
+                    @endif
+                    @if(auth()->user()->role_id == 3)
                     <li @if($header == 'Dispatch Equipments') class='active' @endif>
                         <a href="{{ url('/dispatch-equipments') }}" class='active' onclick='show()' ><i class="fa fa-external-link-square"></i> <span class="nav-label">Dispatch Equipments</span> </a>
                     </li>
+                    @endif
                     @if(auth()->user()->role_id == 1)
                     <li @if($header == 'Under Maintenance') class='active' @endif>
                         <a href="{{ url('/maintenance') }}" class='active' onclick='show()' ><i class="fa fa-exclamation-triangle"></i> <span class="nav-label">Under Maintenance</span> </a>
