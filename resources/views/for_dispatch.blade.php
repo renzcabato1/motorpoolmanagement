@@ -12,7 +12,7 @@
                     <h5>For Dispatch</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">{{(count($requests))}}</h1>
+                    <h1 class="no-margins" id='requests'>{{(count($requests))}}</h1>
                     {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
                     <small>&nbsp;</small>
                 </div>
@@ -25,7 +25,7 @@
                     <h5> For Approval(Dispatch)</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">{{$dispatch_approval}}</h1>
+                    <h1 class="no-margins" id='dispatch_approval'>{{$dispatch_approval}}</h1>
                     {{-- <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div> --}}
                     <small>&nbsp;</small>
                 </div>

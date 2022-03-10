@@ -63,7 +63,7 @@
         @media (min-width: 768px) {
             .modal-xl {
                 width: 100%;
-                max-width:1700px;
+                max-width:1300px;
             }
         }
         body {
@@ -131,6 +131,9 @@
                     @if(auth()->user()->role_id == 5)
                     <li @if($header == 'Dispatch Approval') class='active' @endif>
                         <a href="{{ url('/dispatch-approval') }}" class='active' onclick='show()' ><i class="fa fa-check-square-o"></i> <span class="nav-label">Dispatch Approval</span> </a>
+                    </li>
+                    <li @if($header == 'Approved Dispatch Requests') class='active' @endif>
+                        <a href="{{ url('/appproved-dispatch-requests') }}" class='active' onclick='show()' ><i class="fa fa-check-square-o"></i> <span class="nav-label">Approved Requests</span> </a>
                     </li>
                     @endif
                     @if(auth()->user()->role_id == 3)
@@ -762,6 +765,8 @@
 
                         });
                         $("body").on("click",".approve-dispatch",function(){
+                            var for_approval_requests = document.getElementById('for_approval_requests').innerHTML;
+                            var approved_dispatch = document.getElementById('approved_dispatch').innerHTML;
                             // var base_path = location.hostname;
                             var id = $(this).parent("td").data('id');
                             // alert(id);
@@ -786,6 +791,8 @@
                                         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                                     }).done(function(data){
                                         // c_obj.remove();
+                                        document.getElementById('for_approval_requests').innerHTML = for_approval_requests-1;
+                                        document.getElementById('approved_dispatch').innerHTML = parseInt(approved_dispatch)+1;
                                         $('#row'+id).remove(); 
                                         swal("Activated!", "Dispatch has been approved.", "success");
                                     });

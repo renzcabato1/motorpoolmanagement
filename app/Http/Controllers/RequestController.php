@@ -100,7 +100,7 @@ class RequestController extends Controller
         ->where('status','Dispatch')
         ->orderBy('id','desc')
         ->count();
-        $equipments = EquipmentData::with('category','class','company','brand','insurance')->where('status','Operational')->get();
+        $equipments = EquipmentData::with('category','class','company','brand','insurance')->where('status','Operational')->where('company_id',auth()->user()->company_id)->get();
         $header = "For Dispatch";
         $subheader = "";
         return view('for_dispatch', 
@@ -162,9 +162,21 @@ class RequestController extends Controller
     public function dispatch_approval()
     {
         $requests = RequestData::with('approve_by','user','company','department','class','histories')
+        ->whereHas('deploy', function ($q){
+            $q->where('approver_id',auth()->user()->id);
+        })
         ->where('status','Reserved')
         ->orderBy('id','desc')
         ->get();
+
+        $approved_request = RequestData::with('approve_by','user','company','department','class','histories')
+        ->whereHas('deploy', function ($q){
+            $q->where('approver_id',auth()->user()->id)
+              ->where('status',"Dispatch");
+        })
+        ->orderBy('id','desc')
+        ->count();
+
         $header = "Dispatch Approval";
         $subheader = "";
         return view('dispatch_approval', 
@@ -172,9 +184,9 @@ class RequestController extends Controller
             'header' => $header,
             'subheader' => $subheader,
             'requests' => $requests,
+            'approved_request' => $approved_request,
         )
         );
-
     }
     public function dispatch_equipments ()
     {
@@ -201,38 +213,42 @@ class RequestController extends Controller
         $date_end_array = explode("-",$request->date_end);
         $date_end = $date_end_array[2]."-".$date_end_array[0]."-".$date_end_array[1];
         // $reque = ;
-        $data_final_array = explode("*",$request->equipment_category);
-        $data_final = $data_final_array[0];
-        $data_final_data = $data_final_array[1];
-        // dd($data_final_data);
-        $req = new RequestData;
-        $req->user_id = auth()->user()->id;
-        $req->company_id = auth()->user()->company->id;
-        $req->department_id = auth()->user()->department->id;
-        $req->approver_id = $request->approver_id;
-        $req->class_id = $data_final;
-        $req->is_project = $request->project;
-        $req->project_id = $request->project_id;
-        $req->date_from_needed = $date_start;
-        $req->date_to_needed = $date_end;
-        $req->time_from_needed = $request->time_from;
-        $req->time_to_needed = $request->time_to;
-        $req->location = $request->location;
-        $req->area = $request->area;
-        $req->remarks = $request->remarks;
-        $req->status = "Pending";
-        $req->save();
-
-        $history = new RequestHistory;
-        $history->request_data_id = $req->id;
-        $history->action = "Create Request";
-        $history->remarks = $request->remarks;
-        $history->user_id = auth()->user()->id;
-        $history->save();
-
-        $approver = User::where('id',$request->approver_id)->first();
-        $requestor = User::where('id',auth()->user()->id)->first();
-        $approver->notify(new RequestAction($req,$requestor,$data_final_data));
+        foreach($request->equipment_category as $cat)
+        {
+            $data_final_array = explode("*",$cat);
+            $data_final = $data_final_array[0];
+            $data_final_data = $data_final_array[1];
+            // dd($data_final_data);
+            $req = new RequestData;
+            $req->user_id = auth()->user()->id;
+            $req->company_id = auth()->user()->company->id;
+            $req->department_id = auth()->user()->department->id;
+            $req->approver_id = $request->approver_id;
+            $req->class_id = $data_final;
+            $req->is_project = $request->project;
+            $req->project_id = $request->project_id;
+            $req->date_from_needed = $date_start;
+            $req->date_to_needed = $date_end;
+            $req->time_from_needed = $request->time_from;
+            $req->time_to_needed = $request->time_to;
+            $req->location = $request->location;
+            $req->area = $request->area;
+            $req->remarks = $request->remarks;
+            $req->status = "Pending";
+            $req->save();
+    
+            $history = new RequestHistory;
+            $history->request_data_id = $req->id;
+            $history->action = "Create Request";
+            $history->remarks = $request->remarks;
+            $history->user_id = auth()->user()->id;
+            $history->save();
+    
+            $approver = User::where('id',$request->approver_id)->first();
+            $requestor = User::where('id',auth()->user()->id)->first();
+            $approver->notify(new RequestAction($req,$requestor,$data_final_data));
+        }
+       
 
         $request->session()->flash('status','Successfully created');
         return back();
@@ -329,7 +345,7 @@ class RequestController extends Controller
         $history->user_id = auth()->user()->id;
         $history->remarks = $request->remarks;
         $history->save();
-        return "success";
+        return $request;
     }
     public function declined_request(Request $request)
     {
@@ -371,9 +387,32 @@ class RequestController extends Controller
         $requestDep->request_id = $requestData->id;
         $requestDep->deployed_by = auth()->user()->id;
         $requestDep->status = "Reserved";
+        $requestDep->approver_id = auth()->user()->approver_id;
         $requestDep->remarks = $request->remarks;
         $requestDep->save();
         
         return $request;
+    }
+    public function appproved_dispatch_requests()
+    {
+        
+        $requests = RequestData::with('approve_by','user','company','department','class','histories')
+        ->whereHas('deploy', function ($q){
+            $q->where('approver_id',auth()->user()->id)
+              ->where('status',"Dispatch");
+        })
+        ->orderBy('id','desc')
+        ->get();
+        
+
+        $header = "Approved Dispatch Requests";
+        $subheader = "";
+        return view('approved_dispatch_requests', 
+        array(
+            'header' => $header,
+            'subheader' => $subheader,
+            'requests_approved' => $requests,
+        )
+        );
     }
 }

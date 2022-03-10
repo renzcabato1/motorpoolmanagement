@@ -88,6 +88,7 @@ Route::group( ['middleware' => 'auth'], function()
      Route::get('dispatch-approval','RequestController@dispatch_approval');
      Route::post('approve-dispatch','RequestController@approved_dispatch');
      Route::get('dispatch-equipments','RequestController@dispatch_equipments');
+     Route::get('appproved-dispatch-requests','RequestController@appproved_dispatch_requests');
 
 
      //Projects

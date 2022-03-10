@@ -99,9 +99,13 @@
                             Area : 
                             <select name='area' id='area{{$request->id}}' class='form-control-sm form-control' @if($request->project_id) readonly @endif required>
                                 <option value=""></option>
-                                <option value="Luzon" @if($request->area == "Luzon") selected @endif>Luzon</option>
-                                <option value="Visayas" @if($request->area == "Visayas") selected @endif>Visayas</option>
-                                <option value="Mindanao" @if($request->area == "Mindanao") selected @endif>Mindanao</option>
+                                @if($request->project_id == "")
+                                    <option value="Luzon" @if($request->area == "Luzon") selected @endif>Luzon</option>
+                                    <option value="Visayas" @if($request->area == "Visayas") selected @endif>Visayas</option>
+                                    <option value="Mindanao" @if($request->area == "Mindanao") selected @endif>Mindanao</option>
+                                @else
+                                    <option value="{{$request->area}}" selected>{{$request->area}}</option> 
+                                @endif
                             </select>    
                         </div>
                     </div>
@@ -131,8 +135,11 @@
             if(projects[i].id  == value)
             {
                 // alert(id);
+                $("#area"+id).empty();
                 $("#location"+id).val(projects[i].location);
+                $("#area"+id).append("<option value='"+projects[i].area+"' selected>"+projects[i].area+"</option>");
                 $("#area"+id).val(projects[i].area);
+
                 break;
             }
         }
@@ -144,6 +151,7 @@
         var check = $('#project'+id).is(':checked'); 
         if(check == true)
         {
+            $("#area"+id).empty();
             $("#project_id"+id).attr("readonly", false); 
             document.getElementById("project_id_data"+id).style.display="block";
             $("#project_id"+id).prop('required',true);
@@ -155,6 +163,12 @@
         }
         else
         {
+            $("#area"+id).empty();
+            $("#area"+id).append("<option value='' selected></option>");   
+            $("#area"+id).append("<option value='Luzon'>Luzon</option>");   
+            $("#area"+id).append("<option value='Visayas' selected>Visayas</option>");   
+            $("#area"+id).append("<option value='Mindanao' selected>Mindanao</option>");   
+            $("#project_id"+id+"_chosen a span").html("Please select Project");
             $("#project_id"+id).attr("readonly", true); 
             $("#project_id"+id).prop('required',false);
             document.getElementById("project_id_data"+id).style.display="none";

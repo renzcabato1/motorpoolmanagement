@@ -35,17 +35,20 @@
                     </div>
                     <hr>
                     <div class='row'>
+                       
                         <div class='col-md-6'>
-                            Equipment Class :
-                            <select name='equipment_category' class='form-control-sm form-control category' required>
-                                <option value=""></option>
-                                @foreach($classes as $key => $class )
-                                    @if($class->status)
-                                    @else
-                                    <option value='{{$class->id}}*{{$class->class_description}}'>{{$class->class_code}} - {{$class->class_description}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
+                            <button class="btn btn-primary btn-sm mb-2" onclick='add_equipment();' type="button"><i class="fa fa-plus"></i></button> Equipment Class :
+                            <div id='equipments_datas'>
+                                <select name='equipment_category[]' id='1' class='form-control-sm form-control category' required>
+                                    <option value=""></option>
+                                    @foreach($classes as $key => $class )
+                                        @if($class->status)
+                                        @else
+                                        <option value='{{$class->id}}*{{$class->class_description}}'>{{$class->class_code}} - {{$class->class_description}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
                             <input type='hidden' name='approver_id' value='{{Auth::user()->approver->id}}'>
                         </div>
                         <div class='col-md-2 text-right'>
@@ -62,6 +65,7 @@
                             </select>    
                         </div>
                     </div>
+                    <hr>
                     <Br>
                     <div class='row'>
                         <div class='col-md-6'>
@@ -110,6 +114,8 @@
                             <textarea class='form-control' name='remarks' required></textarea>
                         </div>
                     </div>
+                    <hr>
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -145,7 +151,6 @@
         if(check == true)
         {
             $("#area").empty();
-                
             $("#project_id").attr("readonly", false); 
             document.getElementById("project_id_data").style.display="block";
             $("#project_id").prop('required',true);
@@ -171,5 +176,28 @@
             $("#location").val('');
             $("#area").val('');
         }
+    }
+    function add_equipment()
+    { 
+        var idEquipment = $('#equipments_datas').children().last().attr('id');
+            var idEquipmentData = parseInt(idEquipment) + 1;
+        var equip_select = "<div class='input-group mt-3' id='"+idEquipmentData+"'><select name='equipment_category[]'  class='form-control-sm form-control category mt-2' required>";
+            equip_select+= "<option value=''></option>";
+            equip_select+= "@foreach($classes as $key => $class )";
+            equip_select+= "@if($class->status)";
+            equip_select+= "@else";
+            equip_select+= "<option value='{{$class->id}}*{{$class->class_description}}'>{{$class->class_code}} - {{$class->class_description}}</option>";
+            equip_select+= "@endif";
+            equip_select+= "@endforeach";
+            equip_select+= "</select><div class='input-group-append'>";
+            equip_select+= "<span onclick='remove_equipment("+idEquipmentData+")' class='btn btn-danger  btn-outline'><i  class='fa fa-window-close-o'></i></span></div></div>";
+            
+        $("#equipments_datas").append(equip_select);
+        $('.category').chosen();
+    }
+    function remove_equipment(data)
+    { 
+        console.log(data);
+        $('#'+data).remove();
     }
 </script>

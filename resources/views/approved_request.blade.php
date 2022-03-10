@@ -38,8 +38,7 @@
         var remarks = document.getElementById('remarks').value;
         var for_approval_request_count = document.getElementById('for_approval_request_count').innerHTML;
         var approved_request_count = document.getElementById('approved_request_count').innerHTML;
-        document.getElementById('for_approval_request_count').innerHTML = for_approval_request_count-1;
-        document.getElementById('approved_request_count').innerHTML = parseInt(approved_request_count)+1;
+    
         // return false;
         // alert(id);
         // var remarks = "remarks";
@@ -51,7 +50,8 @@
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         }).done(function(data){
             $("#row"+id).remove();
-            console.log(data);
+            document.getElementById('for_approval_request_count').innerHTML = for_approval_request_count-1;
+            document.getElementById('approved_request_count').innerHTML = parseInt(approved_request_count)+1;
             swal("Successfully!", "Request has been approved.", "success");
         });
         $("#row"+id).remove();

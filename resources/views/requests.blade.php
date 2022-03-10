@@ -68,14 +68,16 @@
     <div class="row">
         <div class="col-lg-12 ">
             <div class="ibox float-e-margins">
-                <div class="ibox-title">
+                {{-- <div class="ibox-title">
                     <h5>Requests
                         <button class="btn btn-primary" data-target="#new_request" data-toggle="modal" type="button"><i class="fa fa-plus-circle"></i>&nbsp;</button>
                     </h5>
                     <div ibox-tools></div>
-                </div>
+                </div> --}}
+                <h5>Requests
+                    <button class="btn btn-primary" data-target="#new_request" data-toggle="modal" type="button"><i class="fa fa-plus-circle"></i>&nbsp;</button>
+                </h5>
                 <div class="ibox-content">
-
                     <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
                         <thead>
                             <tr>

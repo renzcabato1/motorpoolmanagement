@@ -1,9 +1,35 @@
 @extends('layouts.header')
 
 @section('content')
-
-
 <div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-success pull-right">as of Today</span>
+                    <h5>For Approval</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins" id='for_approval_requests'>{{count($requests)}}</h1>
+                    {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
+                    <small>&nbsp;</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">as of Today</span>
+                    <h5> Approved Dispatch</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins" id='approved_dispatch'>{{($approved_request)}}</h1>
+                    {{-- <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div> --}}
+                    <small>&nbsp;</small>
+                </div>
+            </div>
+        </div>
+    </div>
 @if(session()->has('status'))
 <div class="alert alert-success alert-dismissable">
     <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>

@@ -79,7 +79,9 @@
         var id_row_upload = document.getElementById('id_row_upload').value;
         var id = document.getElementById('equipment_data').value;
         var remarks = document.getElementById('remarks_dispatch').value;
-        console.log(id);
+        var requests = document.getElementById('requests').innerHTML;
+        var dispatch_approval = document.getElementById('dispatch_approval').innerHTML;
+ 
         // alert(id);
         $.ajax({
             dataType: 'json',
@@ -89,7 +91,8 @@
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         }).done(function(data){
             $("#row"+id).remove();
-            console.log(data);
+            document.getElementById('requests').innerHTML = requests-1;
+            document.getElementById('dispatch_approval').innerHTML = parseInt(dispatch_approval)+1;
             swal("Successfully!", "Successfully Dispatch", "success");
         });
         $("#row"+id_row_upload).remove();

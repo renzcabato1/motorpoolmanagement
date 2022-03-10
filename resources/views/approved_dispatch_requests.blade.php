@@ -10,7 +10,7 @@
         <div class="col-lg-12 ">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Approved Requests
+                    <h5>Declined Requests
                         {{-- <button class="btn btn-primary" data-target="#new_request" data-toggle="modal" type="button"><i class="fa fa-plus-circle"></i>&nbsp;</button> --}}
                     </h5>
                     <div ibox-tools></div>
