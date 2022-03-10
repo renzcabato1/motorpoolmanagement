@@ -135,7 +135,7 @@
                     @endif
                     @if(auth()->user()->role_id == 3)
                     <li @if($header == 'Dispatch Equipments') class='active' @endif>
-                        <a href="{{ url('/dispatch-equipments') }}" class='active' onclick='show()' ><i class="fa fa-external-link-square"></i> <span class="nav-label">Dispatch Equipments</span> </a>
+                        <a href="{{ url('/dispatch-equipments') }}" class='active' onclick='show()' ><i class="fa fa-external-link-square"></i> <span class="nav-label">Approved Dispatch</span> </a>
                     </li>
                     @endif
                     @if(auth()->user()->role_id == 1)
@@ -148,9 +148,14 @@
                         <a href="{{ url('/project') }}" class='active' onclick='show()' ><i class="fa fa-file-text-o"></i> <span class="nav-label">Projects</span> </a>
                     </li>
                     @endif
-                    @if(auth()->user()->role_id == 1)
+                    @if(auth()->user()->role_id == 6)
                     <li @if($header == 'Fuels') class='active' @endif>
                         <a href="{{ url('/fuels') }}" class='active' onclick='show()' ><i class="fa fa-free-code-camp"></i> <span class="nav-label">Fuels</span> </a>
+                    </li>
+                    @endif
+                    @if(auth()->user()->role_id == 1)
+                    <li @if($header == 'Fuel Monitoring Report') class='active' @endif>
+                        <a href="{{ url('/fuel-monitoring') }}" class='active' onclick='show()' ><i class="fa fa-free-code-camp"></i> <span class="nav-label">Fuel Monitoring Report</span> </a>
                     </li>
                     @endif
                     @if(auth()->user()->role_id == 1)
@@ -307,7 +312,7 @@
                         });
                       
                     });
-                    $('.category').chosen({width: "100%"});
+                     $('.category').chosen({width: "100%"});
                      $(".touchspin1").TouchSpin({
                         buttondown_class: 'btn btn-white',
                         buttonup_class: 'btn btn-white',
@@ -352,7 +357,7 @@
                             scrollY: true,
                             responsive: true,
                             searching: true,
-                            ordering: true,
+                            ordering: false,
                             lengthChange: false,
                             info: false,
                             dom: "lfrti"
@@ -484,6 +489,8 @@
 
                         });
                         $("body").on("click",".remove-request",function(){
+
+                           
                             // var base_path = location.hostname;
                             var id = $(this).parent("td").data('id');
                             // alert(id);
@@ -507,15 +514,15 @@
                                         data:{id:id},
                                         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                                     }).done(function(data){
-                                        console.log(data);
-                                        // c_obj.remove();
-                                        // var id = $("#" + id + " > .firstname").html();
-                                        // alert(newusername
+                                        
+                                        var pending_request = document.getElementById('pending_request').innerHTML;
+                                        var declined_request = document.getElementById('declined_request').innerHTML;
+                                        document.getElementById('pending_request').innerHTML = pending_request-1;
+                                        document.getElementById('declined_request').innerHTML = parseInt(declined_request)+1;
+                                        document.getElementById('statusRow'+id).innerHTML = "<small class='label label'>Cancelled</small>";
+                                        document.getElementById('actionRow'+id).innerHTML = "";
                                         swal("Cancelled!", "Request has been cancelled.", "success");
                                     });
-                                    $('#row'+id).remove();
-                                swal("Cancelled!", "Request has been cancelled.", "success");
-
                                 
                                 }
                              

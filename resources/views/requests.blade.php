@@ -12,7 +12,7 @@
                     <h5>Total Requests</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">{{($all_request)}}</h1>
+                    <h1 class="no-margins" >{{($all_request)}}</h1>
                     {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
                     <small>&nbsp;</small>
                 </div>
@@ -25,7 +25,7 @@
                     <h5> Pending Requests</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">{{$pending_requests}}</h1>
+                    <h1 class="no-margins" id='pending_request'>{{$pending_requests}}</h1>
                     {{-- <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div> --}}
                     <small>&nbsp;</small>
                 </div>
@@ -38,7 +38,7 @@
                     <h5>Approved Requests</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">{{$approved_requests}}</h1>
+                    <h1 class="no-margins" >{{$approved_requests}}</h1>
                     {{-- <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div> --}}
                     <small>&nbsp;</small>
                 </div>
@@ -51,7 +51,7 @@
                     <h5>Declined/Cancelled Requests</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">{{$declined_requests}}</h1>
+                    <h1 class="no-margins" id='declined_request'>{{$declined_requests}}</h1>
                     {{-- <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div> --}}
                     <small>&nbsp;</small>
                 </div>
@@ -94,7 +94,7 @@
                         </thead>
                         <tbody>
                             @foreach($requests as $request)
-                                <tr id='row{{$request->id}}' class='pointer' data-target="#view_request{{$request->id}}" data-toggle="modal" data-id='{{$request->id}}'>
+                                <tr id='row{{$request->id}}'  @if($request->status != "Pending") class='pointer' data-target="#view_request{{$request->id}}" @endif data-toggle="modal" data-id='{{$request->id}}'>
                                     {{-- <th>Logo</th> --}}
                                     <td>RN-{{str_pad($request->id, 4, '0', STR_PAD_LEFT)}}</td>
                                     <td>
@@ -116,9 +116,9 @@
                                     <td>{{$request->area}}</td>
                                     <td>{{$request->location}}</td>
                                     <td>{!! nl2br(e($request->remarks)) !!}</td>
-                                    <td><small class='label label'>{{$request->status}}</small></td>
+                                    <td id='statusRow{{$request->id}}'><small class='label label'>{{$request->status}}</small></td>
                                 {{-- <th><small class="label label-warning">Pending</small></th> --}}
-                                    <td data-id='{{$request->id}}'>
+                                    <td data-id='{{$request->id}}' id='actionRow{{$request->id}}'>
                                         @if($request->status == "Pending")
                                         {{-- <button class="btn btn-sm btn-info approve-request"  title='Approve Request' ><i class="fa fa-check-square-o"></i></button> --}}
                                         <button class="btn btn-sm btn-info"  title='Edit' data-target="#edit_request{{$request->id}}" data-toggle="modal"><i class="fa fa-edit"></i></button>

@@ -33,7 +33,11 @@ class Admin
           }
           else if(auth()->user()->role_id == 5)
           {
-          return redirect('for-approval');
+          return redirect('dispatch-approval');
+          }
+          else if(auth()->user()->role_id == 6)
+          {
+          return redirect('fuels');
           }
     }
 }

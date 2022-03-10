@@ -66,7 +66,7 @@
                             @foreach($users as $u)
                                 @if($u->status != 1)
                                     @if($u->id != Auth::user()->id)
-                                        @if($u->role_id == 4)
+                                        @if(($u->role_id == 4) ||($u->role_id == 5))
                                             <option value='{{$u->id}}'>{{$u->name}}</option>
                                         @endif
                                     @endif                                            
@@ -92,11 +92,12 @@
     </div>
 </div>
 <script>
+    var users = {!! json_encode($users->toArray()) !!};
     function changeapprover(value)
     {
         $('#approver').val(null); 
         $("#approver_chosen a span").html("Select an Option");
-        if(value == 2)
+        if((value == 2) || (value == 3))
         {
             document.getElementById("approver_id_data").style.display="block";
             

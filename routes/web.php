@@ -99,7 +99,10 @@ Route::group( ['middleware' => 'auth'], function()
      
      //Fuels
      Route::get('fuels','FuelController@view_fuel');
+     Route::get('fuel-monitoring','FuelController@fuel_report');
      Route::post('new-fuel','FuelController@new_fuel');
+     Route::get('fuel-monitoring-export','FuelController@export_report');
+
 });
     
 

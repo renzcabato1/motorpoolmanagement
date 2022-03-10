@@ -32,7 +32,7 @@
                             <th>Total Liters</th>
                             <th>Ending Odometer</th>
                             <th>Encode By</th>
-                            <th>Action</th>
+                            <th>Location</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -45,7 +45,7 @@
                                     <td>{{number_format($fuel->liters,2)}} L</td>
                                     <td>{{number_format($fuel->ending_odometer)}} KM</td>
                                     <td>{{$fuel->user->name}}</td>
-                                    <td></td>
+                                    <td>{{$fuel->location}}</td>
                                 </tr>
                             @endforeach
                         </tbody>

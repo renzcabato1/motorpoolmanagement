@@ -29,7 +29,7 @@ class RequestController extends Controller
         $requests = RequestData::with('user','company','department','class','approver','project')
         ->where('user_id',auth()->user()->id)
         // ->where('status','Pending')
-        ->orderBy('id','desc')
+        ->orderBy('id','DESC')
         ->get();
         $projects = Project::with('company')->get();
         // dd($requests)
@@ -88,10 +88,18 @@ class RequestController extends Controller
     public function for_dispatch()
     {
         $requests = RequestData::with('approve_by','user','company','department','class','histories')
-        ->where('approver_id',auth()->user()->id)
+        // ->where('approver_id',auth()->user()->id)
         ->where('status','Approved')
         ->orderBy('id','desc')
         ->get();
+        $dispatch_approval = RequestData::with('approve_by','user','company','department','class','histories')
+        ->where('status','Reserved')
+        ->orderBy('id','desc')
+        ->count();
+        $approve_dispatch = RequestData::with('approve_by','user','company','department','class','histories','deploy')
+        ->where('status','Dispatch')
+        ->orderBy('id','desc')
+        ->count();
         $equipments = EquipmentData::with('category','class','company','brand','insurance')->where('status','Operational')->get();
         $header = "For Dispatch";
         $subheader = "";
@@ -101,6 +109,8 @@ class RequestController extends Controller
             'subheader' => $subheader,
             'requests' => $requests,
             'equipments' => $equipments,
+            'dispatch_approval' => $dispatch_approval,
+            'approve_dispatch' => $approve_dispatch,
         )
         );
     }
@@ -116,7 +126,7 @@ class RequestController extends Controller
         })
         ->orderBy('id','desc')
         ->get();
-      
+        
 
         $header = "Approved Request";
         $subheader = "";
@@ -242,7 +252,7 @@ class RequestController extends Controller
         $history->user_id = auth()->user()->id;
         $history->save();
 
-        return "success";
+        return $request;
     }
     public function approved_dispatch(Request $request)
     {

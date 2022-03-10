@@ -4,6 +4,47 @@
 
 
 <div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-success pull-right">as of Today</span>
+                    <h5>For Dispatch</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{{(count($requests))}}</h1>
+                    {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
+                    <small>&nbsp;</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-warning pull-right">as of Today</span>
+                    <h5> For Approval(Dispatch)</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{{$dispatch_approval}}</h1>
+                    {{-- <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div> --}}
+                    <small>&nbsp;</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">as of Today</span>
+                    <h5>For Deployment</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{{$approve_dispatch}}</h1>
+                    {{-- <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div> --}}
+                    <small>&nbsp;</small>
+                </div>
+            </div>
+        </div>
+    </div>
 @if(session()->has('status'))
 <div class="alert alert-success alert-dismissable">
     <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
@@ -69,7 +110,7 @@
                                 <td>
                                     <small>
                                     Name : {{$request->approve_by->name}} <br>
-                                    Date Approved : {{$request->approve_by->name}} <br>
+                                    Date Approved : {{date('M d, Y',strtotime($request->histories[0]->created_at))}} <br>
                                     Remarks : {{$request->histories[0]->remarks}} <br>
                                     </small>
                                 </td>
