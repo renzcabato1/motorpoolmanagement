@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Fuel;
 use PDF;
 use App\EquipmentData;
+use App\Location;
 use Illuminate\Http\Request;
 
 class FuelController extends Controller
@@ -12,6 +13,7 @@ class FuelController extends Controller
     public function view_fuel()
     {
         $fuels = Fuel::where('user_id',auth()->user()->id)->with('equipment','user')->get();
+        $locations = Location::where('status',"Active")->get();
         $equipments = EquipmentData::with('category','class','company','brand','insurance','fuel')->get();
         return view('fuels',
         array(
@@ -19,6 +21,7 @@ class FuelController extends Controller
             'header' => "Fuels",
             'fuels' => $fuels,
             'equipments' => $equipments,
+            'locations' => $locations,
         ));
     }
     public function new_fuel(Request $request)
