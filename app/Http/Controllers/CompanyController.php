@@ -22,6 +22,13 @@ class CompanyController extends Controller
         ));
     }
 
+    public function companiesAPI()
+    {
+        $companies = Company::get();
+     
+        return $companies;
+    }
+
     public function new_company(Request $request)
     {
         $this->validate($request, [

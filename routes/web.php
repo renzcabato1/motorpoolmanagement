@@ -104,7 +104,13 @@ Route::group( ['middleware' => 'auth'], function()
      Route::post('new-fuel','FuelController@new_fuel');
      Route::get('fuel-monitoring-export','FuelController@export_report');
 
+     //API  
+ 
+
 });
+
+Route::get('companies-api','CompanyController@companiesAPI');
+Route::get('departments-api','DepartmentController@departmentsAPI');
     
 
 
