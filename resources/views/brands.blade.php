@@ -33,14 +33,14 @@
                         </thead>
                         <tbody>
                           
-                            @foreach($brands as $brand)
+                            @foreach($brands as $key => $brand)
                                 
                                 <tr data-id='{{$brand->id}}'>
                                     {{-- <td style='text-align: center;' id='logotd{{$brand->id}}'>
                                         <img  src="{{ asset($brand->logo) }}" class="m-b-md border" alt="profile" height='75px;' width='75px;'>
                                     </td> --}}
                                     <td style='text-align: center;' id='brand_name{{$brand->id}}'>{{$brand->brand_name}}</td>
-                                    <td id='statustd{{$brand->id}}'>@if($brand->status) <small class="label label-danger">Inactive</small>  @else <small class="label label-primary">Active</small> @endif</td>
+                                    <td id='statustd{{$brand->id}}'>@if($brand->status) <small class="alert alert-danger">Inactive</small>  @else <small class="label label-primary">Active</small> @endif</td>
                                     <td id='actiontd{{$brand->id}}' data-id='{{$brand->id}}'>
                                         
                                         @if($brand->status)

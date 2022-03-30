@@ -84,7 +84,7 @@
                         <div class="dropdown profile-element">
                             <img alt="image" class="rounded-circle bg-light" style='width:54px  ;height:54px;' src="{{'images/no_image.png'}}"/>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <span class="block m-t-xs font-bold">{{Auth::user()->name}}</span>
+                                <span class="block m-t-xs font-bold">{{auth()->user()->name}}</span>
                                 <span class="text-muted text-xs block"><b class="caret"></b></span>
                             </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
@@ -677,8 +677,8 @@
                                         swal("Deactivated!", "Class has been deactivated.", "success");
                                     });
                                     document.getElementById('statusclass'+id).innerHTML = "<small class='label label-danger'>Inactive</small>";
-                                document.getElementById('actionclasstd'+id).innerHTML = "<button class='btn btn-sm btn-primary activate-class' title='Activate'><i class='fa fa-check'></i></button>";
-                                swal("Deactivated!", "Class has been deactivated.", "success");
+                                    document.getElementById('actionclasstd'+id).innerHTML = "<button class='btn btn-sm btn-primary activate-class' title='Activate'><i class='fa fa-check'></i></button>";
+                                    swal("Deactivated!", "Class has been deactivated.", "success");
 
                                 
                                 }

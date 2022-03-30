@@ -16,14 +16,14 @@
                 <input type="password" name='password' class="form-control" placeholder="******" required="">
             </div>
             @if($errors->any())
-            <div class="form-group alert alert-danger alert-dismissable">
-                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                <strong>{{$errors->first()}}</strong>
-            </div>
+                <div class="form-group alert alert-danger alert-dismissable">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <strong>{{$errors->first()}}</strong>
+                </div>
             @endif
             <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
-            {{-- <a href='{{ asset('/user_guide.pdf') }}' target='_' class="btn btn-warning block full-width m-b">View User Guide</a> --}}
-            <a href="{{ route('password.request') }}" onclick='show()'><small>Forgot password?</small></a>
+            <a href="{{ route('password.request') }}" onclick='show()'><small>Forgot password?</small></a> <br>
+            <a href="" target='_blank' onclick='show()'><small>How to use portal?</small></a>
         </form>
         <p class="m-t"> <small>Copyright &copy; {{date('Y')}}</small> </p> 
     </div>

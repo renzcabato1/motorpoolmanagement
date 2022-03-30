@@ -82,7 +82,7 @@
                             @foreach($users as $user)
                                 @if($user->status != 1)
                                     @if($user->id != Auth::user()->id)
-                                        @if($user->role_id == 4)
+                                        @if(($user->role_id == 4) || ($user->role_id == 5))
                                             <option value='{{$user->id}}'>{{$user->name}}</option>
                                         @endif
                                     @endif                                            
