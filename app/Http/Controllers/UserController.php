@@ -15,6 +15,7 @@ class UserController extends Controller
     {
         $users = User::with('department','company','role','approver')->orderBy('status')->get();
         // dd($users); 
+        // dd($users);
         $companies = Company::get();
         $departments = Department::get();
         $roles = Role::get();

@@ -66,7 +66,7 @@
                             @foreach($users as $us)
                                 @if($us->status != 1)
                                     @if($us->id != Auth::user()->id)
-                                        @if($us->role_id == 4)
+                                        @if(($us->role_id == 4) || ($us->role_id == 5))
                                             <option value='{{$us->id}}' @if($us->id == $user->approver_id) selected @endif>{{$us->name}}</option>
                                         @endif
                                     @endif                                            
@@ -82,7 +82,7 @@
                             @foreach($users as $user)
                                 @if($user->status != 1)
                                     @if($user->id != Auth::user()->id)
-                                        @if(($user->role_id == 4) || ($user->role_id == 5))
+                                        @if(($user->role_id == 5) || ($user->role_id == 4))
                                             <option value='{{$user->id}}'>{{$user->name}}</option>
                                         @endif
                                     @endif                                            
@@ -106,7 +106,7 @@
     {
         $('#approver'+id).val(null); 
         $("#approver"+id+"_chosen a span").html("Select an Option");
-        if(value == 2)
+        if((value == 2) || (value == 3))
         {
             document.getElementById("edit_approver_id"+id).style.display="block";
             
