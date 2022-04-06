@@ -367,6 +367,26 @@ class RequestController extends Controller
         $history->save();
         return "success";
     }
+    public function declined_request_dispatch(Request $request)
+    {
+        // dd($request->all());
+        // return $request;
+        
+        $req = RequestData::where('id',$request->id)->first();
+        $req->status = "Declined";
+        $req->save();
+
+        $re = User::where('id',$req->user_id)->first();
+        $re->notify(new DeclineAction($req,$request));
+
+        $history = new RequestHistory;
+        $history->request_data_id = $request->id;
+        $history->action = "Declined Request";
+        $history->user_id = auth()->user()->id;
+        $history->remarks = $request->remarks;
+        $history->save();
+        return "success";
+    }
     public function dispatch_equip(Request $request)
     {
         $equipmentID =  explode("-",$request->id);

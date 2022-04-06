@@ -101,7 +101,7 @@
                                 </td>
                                 <td data-id='{{$request->id}}'>
                                     <button class="btn btn-sm btn-info approve-dispatch"  title='Dispatch Equipment' ><i class="fa fa-check-square-o"></i></button>
-                                    {{-- <button class="btn btn-sm btn-danger declined-request" title='Decline Request' ><i class="fa fa-window-close-o"></i></button> --}}
+                                    <button class="btn btn-sm btn-danger return-dispatch" title='Return Dispatch' ><i class="fa fa-window-close-o"></i></button>
                                 </td>
                             </tr>
                             @endforeach
@@ -112,4 +112,5 @@
         </div>
     </div>
 </div>
+@include('decline_request')
 @endsection

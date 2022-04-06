@@ -79,6 +79,7 @@ Route::group( ['middleware' => 'auth'], function()
      Route::get('for-approval','RequestController@for_approval');
      Route::post('approve-request','RequestController@approve_request');
      Route::post('decline-request','RequestController@declined_request');
+     Route::post('decline-request-dispatch','RequestController@declined_request_dispatch');
      Route::get('all-approved-requests','RequestController@all_approved_requests');
      Route::get('all-declined-requests','RequestController@all_declined_requests');
 

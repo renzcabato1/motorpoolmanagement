@@ -420,7 +420,6 @@
                                 confirmButtonText: "Yes, deactivate it!",
                                 closeOnConfirm: false
                             }, function (isConfirm) {
-                                // alert(isConfirm);
                                 if(isConfirm == true)
                                 {
                                     // $("#"+id).remove();
@@ -431,19 +430,13 @@
                                         data:{id:id},
                                         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                                     }).done(function(data){
-                                        console.log(data);
-                                        // c_obj.remove();
-                                        // var id = $("#" + id + " > .firstname").html();
-                                        // alert(newusername
+                                        document.getElementById('statustd'+id).innerHTML = "<small class='label label-danger'>Inactive</small>";
+                                        document.getElementById('actiontd'+id).innerHTML = "<button class='btn btn-sm btn-primary activate-brand' title='Activate'><i class='fa fa-check'></i></button>";
                                         swal("Deactivated!", "Brand has been deactivated.", "success");
                                     });
-                                    document.getElementById('statustd'+id).innerHTML = "<small class='label label-danger'>Inactive</small>";
-                                    document.getElementById('actiontd'+id).innerHTML = "<button class='btn btn-sm btn-primary activate-brand' title='Activate'><i class='fa fa-check'></i></button>";
-                                    swal("Deactivated!", "Brand has been deactivated.", "success");
+                                
                                 
                                 }
-                                // alert(id);
-                                // $('#'+table).find('tr#'+rowId).find('td:eq(colNum)').html(newValue);
                                 
 
                             });
@@ -903,6 +896,12 @@
                             $('#id_row_declined').val(id);
                             $('#remarks_declined').val("");
                         });
+                        $("body").on("click",".declined-request-dispatch",function(){
+                            $('#declined_request').modal('show'); 
+                            var id = $(this).parent("td").data('id');
+                            $('#id_row_declined').val(id);
+                            $('#remarks_declined').val("");
+                        });
                         $("body").on("click",".Dispatch-Equipment",function(){
                             document.getElementById("brand").innerHTML="";
                             document.getElementById("plate_number").innerHTML="";
@@ -914,8 +913,8 @@
                             $('#equipment_data_chosen').remove(); 
                             var id = $(this).parent("td").data('id');
                             $('#id_row_upload').val(id);
-                          
-                        //    console.log(equipments);
+
+                            
                            var requestsData = requests.find(x => x.id === id);
                            var data = "<select name='equipment' id='equipment_data' onchange='data_change(this.value);' class='form-control-sm form-control category' required>";
                             data += '<option value="">Select Option</option>';

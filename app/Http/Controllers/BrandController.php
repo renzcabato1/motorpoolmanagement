@@ -73,7 +73,7 @@ class BrandController extends Controller
         $brand->status = 1;
         $brand->save();
 
-        return "success";
+        return $request;
         // return $brand;
 
     }
@@ -83,6 +83,6 @@ class BrandController extends Controller
         $brand->status = "";
         $brand->save();
 
-        return "success";
+        return $request;
     }
 }

@@ -40,7 +40,7 @@
                                         <img  src="{{ asset($brand->logo) }}" class="m-b-md border" alt="profile" height='75px;' width='75px;'>
                                     </td> --}}
                                     <td style='text-align: center;' id='brand_name{{$brand->id}}'>{{$brand->brand_name}}</td>
-                                    <td id='statustd{{$brand->id}}'>@if($brand->status) <small class="alert alert-danger">Inactive</small>  @else <small class="label label-primary">Active</small> @endif</td>
+                                    <td id='statustd{{$brand->id}}'>@if($brand->status) <small class='label label-danger'>Inactive</small>  @else <small class="label label-primary">Active</small> @endif</td>
                                     <td id='actiontd{{$brand->id}}' data-id='{{$brand->id}}'>
                                         
                                         @if($brand->status)
@@ -51,7 +51,7 @@
                                         @endif
                                         {{-- <button class="btn btn-sm btn-info" data-target="#change_pass{{$company->id}}" data-toggle="modal">Change Password</button> --}}
                                         {{-- <button class="btn btn-sm btn-danger delete-comp" data-target="#deletecomp{{$company->id}}" data-toggle="modal">Delete</button> --}}
-                                    </td>
+                                    </td>       
                                 </tr>
                                 @include('edit_brand') 
                             @endforeach
