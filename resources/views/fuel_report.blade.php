@@ -99,7 +99,7 @@
                                     @endphp   
                                     {{number_format($fuel_cons) }} KM
                                     </td>
-                                    <td>{{$fuel->location}}</td>
+                                    <td>{{$fuel->locations->location}}</td>
                                 </tr>
                                 @endforeach
                                 <tr>

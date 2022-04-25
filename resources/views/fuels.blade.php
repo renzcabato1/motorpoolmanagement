@@ -121,7 +121,7 @@
                                     <td>{{number_format($fuel->liters,2)}} L</td>
                                     <td>{{number_format($fuel->ending_odometer)}} KM</td>
                                     <td>{{$fuel->user->name}}</td>
-                                    <td>{{$fuel->location}}</td>
+                                    <td>{{$fuel->locations->location}}</td>
                                 </tr>
                             @endforeach
                         </tbody>

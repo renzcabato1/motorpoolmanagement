@@ -12,7 +12,7 @@ class FuelController extends Controller
     //
     public function view_fuel()
     {
-        $fuels = Fuel::where('user_id',auth()->user()->id)->with('equipment','user')->get();
+        $fuels = Fuel::where('user_id',auth()->user()->id)->with('equipment','user','locations')->get();
         $locations = Location::where('status',"Active")->get();
         $equipments = EquipmentData::with('category','class','company','brand','insurance','fuel')->get();
         return view('fuels',
@@ -45,7 +45,7 @@ class FuelController extends Controller
     }
     public function fuel_report (Request $request)
     {
-        $fuels = Fuel::where('equipment_id',$request->equipment_category)->whereBetween('date_fuel',[$request->date_from,$request->date_to])->with('equipment','user')->get();
+        $fuels = Fuel::where('equipment_id',$request->equipment_category)->whereBetween('date_fuel',[$request->date_from,$request->date_to])->with('equipment','user','locations')->get();
         $equipments = EquipmentData::with('category','class','company','brand','insurance','fuel')->get();
         $date_from = $request->date_from;
         $date_to = $request->date_to;
@@ -65,7 +65,7 @@ class FuelController extends Controller
     public function export_report(Request $request)
     {
         $equipment = EquipmentData::where('id',$request->equipment_category)->with('category','class','company','brand','insurance','fuel')->first();
-        $fuels = Fuel::where('equipment_id',$request->equipment_category)->whereBetween('date_fuel',[$request->date_from,$request->date_to])->with('equipment','user')->get();
+        $fuels = Fuel::where('equipment_id',$request->equipment_category)->whereBetween('date_fuel',[$request->date_from,$request->date_to])->with('equipment','user','locations')->get();
        
         $date_from = $request->date_from;
         $date_to = $request->date_to;

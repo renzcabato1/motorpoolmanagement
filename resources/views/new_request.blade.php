@@ -35,7 +35,6 @@
                     </div>
                     <hr>
                     <div class='row'>
-                       
                         <div class='col-md-6'>
                             <button class="btn btn-primary btn-sm mb-2" onclick='add_equipment();' type="button"><i class="fa fa-plus"></i></button> Equipment Class :
                             <div id='equipments_datas'>

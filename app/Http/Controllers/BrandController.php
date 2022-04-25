@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Brand;
+use App\AuditLog;
 use Illuminate\Http\Request;
 use URL;
 class BrandController extends Controller
@@ -45,11 +46,22 @@ class BrandController extends Controller
 
     public function edit_brand(Request $request,$id)
     {
+        // dd($request->all());
         $this->validate($request, [
             'brand_name' => 'unique:brands,brand_name,' . $id,
         ]);
 
-        $brand = Brand::where('id',$id)->first();
+        $brand = Brand::find('id',$id);
+        
+
+        $audit_log = new AuditLog;
+        $audit_log->user_id = auth()->user()->id;
+        $audit_log->table_name = "Brands";
+        $audit_log->table_id = $id;
+        $audit_log->previous_data = $brand;
+      
+   
+
         $brand->brand_name = $request->brand_name;
         if($request->hasFile('file'))
         {
@@ -61,6 +73,9 @@ class BrandController extends Controller
             $brand->logo = $file_name;
         }
         $brand->save();
+        $audit_log->after_data = $brand;
+        $audit_log->action = "Edit";
+        $audit_log->save();
         $request->session()->flash('status','Successfully updated');
         return back();
         
