@@ -74,6 +74,7 @@
                                         <small>
                                             Vendor Name : {{$fuel->vendor_name}} <br>
                                             Received By : {{$fuel->received_by}} <br>
+                                            Remarks : {{$fuel->remarks}} <br>
                                             {{-- Received By : {{$fuel->received_by}} <br> --}}
                                         </small>
                                     </td>
@@ -85,6 +86,7 @@
                                             Company : {{$fuel->equipment->company->company_code}} <br>
                                             Driver Name : {{$fuel->driver_name}} <br>
                                             Equipment : {{$fuel->equipment->company->company_code}}-{{$fuel->equipment->category->category_code}}-{{$fuel->equipment->class->class_code}}-{{str_pad($fuel->equipment->equipment_number, 4, '0', STR_PAD_LEFT)}} / {{$fuel->equipment->plate_number}} / {{$fuel->equipment->conduction_sticker}} <br>
+                                            Remarks : {{$fuel->remarks}} <br>
                                             {{-- Received By : {{$fuel->received_by}} <br> --}}
                                         </small>
                                     </td>
