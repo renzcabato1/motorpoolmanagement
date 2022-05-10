@@ -87,6 +87,13 @@
                             </div>
                             <div class='row'>
                                 <div class='col-md-12'>
+                                Remarks (<i>optional </i>) :
+                                    <textarea type="text" class="form-control"  name="remarks" id='remarks' ></textarea>
+                                </div>
+                               
+                            </div>
+                            <div class='row'>
+                                <div class='col-md-12'>
                                 Supporting Document <i>(Max of 10MB)</i> :
                                     <input type="file" class="form-control"  name="supporting_documents"   required/>
                                 </div>
@@ -114,7 +121,7 @@
                     <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
                         <thead>
                         <tr>
-                            <th>Control Number</th>
+                            <th>Issuance Number</th>
                             <th>Date</th>
                             <th>Company</th>
                             <th>Equipment</th>
@@ -128,7 +135,7 @@
                         <tbody>
                             @foreach($fuels as $fuel)
                                 <tr>
-                                    <td>IS-{{str_pad($fuel->id, 5, '0', STR_PAD_LEFT)}}</td>
+                                    <td>{{$fuel->reference_number}}</td>
                                     <td>{{date('M d, Y',strtotime($fuel->date_fuel))}}</td>
                                     <td>{{$fuel->equipment->company->company_code}}</td>
                                     <td>{{$fuel->equipment->company->company_code}}-{{$fuel->equipment->category->category_code}}-{{$fuel->equipment->class->class_code}}-{{str_pad($fuel->equipment->equipment_number, 4, '0', STR_PAD_LEFT)}} <br> {{$fuel->equipment->plate_number}} <br> {{$fuel->equipment->conduction_sticker}}</td>

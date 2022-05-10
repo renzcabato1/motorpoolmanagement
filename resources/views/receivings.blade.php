@@ -70,6 +70,13 @@
                             </div>
                             <div class='row'>
                                 <div class='col-md-12'>
+                                Remarks (<i>optional </i>) :
+                                    <textarea type="text" class="form-control"  name="remarks" id='remarks' ></textarea>
+                                </div>
+                               
+                            </div>
+                            <div class='row'>
+                                <div class='col-md-12'>
                                 Supporting Document <i>(Max of 10MB)</i> :
                                     <input type="file" class="form-control"  name="supporting_documents" id='reference_number'  required/>
                                 </div>

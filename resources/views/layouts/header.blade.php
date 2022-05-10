@@ -163,6 +163,9 @@
                     <li @if($header == 'Fuel Monitoring Report') class='active' @endif>
                         <a href="{{ url('/fuel-monitoring') }}" class='active' onclick='show()' ><i class="fa fa-free-code-camp"></i> <span class="nav-label">Fuel Issued Report</span> </a>
                     </li>
+                    <li @if($header == 'Fuel Report') class='active' @endif>
+                        <a href="{{ url('/fuels-report') }}" class='active' onclick='show()' ><i class="fa fa-free-code-camp"></i> <span class="nav-label">Fuel Report</span> </a>
+                    </li>
                     <li @if($header == 'Locations') class='active' @endif>
                         <a href="{{ url('/locations') }}" class='active' onclick='show()' ><i class="fa fa-location-arrow"></i> <span class="nav-label">Locations</span> </a>
                     </li>
