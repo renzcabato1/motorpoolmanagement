@@ -48,7 +48,9 @@
         <div class="col-lg-12 ">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Fuel Monitoring Report @if(count($fuels) != 0) <a target='_blank' href='{{ url('/fuel-export?equipment_category='.$location_id.'&date_from='.$date_from.'&date_to='.$date_to.'') }}'><button class="btn btn-primary" type="button"><i class="fa fa-print"></i>Export &nbsp;</button></a>@endif</h5>
+                    <h5>Fuel Monitoring Report 
+                        {{-- @if(count($fuels) != 0) <a target='_blank' href='{{ url('/fuel-export?equipment_category='.$location_id.'&date_from='.$date_from.'&date_to='.$date_to.'') }}'><button class="btn btn-primary" type="button"><i class="fa fa-print"></i>Export &nbsp;</button></a>@endif --}}
+                    </h5>
                     {{-- <div ibox-tools></div> --}}
                 </div>
                 <div class="ibox-content">
