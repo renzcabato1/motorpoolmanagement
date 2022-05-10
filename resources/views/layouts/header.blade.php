@@ -377,7 +377,35 @@
                             
                         });
                         $('.dataTables-equipments').DataTable({
-                            pageLength: 10,
+                            pageLength: -1,
+                            pagging: false,
+                            scrollY: true,
+                            responsive: true,
+                            searching: true,
+                            ordering: false,
+                            lengthChange: false,
+                            dom: '<"html5buttons"B>lTfgitp',
+                            buttons: [
+                                { extend: 'copy'},
+                                {extend: 'csv'},
+                                {extend: 'excel', title: 'ExampleFile'},
+                                {extend: 'pdf', title: 'ExampleFile'},
+
+                                {extend: 'print',
+                                customize: function (win){
+                                        $(win.document.body).addClass('white-bg');
+                                        $(win.document.body).css('font-size', '10px');
+
+                                        $(win.document.body).find('table')
+                                                .addClass('compact')
+                                                .css('font-size', 'inherit');
+                                    }
+                                }
+                            ]
+                        });
+                        $('.fuel-reports').DataTable({
+                            // pageLength: -1,
+                            pagging: false,
                             responsive: true,
                             dom: '<"html5buttons"B>lTfgitp',
                             buttons: [

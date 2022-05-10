@@ -53,7 +53,7 @@
                 </div>
                 <div class="ibox-content">
 
-                    <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover">
+                    <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover fuel-reports">
                         <thead>
                             <tr>
                                 <th>Date</th>
