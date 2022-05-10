@@ -39,5 +39,9 @@ class Admin
           {
           return redirect('fuels');
           }
+          else if(auth()->user()->role_id == 7)
+          {
+          return redirect('fuels-report');
+          }
     }
 }
