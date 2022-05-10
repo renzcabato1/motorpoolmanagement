@@ -105,7 +105,7 @@
                     <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example no-margins">
                         <thead>
                         <tr>
-                            <th></th>
+                            <th>Reference Number</th>
                             <th>Received Date</th>
                             <th>Date Encode</th>
                             <th>Vendor Name</th>
@@ -122,7 +122,7 @@
                         <tbody>
                             @foreach($receivings as $receive)
                             <tr>
-                                <td>RR-{{str_pad($receive->id, 5, '0', STR_PAD_LEFT)}}</td>
+                                <td>{{$receive->reference_number}}</td>
                                 <td>{{date('M d, Y',strtotime($receive->date_fuel))}}</td>
                                 <td>{{date('M d, Y',strtotime($receive->created_at))}}</td>
                                 <td>{{$receive->vendor_name}}</td>
