@@ -172,9 +172,9 @@ class FuelController extends Controller
     }
     public function receivings()
     {
-        $fuels = Fuel::where('user_id',auth()->user()->id)->with('equipment','user','locations')->where('user_id',auth()->user()->id)->get();
+        $fuels = Fuel::where('user_id',auth()->user()->id)->with('equipment','user','locations')->get();
         $locations = Location::where('status',"Active")->where('location_type','!=','DIRECT SUPPLIER')->get();
-        $receivings = Fuel::where('type','=','receivings')->with('equipment','user','locations')->orderBy('id','desc')->get();
+        $receivings = Fuel::where('type','=','receivings')->with('equipment','user','locations')->where('user_id',auth()->user()->id)->orderBy('id','desc')->get();
         // dd($receivings);
         return view('receivings',
         array(
