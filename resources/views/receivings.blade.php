@@ -12,7 +12,7 @@
 @endif
 @include('error')
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>New
@@ -63,7 +63,7 @@
                             </div>
                             <div class='row'>
                                 <div class='col-md-12'>
-                                Reference Number :
+                                Reference Number (DR/SI) :
                                     <input type="text" class="input-sm form-control"  name="reference_number" id='reference_number'  autocomplete="off" required/>
                                 </div>
                                
@@ -92,7 +92,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-9">
+        <div class="col-lg-8">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>Receivings
