@@ -47,13 +47,20 @@
                             <div class='row'>
                                 <div class='col-md-12'>
                                 Location of Fuel Station :
-                                    <select name='location' class='form-control-sm form-control category'  required>
+                                    <select name='location' class='form-control-sm form-control category' onchange='get_fuel_active(this.value)'  required>
                                         <option value=""></option>
                                         @foreach($locations as $key => $location )
                                             <option value='{{$location->id}}'>{{$location->location}}</option>
                                         
                                         @endforeach
                                     </select>
+                                </div>
+                            </div>
+                            
+                            <div class='row'>
+                                <div class='col-md-12'>
+                                Issuance Number :
+                                    <input type="text" class="input-sm form-control"  name="issuance_number" autocomplete="off" required/>
                                 </div>
                             </div>
                             <div class='row'>
@@ -64,8 +71,8 @@
                             </div>
                             <div class='row'>
                                 <div class='col-md-12'>
-                                Total Liters :
-                                    <input type="number" class="input-sm form-control"  name="total_liters" step='0.01' min='0.01' autocomplete="off" required/>
+                                Total Liters Issued:
+                                    <input type="number" class="input-sm form-control"  name="total_liters" id='total_liters' step='0.01' min='0.01' autocomplete="off" required/>
                                 </div>
                             </div>
                             <div class='row'>
@@ -76,6 +83,12 @@
                                 <div class='col-md-6'>
                                 Ending Odometer :
                                     <input type="number" class="input-sm form-control"  name="ending_odometer"  id='ending_odometer'  step='0' min='0' autocomplete="off" required/>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class='col-md-12'>
+                                Supporting Document <i>(Max of 10MB)</i> :
+                                    <input type="file" class="form-control"  name="supporting_documents"   required/>
                                 </div>
                             </div>
                         </div>
@@ -101,6 +114,7 @@
                     <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
                         <thead>
                         <tr>
+                            <th>Control Number</th>
                             <th>Date</th>
                             <th>Company</th>
                             <th>Equipment</th>
@@ -114,6 +128,7 @@
                         <tbody>
                             @foreach($fuels as $fuel)
                                 <tr>
+                                    <td>IS-{{str_pad($fuel->id, 5, '0', STR_PAD_LEFT)}}</td>
                                     <td>{{date('M d, Y',strtotime($fuel->date_fuel))}}</td>
                                     <td>{{$fuel->equipment->company->company_code}}</td>
                                     <td>{{$fuel->equipment->company->company_code}}-{{$fuel->equipment->category->category_code}}-{{$fuel->equipment->class->class_code}}-{{str_pad($fuel->equipment->equipment_number, 4, '0', STR_PAD_LEFT)}} <br> {{$fuel->equipment->plate_number}} <br> {{$fuel->equipment->conduction_sticker}}</td>

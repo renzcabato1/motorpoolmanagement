@@ -34,10 +34,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                          
                             @foreach($companies as $company)
                                 <tr>
-                                    
                                     <td>{{$company->company_code}}</td>
                                     <td>{{$company->company_name}}</td>
                                     <td id='statuscompanytd{{$company->id}}'>@if($company->status) <small class="label label-danger">Inactive</small>  @else <small class="label label-primary">Active</small> @endif</td>

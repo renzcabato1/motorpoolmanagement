@@ -153,12 +153,18 @@
                     @endif
                     @if(auth()->user()->role_id == 6)
                     <li @if($header == 'Fuels') class='active' @endif>
-                        <a href="{{ url('/fuels') }}" class='active' onclick='show()' ><i class="fa fa-free-code-camp"></i> <span class="nav-label">Fuels</span> </a>
+                        <a href="{{ url('/fuels') }}" class='active' onclick='show()' ><i class="fa fa-free-code-camp"></i> <span class="nav-label">Fuel Issuance</span> </a>
+                    </li>
+                    <li @if($header == 'Receivings') class='active' @endif>
+                        <a href="{{ url('/receivings') }}" class='active' onclick='show()' ><i class="fa fa-file-code-o"></i> <span class="nav-label">Fuel Receiving</span> </a>
                     </li>
                     @endif
                     @if(auth()->user()->role_id == 1)
                     <li @if($header == 'Fuel Monitoring Report') class='active' @endif>
-                        <a href="{{ url('/fuel-monitoring') }}" class='active' onclick='show()' ><i class="fa fa-free-code-camp"></i> <span class="nav-label">Fuel Monitoring Report</span> </a>
+                        <a href="{{ url('/fuel-monitoring') }}" class='active' onclick='show()' ><i class="fa fa-free-code-camp"></i> <span class="nav-label">Fuel Issued Report</span> </a>
+                    </li>
+                    <li @if($header == 'Locations') class='active' @endif>
+                        <a href="{{ url('/locations') }}" class='active' onclick='show()' ><i class="fa fa-location-arrow"></i> <span class="nav-label">Locations</span> </a>
                     </li>
                     @endif
                     @if(auth()->user()->role_id == 1)

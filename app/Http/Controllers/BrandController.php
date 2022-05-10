@@ -50,28 +50,16 @@ class BrandController extends Controller
         $this->validate($request, [
             'brand_name' => 'unique:brands,brand_name,' . $id,
         ]);
-
-        $brand = Brand::find('id',$id);
-        
+        // dd($id);
+        $brand = Brand::where('id',$id)->first();
 
         $audit_log = new AuditLog;
         $audit_log->user_id = auth()->user()->id;
         $audit_log->table_name = "Brands";
         $audit_log->table_id = $id;
         $audit_log->previous_data = $brand;
-      
-   
 
         $brand->brand_name = $request->brand_name;
-        if($request->hasFile('file'))
-        {
-            $attachment = $request->file('file');
-            $original_name = $attachment->getClientOriginalName();
-            $name = time().'_'.$attachment->getClientOriginalName();
-            $attachment->move(public_path().'/brand_image/', $name);
-            $file_name = '/brand_image/'.$name;
-            $brand->logo = $file_name;
-        }
         $brand->save();
         $audit_log->after_data = $brand;
         $audit_log->action = "Edit";

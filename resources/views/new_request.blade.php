@@ -179,7 +179,7 @@
     function add_equipment()
     { 
         var idEquipment = $('#equipments_datas').children().last().attr('id');
-            var idEquipmentData = parseInt(idEquipment) + 1;
+        var idEquipmentData = parseInt(idEquipment) + 1;
         var equip_select = "<div class='input-group mt-3' id='"+idEquipmentData+"'><select name='equipment_category[]'  class='form-control-sm form-control category mt-2' required>";
             equip_select+= "<option value=''></option>";
             equip_select+= "@foreach($classes as $key => $class )";

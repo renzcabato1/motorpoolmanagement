@@ -48,7 +48,6 @@
                             <option value="Mindanao" @if($project->area == "Mindanao") selected @endif>Mindanao</option>
                         </select>    
                      </div>
-                 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

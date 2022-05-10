@@ -46,7 +46,7 @@
                     <div class='row'>
                         <div class='col-md-12'>
                         Total Liters :
-                            <input type="number" class="input-sm form-control"  name="total_liters" step='0.01' min='0.01' autocomplete="off" required/>
+                            <input type="number" class="input-sm form-control"  id='' name="total_liters" step='0.01' min='0.01' autocomplete="off" required/>
                         </div>
                     </div>
                     <div class='row'>
@@ -70,6 +70,7 @@
 </div>
 <script>
     var equipments = {!! json_encode($equipments->toArray()) !!};
+    var locations = {!! json_encode($locations->toArray()) !!};
     function start_data(data)
     {
         var d = data.split('-');
@@ -87,6 +88,19 @@
             document.getElementById("date_fuel").min = fuel[0].date_fuel;
             document.getElementById("starting_odometer").value = fuel[0].ending_odometer;
             document.getElementById("ending_odometer").min = fuel[0].ending_odometer;
+        }
+    }
+    function get_fuel_active(data)
+    {
+        var idSample = parseInt(data);
+        var item = locations.find(item => item.id === idSample);
+        if(item.location_type == "DIRECT SUPPLIER")
+        {
+            document.getElementById("total_liters").max = "";
+        }
+        else
+        {
+            document.getElementById("total_liters").max = item.actual_fuel;
         }
     }
 </script>
