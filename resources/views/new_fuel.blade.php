@@ -101,6 +101,9 @@
         else
         {
             document.getElementById("total_liters").max = item.actual_fuel;
+
+            var d = item.actual_fuel;
+            document.getElementById("available_fuel").value = d;
         }
     }
 </script>

@@ -21,6 +21,7 @@
                             <label class="font-normal">Locations </label>
                             <select name='equipment_category' class='form-control-sm form-control category' onchange='start_data(value)' required>
                                 <option value=""></option>
+                                <option value="All" {{("All" == $location_id) ? "selected":"" }}>All</option>
                                 @foreach($locations as $key => $location )
                                     <option value='{{$location->id}}' {{($location->id == $location_id) ? "selected":"" }}>{{$location->location}}</option>
                                 
@@ -58,8 +59,11 @@
                     <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover fuel-reports">
                         <thead>
                             <tr>
+                                <th>Location</th>
                                 <th>Date</th>
-                                <th>Description</th>
+                                <th>Vendor Name/Driver name</th>
+                                <th>Received By/Equipment</th>
+                                <th>Remarks</th>
                                 <th>Reference</th>
                                 <th>Encode By</th>
                                 <th>In</th>
@@ -70,40 +74,48 @@
                         <tbody>
                             @foreach($fuels as $fuel)
                                 <tr>
+                                    <td>{{$fuel->locations->location}}</td>
                                     <td>{{date('F d, Y',strtotime($fuel->date_fuel))}}</td>
                                     @if($fuel->type == "receivings")
                                     <td>
-                                        <small>
-                                            Vendor Name : {{$fuel->vendor_name}} <br>
+                                            Vendor Name : {{$fuel->vendor_name}} 
+                                       
+                                    </td>
+                                    <td>
                                             Received By : {{$fuel->received_by}} <br>
-                                            Remarks : {{$fuel->remarks}} <br>
-                                            {{-- Received By : {{$fuel->received_by}} <br> --}}
-                                        </small>
-                                    </td>
-                                    @else
-
-                                    <td>
-                                        <small>
                                             
-                                            Company : {{$fuel->equipment->company->company_code}} <br>
-                                            Driver Name : {{$fuel->driver_name}} <br>
-                                            Equipment : {{$fuel->equipment->company->company_code}}-{{$fuel->equipment->category->category_code}}-{{$fuel->equipment->class->class_code}}-{{str_pad($fuel->equipment->equipment_number, 4, '0', STR_PAD_LEFT)}} / {{$fuel->equipment->plate_number}} / {{$fuel->equipment->conduction_sticker}} <br>
-                                            Remarks : {{$fuel->remarks}} <br>
-                                            {{-- Received By : {{$fuel->received_by}} <br> --}}
-                                        </small>
                                     </td>
-                                    @endif
-                                   
-                                    <td>{{$fuel->reference_number}}</td>
-                                    <td>{{$fuel->user->name}}</td>
-                                    <td>@if($fuel->type == "receivings"){{number_format($fuel->liters,2)}}@endif</td>
-                                    <td>@if($fuel->type != "receivings"){{number_format($fuel->liters,2)}}@endif</td>
                                     <td>
-                                        @if($fuel->type == "receivings")
-                                            {{number_format($fuel->liters+$fuel->previous_fuel,2)}}
+                                            {{$fuel->remarks}} <br>
+                                            
+                                        </td>
                                         @else
-                                            {{number_format($fuel->previous_fuel-$fuel->liters,2)}}
-                                        @endif</td>
+
+                                        <td>
+                                                Driver Name : {{$fuel->driver_name}} <br>
+                                            
+                                        </td>
+                                        <td>
+                                                Equipment : {{$fuel->equipment->company->company_code}}-{{$fuel->equipment->category->category_code}}-{{$fuel->equipment->class->class_code}}-{{str_pad($fuel->equipment->equipment_number, 4, '0', STR_PAD_LEFT)}} / {{$fuel->equipment->plate_number}} / {{$fuel->equipment->conduction_sticker}} <br>
+                                            
+                                        </td>
+                                        <td>
+                                                {{$fuel->remarks}} <br>
+                                            
+                                        </td>
+                                        @endif
+                                    
+                                        <td>{{$fuel->reference_number}}</td>
+                                        <td>{{$fuel->user->name}}</td>
+                                        <td>@if($fuel->type == "receivings"){{number_format($fuel->liters,2)}}@endif</td>
+                                        <td>@if($fuel->type != "receivings"){{number_format($fuel->liters,2)}}@endif</td>
+                                        <td>
+                                            @if($fuel->type == "receivings")
+                                                {{number_format($fuel->liters+$fuel->previous_fuel,2)}}
+                                            @else
+                                                {{number_format($fuel->previous_fuel-$fuel->liters,2)}}
+                                            @endif
+                                        </td>
                                 </tr>
                             @endforeach
                         </tbody>

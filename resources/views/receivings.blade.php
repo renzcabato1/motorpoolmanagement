@@ -34,13 +34,23 @@
                             <div class='row'>
                                 <div class='col-md-12'>
                                 Location :
-                                    <select name='location' class='form-control-sm form-control category'  required>
+                                    <select name='location' class='form-control-sm form-control category' onchange='get_fuel_active(this.value)'   required>
                                         <option value=""></option>
                                         @foreach($locations as $key => $location )
                                             <option value='{{$location->id}}'>{{$location->location}}</option>
                                         
                                         @endforeach
                                     </select>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class='col-md-6'>
+                                Capacity :
+                                    <input type="text" class="input-sm form-control" id='capacity' name="capacity" autocomplete="off" readonly/>
+                                </div>
+                                <div class='col-md-6'>
+                                Running Balance :
+                                    <input type="text" class="input-sm form-control" id='running_balance'  name="running_balance" autocomplete="off" readonly/>
                                 </div>
                             </div>
                             <div class='row'>
@@ -58,7 +68,7 @@
                             <div class='row'>
                                 <div class='col-md-12'>
                                 Total Liters :
-                                    <input type="number" class="input-sm form-control"  name="total_liters" step='0.01' min='0.01' autocomplete="off" required/>
+                                    <input type="number" class="input-sm form-control" oninvalid="this.setCustomValidity('Available Capacity : '+this.max)"  oninput="this.setCustomValidity('')"   id='total_liters' name="total_liters" step='0.01' min='0.01' autocomplete="off" required/>
                                 </div>
                             </div>
                             <div class='row'>
@@ -144,4 +154,24 @@
         </div>
     </div>
 </div>
+<script>
+        var locations = {!! json_encode($locations->toArray()) !!};
+        console.log(locations);
+        function get_fuel_active(data)
+        {
+            var idSample = parseInt(data);
+
+            var item = locations.find(item => item.id === idSample);
+            var total_liters = parseFloat(item.capacity)-parseFloat(item.actual_fuel);
+            // alert(total_liters);
+            document.getElementById("capacity").value = numberWithCommas(item.capacity);
+            document.getElementById("running_balance").value = numberWithCommas(item.actual_fuel);
+            document.getElementById("total_liters").max = total_liters;
+        
+        }
+
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+</script>
 @endsection

@@ -59,6 +59,12 @@
                             
                             <div class='row'>
                                 <div class='col-md-12'>
+                                Available Fuel :
+                                    <input type="text" class="input-sm form-control"  id='available_fuel' autocomplete="off" readonly/>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class='col-md-12'>
                                 Issuance Number :
                                     <input type="text" class="input-sm form-control"  name="issuance_number" autocomplete="off" required/>
                                 </div>
@@ -72,7 +78,7 @@
                             <div class='row'>
                                 <div class='col-md-12'>
                                 Total Liters Issued:
-                                    <input type="number" class="input-sm form-control"  name="total_liters" id='total_liters' step='0.01' min='0.01' autocomplete="off" required/>
+                                    <input type="number" class="input-sm form-control" oninvalid="this.setCustomValidity('Available Fuel : '+this.max)"  oninput="this.setCustomValidity('')" name="total_liters" id='total_liters' step='0.01' min='0.01' autocomplete="off" required/>
                                 </div>
                             </div>
                             <div class='row'>
