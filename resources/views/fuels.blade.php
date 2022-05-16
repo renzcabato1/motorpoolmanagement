@@ -37,7 +37,7 @@
                                     <select name='equipment_category' class='form-control-sm form-control category' onchange='start_data(value)' required>
                                         <option value=""></option>
                                         @foreach($equipments as $key => $equipment )
-                                            <option value='{{$equipment->id}}-{{$key}}'>{{$equipment->company->company_code}}-{{$equipment->category->category_code}}-{{$equipment->class->class_code}}-{{str_pad($equipment->equipment_number, 4, '0', STR_PAD_LEFT)}} / {{$equipment->plate_number}} / {{$equipment->conduction_sticker}}</option>
+                                            <option value='{{$equipment->id}}-{{$key}}'>{{$equipment->old_equipment_data}} / {{$equipment->company->company_code}}-{{$equipment->category->category_code}}-{{$equipment->class->class_code}}-{{str_pad($equipment->equipment_number, 4, '0', STR_PAD_LEFT)}} / {{$equipment->plate_number}} / {{$equipment->conduction_sticker}}</option>
                                         
                                         @endforeach
                                     </select>
