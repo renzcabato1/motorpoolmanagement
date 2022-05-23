@@ -96,7 +96,22 @@
                                             
                                         </td>
                                         <td>
-                                                Equipment : {{$fuel->equipment->company->company_code}}-{{$fuel->equipment->category->category_code}}-{{$fuel->equipment->class->class_code}}-{{str_pad($fuel->equipment->equipment_number, 4, '0', STR_PAD_LEFT)}} / {{$fuel->equipment->plate_number}} / {{$fuel->equipment->conduction_sticker}} <br>
+                                            <small>
+                                                Request type : {{$fuel->request_type}} <Br>
+                                                @if($fuel->request_type == "Equipment")
+                                               
+                                                Company  :     {{($fuel->equipment->company->company_code)}} <br>
+                                                Equipment Code  :     {{$fuel->equipment->company->company_code}}-{{$fuel->equipment->category->category_code}}-{{$fuel->equipment->class->class_code}}-{{str_pad($fuel->equipment->equipment_number, 4, '0', STR_PAD_LEFT)}}  <br>
+                                                Old Code :  {{$fuel->equipment->old_code}}
+                                                Ending Odometer : {{number_format($fuel->ending_odometer)}} KM
+                                                @elseif($fuel->request_type == "Generator")
+                                                Generator  :     {{($fuel->generator->brand)}} -  {{($fuel->generator->model)}}<br>
+                                                @elseif($fuel->request_type == "Affiliates")
+                                                Company  : {{$fuel->company->company_code}}
+                                                @else
+                                                    {{$fuel->others}}
+                                                @endif
+                                                </small>
                                             
                                         </td>
                                         <td>
