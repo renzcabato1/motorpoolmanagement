@@ -19,5 +19,12 @@ class Fuel extends Model
     {
         return $this->belongsTo(Location::class,'location','id');
     }
-    
+    public function company()
+    {
+        return $this->hasOne(Company::class,'id','affiliates_id');
+    }
+    public function generator()
+    {
+        return $this->hasOne(Generator::class,'id','generator_id');
+    }
 }

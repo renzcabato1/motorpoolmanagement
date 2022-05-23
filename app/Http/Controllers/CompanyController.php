@@ -73,7 +73,7 @@ class CompanyController extends Controller
     {
 
         $company = Company::where('id',$request->id)->first();
-        $company->status = "";
+        $company->status = Null;
         $company->save();
 
         return "success";

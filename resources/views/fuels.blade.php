@@ -33,8 +33,21 @@
                             </div>
                             <div class='row'>
                                 <div class='col-md-12'>
+                                    Type :
+                                    <select name='type_requests' class='form-control-sm form-control category' onchange='type_request(value)' required>
+                                        <option value=""></option>
+                                        <option value="Equipment">Equipment</option>
+                                        <option value="Generator">Generator</option>
+                                        <option value="Affiliates">Affiliates</option>
+                                        <option value="Others">Others</option>
+                                    
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='row' id='equipment' style='display:none;'>
+                                <div class='col-md-12'>
                                     Equipment :
-                                    <select name='equipment_category' class='form-control-sm form-control category' onchange='start_data(value)' required>
+                                    <select name='equipment_category' id='equipment_category' class='form-control-sm form-control category' onchange='start_data(value)' >
                                         <option value=""></option>
                                         @foreach($equipments as $key => $equipment )
                                             <option value='{{$equipment->id}}-{{$key}}'>{{$equipment->old_equipment_data}} / {{$equipment->company->company_code}}-{{$equipment->category->category_code}}-{{$equipment->class->class_code}}-{{str_pad($equipment->equipment_number, 4, '0', STR_PAD_LEFT)}} / {{$equipment->plate_number}} / {{$equipment->conduction_sticker}}</option>
@@ -42,7 +55,34 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                
+                            </div>
+                            <div class='row' id='generator' style='display:none;'>
+                                <div class='col-md-12'>
+                                    Generator :
+                                    <select name='generator_category' id='generator_category' class='form-control-sm form-control category'  >
+                                        <option value=""></option>
+                                        @foreach($generators as $generator)
+                                            <option value="{{$generator->id}}">{{$generator->brand}} - {{$generator->model}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='row' id='affiliates' style='display:none;'>
+                                <div class='col-md-12'>
+                                    Affiliates :
+                                    <select name='affiliates_category' id='affiliates_category' class='form-control-sm form-control category'  >
+                                        <option value=""></option>
+                                        @foreach($companies as $company)
+                                            <option value='{{$company->id}}'>{{$company->company_code}} - {{$company->company_name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='row' id='others' style='display:none;'>
+                                <div class='col-md-12'>
+                                    Others :
+                                    <textarea type="text" class="form-control"  name="others_category" id='others_category' ></textarea>
+                                </div>
                             </div>
                             <div class='row'>
                                 <div class='col-md-12'>
@@ -88,7 +128,7 @@
                                 </div>
                                 <div class='col-md-6'>
                                 Ending Odometer :
-                                    <input type="number" class="input-sm form-control"  name="ending_odometer"  id='ending_odometer'  step='0' min='0' autocomplete="off" required/>
+                                    <input type="number" class="input-sm form-control"  name="ending_odometer"  id='ending_odometer'  step='0' min='0' autocomplete="off" readonly/>
                                 </div>
                             </div>
                             <div class='row'>
@@ -129,11 +169,9 @@
                         <tr>
                             <th>Issuance Number</th>
                             <th>Date</th>
-                            <th>Company</th>
-                            <th>Equipment</th>
+                            <th>Information</th>
                             <th>Driver Name</th>
                             <th>Total Liters</th>
-                            <th>Ending Odometer</th>
                             <th>Encode By</th>
                             <th>Location</th>
                         </tr>
@@ -143,11 +181,26 @@
                                 <tr>
                                     <td>{{$fuel->reference_number}}</td>
                                     <td>{{date('M d, Y',strtotime($fuel->date_fuel))}}</td>
-                                    <td>{{$fuel->equipment->company->company_code}}</td>
-                                    <td>{{$fuel->equipment->company->company_code}}-{{$fuel->equipment->category->category_code}}-{{$fuel->equipment->class->class_code}}-{{str_pad($fuel->equipment->equipment_number, 4, '0', STR_PAD_LEFT)}} <br> {{$fuel->equipment->plate_number}} <br> {{$fuel->equipment->conduction_sticker}}</td>
+                                    <td>
+                                        <small>
+                                        Request type : {{$fuel->request_type}} <Br>
+                                        @if($fuel->request_type == "Equipment")
+                                       
+                                        Company  :     {{($fuel->equipment->company->company_code)}} <br>
+                                        Equipment Code  :     {{$fuel->equipment->company->company_code}}-{{$fuel->equipment->category->category_code}}-{{$fuel->equipment->class->class_code}}-{{str_pad($fuel->equipment->equipment_number, 4, '0', STR_PAD_LEFT)}}  <br>
+                                        Old Code :  {{$fuel->equipment->old_code}}
+                                        Ending Odometer : {{number_format($fuel->ending_odometer)}} KM
+                                        @elseif($fuel->request_type == "Generator")
+                                        Generator  :     {{($fuel->generator->brand)}} -  {{($fuel->generator->model)}}<br>
+                                        @elseif($fuel->request_type == "Affiliates")
+                                        Company  : {{$fuel->company->company_code}}
+                                        @else
+                                            {{$fuel->others}}
+                                        @endif
+                                        </small>
+                                    </td>
                                     <td>{{$fuel->driver_name}}</td>
                                     <td>{{number_format($fuel->liters,2)}} L</td>
-                                    <td>{{number_format($fuel->ending_odometer)}} KM</td>
                                     <td>{{$fuel->user->name}}</td>
                                     <td>{{$fuel->locations->location}}</td>
                                 </tr>
@@ -161,4 +214,77 @@
     </div>
 </div>
 @include('new_fuel')
+<script>
+    function type_request(value)
+    {
+        
+        if(value == "Equipment")
+        {
+            document.getElementById("equipment").style.display = "block";
+            document.getElementById("equipment_category").required = true;
+            document.getElementById("ending_odometer").required = true;
+            $("#ending_odometer").attr("readonly", false); 
+            
+            document.getElementById("generator").style.display = "none";
+            document.getElementById("generator_category").required = false;
+
+            document.getElementById("affiliates").style.display = "none";
+            document.getElementById("affiliates_category").required = false;
+
+            document.getElementById("others").style.display = "none";
+            document.getElementById("others_category").required = false;
+            
+            
+        }
+        else if(value == "Generator")
+        {
+            document.getElementById("equipment").style.display = "none";
+            document.getElementById("equipment_category").required = false;
+            document.getElementById("ending_odometer").required = false;
+            $("#ending_odometer").attr("readonly", true); 
+
+            document.getElementById("generator").style.display = "block";
+            document.getElementById("generator_category").required = true;
+
+            document.getElementById("affiliates").style.display = "none";
+            document.getElementById("affiliates_category").required = false;
+
+            document.getElementById("others").style.display = "none";
+            document.getElementById("others_category").required = false;
+
+        }
+        else if(value == "Affiliates")
+        {
+            document.getElementById("equipment").style.display = "none";
+            document.getElementById("equipment_category").required = false;
+            document.getElementById("ending_odometer").required = false;
+            $("#ending_odometer").attr("readonly", true); 
+
+            document.getElementById("generator").style.display = "none";
+            document.getElementById("generator_category").required = false;
+
+            document.getElementById("affiliates").style.display = "block";
+            document.getElementById("affiliates_category").required = true;
+
+            document.getElementById("others").style.display = "none";
+            document.getElementById("others_category").required = false;
+        }
+        else
+        {
+            document.getElementById("equipment").style.display = "none";
+            document.getElementById("equipment_category").required = false;
+            document.getElementById("ending_odometer").required = false;
+            $("#ending_odometer").attr("readonly", true); 
+
+            document.getElementById("generator").style.display = "none";
+            document.getElementById("generator_category").required = false;
+
+            document.getElementById("affiliates").style.display = "none";
+            document.getElementById("affiliates_category").required = false;
+
+            document.getElementById("others").style.display = "block";
+            document.getElementById("others_category").required = true;
+        }
+    }
+</script>
 @endsection

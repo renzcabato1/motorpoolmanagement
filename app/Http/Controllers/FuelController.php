@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Fuel;
+use App\Company;
+use App\Generator;
 use PDF;
 use App\EquipmentData;
 use App\Location;
@@ -12,9 +14,13 @@ class FuelController extends Controller
     //
     public function view_fuel()
     {
-        $fuels = Fuel::where('user_id',auth()->user()->id)->with('equipment','user','locations')->where('type','=',null)->orderBy('id','desc')->get();
+        $fuels = Fuel::where('user_id',auth()->user()->id)->with('equipment','user','locations','company','generator')->where('type','=',null)->orderBy('id','desc')->get();
+        $companies = Company::where('status',Null)->get();
         $locations = Location::where('status',"Active")->get();
-        $equipments = EquipmentData::with('category','class','company','brand','insurance','fuel')->get();
+        $generators = Generator::get();
+        $equipments = EquipmentData::with(['category','class','company','brand','insurance','fuel'=> function($q) {
+            $q->where('request_type', 'Equipment');
+        }])->get();
         return view('fuels',
         array(
             'subheader' => '',
@@ -22,11 +28,15 @@ class FuelController extends Controller
             'fuels' => $fuels,
             'equipments' => $equipments,
             'locations' => $locations,
+            'companies' => $companies,
+            'generators' => $generators,
         ));
     }
     public function new_fuel(Request $request)
     {
-        
+        // dd($request->all());
+       
+
         $location = Location::where('id',$request->location)->first();
         $old_actual_fuel = "";
         if($location->location_type != "DIRECT SUPPLIER")
@@ -42,9 +52,29 @@ class FuelController extends Controller
         $attachment->move(public_path().'/receiving_documents/', $name);
         $file_name = '/receiving_documents/'.$name;
        
-        $equipment = explode("-",$request->equipment_category);
+       
         $fuel = new Fuel;
-        $fuel->equipment_id = $equipment[0];
+
+        if($request->type_requests == "Affiliates")
+        {
+            $fuel->affiliates_id = $request->affiliates_category;
+            $fuel->affiliates_id = $request->affiliates_category;
+        }
+        else if($request->type_requests == "Equipment")
+        {
+            $equipment = explode("-",$request->equipment_category);
+            $fuel->equipment_id = $equipment[0];
+        }
+        else if($request->type_requests == "Generator")
+        {
+            $fuel->generator_id = $request->generator_category;
+        }
+        else
+        {
+            $fuel->others = $request->others_category;
+        }
+      
+        $fuel->request_type = $request->type_requests;
         $fuel->date_fuel = $request->date_fuel;
         $fuel->location = $request->location;
         $fuel->driver_name = $request->driver_name;
