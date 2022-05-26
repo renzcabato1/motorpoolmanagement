@@ -58,7 +58,7 @@
                         <tr>
                             <th>Date</th>
                             <th>Previous Odometer</th>
-                            <th>Odometer Odometer</th>
+                            <th>Ending Odometer</th>
                             <th>Liters</th>
                             <th>Km. Run</th>
                             <th>Location</th>

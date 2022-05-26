@@ -19,7 +19,7 @@ Route::group( ['middleware' => 'auth'], function()
         
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/home', 'HomeController@index')->name('home');
-    });
+
 
     //acounts
      Route::get('users','UserController@users');
@@ -67,7 +67,7 @@ Route::group( ['middleware' => 'auth'], function()
      Route::get('equipments','EquipmentController@equipments');
      Route::post('new-equipment','EquipmentController@new_equipment');
      Route::get('maintenance','EquipmentController@maintenance');
-
+    });
      //Request
      Route::get('requests','RequestController@requests');
      Route::post('new-request','RequestController@new_request');
