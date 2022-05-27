@@ -80,7 +80,7 @@
                             </div>
                             <div class='row' id='others' style='display:none;'>
                                 <div class='col-md-12'>
-                                    Others :
+                                    External :
                                     <textarea type="text" class="form-control"  name="others_category" id='others_category' ></textarea>
                                 </div>
                             </div>
