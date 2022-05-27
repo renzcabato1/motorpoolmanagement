@@ -39,7 +39,7 @@
                                         <option value="Equipment">Equipment</option>
                                         <option value="Generator">Generator</option>
                                         <option value="Affiliates">Affiliates</option>
-                                        <option value="Others">Others</option>
+                                        <option value="External">External</option>
                                     
                                     </select>
                                 </div>
