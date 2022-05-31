@@ -90,6 +90,7 @@
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 {{-- <li><a class="dropdown-item" href="profile.html">Profile</a></li> --}}
                                 {{-- <li class="dropdown-divider"></li> --}}
+                                <li><a class="dropdown-item" data-target="#change_pass" data-toggle="modal"  >Change Password</a></li>
                                 <li><a class="dropdown-item" href="{{ route('logout') }}"  onclick="logout(); show();">Logout</a></li>
                             </ul>
                         </div>
@@ -207,6 +208,7 @@
             <form id="logout-form"  action="{{ route('logout') }}"  method="POST" style="display: none;">
                 {{ csrf_field() }}
             </form>
+            @include('changepass')
             {{-- <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">
                     <h2>{{$header}}</h2>

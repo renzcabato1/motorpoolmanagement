@@ -1,6 +1,13 @@
 @extends('layouts.header')
 @section('content')
 <div class="wrapper wrapper-content">
+    @if(session()->has('status'))
+<div class="alert alert-success alert-dismissable">
+    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+    {{session()->get('status')}}
+</div>
+@endif
+@include('error')
     <div class="row">
         <div class="col-lg-3">
             <div class="ibox float-e-margins">

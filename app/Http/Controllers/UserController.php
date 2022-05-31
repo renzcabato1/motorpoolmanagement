@@ -75,6 +75,18 @@ class UserController extends Controller
         $request->session()->flash('status','Successfully change password');
         return back();
     }
+    public function changepass(Request $request)
+    {
+        $this->validate($request, [
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        $user = User::where('id',auth()->user()->id)->first();
+        $user->password = bcrypt($request->password);
+        $user->save(); 
+        $request->session()->flash('status','Successfully change password');
+        return back();
+    }
 
     public function deactivate_user(Request $request)
     {

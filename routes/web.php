@@ -26,6 +26,7 @@ Route::group( ['middleware' => 'auth'], function()
      Route::post('new-account','UserController@new_account');
      Route::post('delete-account','UserController@delete_account');
      Route::post('change-password/{id}','UserController@changepassword');
+     Route::post('change-pass','UserController@changepass');
      Route::post('deactivate-user','UserController@deactivate_user');
      Route::post('activate-user','UserController@activate_user');
      Route::post('edit-user/{id}','UserController@edit_user');
