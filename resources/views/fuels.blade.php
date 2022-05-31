@@ -39,6 +39,7 @@
                                         <option value="Equipment">Equipment</option>
                                         <option value="Generator">Generator</option>
                                         <option value="Affiliates">Affiliates</option>
+                                        <option value="Production">Production</option>
                                         <option value="External">External</option>
                                     
                                     </select>
@@ -112,7 +113,7 @@
                             <div class='row'>
                                 <div class='col-md-12'>
                                 Driver Name :
-                                    <input type="text" class="input-sm form-control"  name="driver_name" autocomplete="off" required/>
+                                    <input type="text" class="input-sm form-control"  name="driver_name" id='driver_name' autocomplete="off" required/>
                                 </div>
                             </div>
                             <div class='row'>
@@ -233,6 +234,10 @@
 
             document.getElementById("others").style.display = "none";
             document.getElementById("others_category").required = false;
+
+            document.getElementById("driver_name").value = "";
+            $("#driver_name").prop("readonly", false);
+            document.getElementById("driver_name").required = true;
             
             
         }
@@ -249,8 +254,14 @@
             document.getElementById("affiliates").style.display = "none";
             document.getElementById("affiliates_category").required = false;
 
+   
+
             document.getElementById("others").style.display = "none";
             document.getElementById("others_category").required = false;
+
+            document.getElementById("driver_name").value = "";
+            $("#driver_name").prop("readonly", false);
+            document.getElementById("driver_name").required = true;
 
         }
         else if(value == "Affiliates")
@@ -265,6 +276,31 @@
 
             document.getElementById("affiliates").style.display = "block";
             document.getElementById("affiliates_category").required = true;
+
+            document.getElementById("others").style.display = "none";
+            document.getElementById("others_category").required = false;
+
+            document.getElementById("driver_name").value = "";
+            $("#driver_name").prop("readonly", false);
+            document.getElementById("driver_name").required = true;
+        }
+        else if(value == "Production")
+        {
+            document.getElementById("equipment").style.display = "none";
+            document.getElementById("equipment_category").required = false;
+            document.getElementById("ending_odometer").required = false;
+            $("#ending_odometer").attr("readonly", true); 
+
+            document.getElementById("generator").style.display = "none";
+            document.getElementById("generator_category").required = false;
+
+            document.getElementById("affiliates").style.display = "none";
+            document.getElementById("affiliates_category").required = false;
+
+            document.getElementById("driver_name").readonly = true;
+            document.getElementById("driver_name").value = "";
+            $("#driver_name").prop("readonly", true);
+            document.getElementById("driver_name").required = false;
 
             document.getElementById("others").style.display = "none";
             document.getElementById("others_category").required = false;
@@ -284,6 +320,10 @@
 
             document.getElementById("others").style.display = "block";
             document.getElementById("others_category").required = true;
+
+            document.getElementById("driver_name").value = "";
+            $("#driver_name").prop("readonly", false);
+            document.getElementById("driver_name").required = true;
         }
     }
 </script>
