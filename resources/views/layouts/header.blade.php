@@ -329,9 +329,14 @@
                             allowClear: true,
                             width: "100%"
                         });
+                        // $("select").select2({
+                        //     placeholder: "Select",
+                        //     allowClear: true,
+                        //     width: "100%"
+                        // });
                       
                     });
-                    //  $('.category').chosen({width: "100%"});
+                     $('.cat').chosen({width: "100%"});
                     //  $(".category").select2();
                      $(".touchspin1").TouchSpin({
                         buttondown_class: 'btn btn-white',

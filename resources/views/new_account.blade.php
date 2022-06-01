@@ -26,7 +26,7 @@
                      </div>
                     <div class='col-md-12'>
                         Company :
-                        <select name='company' class='form-control-sm form-control category' required>
+                        <select name='company' class='form-control-sm form-control cat' required>
                             <option value=""></option>
                             @foreach($companies as $company)
                                 @if($company->status)
@@ -38,7 +38,7 @@
                      </div>
                     <div class='col-md-12'>
                         Department :
-                        <select name='department' class='form-control-sm form-control category' required>
+                        <select name='department' class='form-control-sm form-control cat' required>
                             <option value=""></option>
                             @foreach($departments as $dep)
                                 @if($dep->status)
@@ -50,7 +50,7 @@
                      </div>
                     <div class='col-md-12'>
                         Role :
-                        <select name='role' class='form-control-sm form-control category' onchange='changeapprover(this.value)' required>
+                        <select name='role' class='form-control-sm form-control cat' onchange='changeapprover(this.value)' required>
                             <option value=""></option>
                             @foreach($roles as $role)
                                
