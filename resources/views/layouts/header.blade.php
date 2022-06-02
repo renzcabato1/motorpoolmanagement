@@ -329,6 +329,11 @@
                             allowClear: true,
                             width: "100%"
                         });
+                        $(".location").select2({
+                            placeholder: "Location",
+                            allowClear: true,
+                            width: "100%"
+                        });
                         // $("select").select2({
                         //     placeholder: "Select",
                         //     allowClear: true,

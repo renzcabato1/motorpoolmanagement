@@ -164,7 +164,22 @@
                     <div ibox-tools></div>
                 </div>
                 <div class="ibox-content">
-
+                    <div class="row">
+                        <div class="col-lg-6">
+                        </div>
+                        <div class="col-lg-3">
+                            <select name='location' class='form-control-sm form-control location' onchange='get_fuel_balance(this.value)'  required>
+                                <option value="">Location</option>
+                                @foreach($locations as $key => $location )
+                                    <option value='{{$location->id}}'>{{$location->location}}</option>
+                                
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            Ending Balance : <span id='ending_balance'></span>
+                        </div>
+                    </div>
                     <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
                         <thead>
                         <tr>
