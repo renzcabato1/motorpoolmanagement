@@ -162,11 +162,22 @@
             var idSample = parseInt(data);
 
             var item = locations.find(item => item.id === idSample);
+            console.log(item.location_type);
+            if(item.location_type != "DIRECT SUPPLIER")
+            {
             var total_liters = parseFloat(item.capacity)-parseFloat(item.actual_fuel);
             // alert(total_liters);
             document.getElementById("capacity").value = numberWithCommas(item.capacity);
             document.getElementById("running_balance").value = numberWithCommas(item.actual_fuel);
             document.getElementById("total_liters").max = total_liters;
+            }
+            else
+            {
+                var total_liters = parseFloat(item.actual_fuel);
+            document.getElementById("capacity").value = numberWithCommas(item.capacity);
+            document.getElementById("running_balance").value = numberWithCommas(item.actual_fuel);
+            document.getElementById("total_liters").max = "";
+            }
         
         }
 
