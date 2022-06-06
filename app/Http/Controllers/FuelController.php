@@ -38,7 +38,7 @@ class FuelController extends Controller
        
 
         $location = Location::where('id',$request->location)->first();
-        $old_actual_fuel = "";
+        $old_actual_fuel = null;
         if($location->location_type != "DIRECT SUPPLIER")
         {
             $old_actual_fuel = $location->actual_fuel;
