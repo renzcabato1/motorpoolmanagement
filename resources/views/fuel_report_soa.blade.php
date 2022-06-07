@@ -19,7 +19,7 @@
                     <div class="row">
                         <div class="col-lg-3">
                             <label class="font-normal">Locations </label>
-                            <select name='equipment_category' class='form-control-sm form-control category' onchange='start_data(value)' required>
+                            <select name='equipment_category' class='form-control-sm form-control category' required>
                                 <option value=""></option>
                                 <option value="All" {{("All" == $location_id) ? "selected":"" }}>All</option>
                                 @foreach($locations as $key => $location )
