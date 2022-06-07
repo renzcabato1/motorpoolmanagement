@@ -38,14 +38,12 @@ class FuelController extends Controller
        
 
         $location = Location::where('id',$request->location)->first();
-        $old_actual_fuel = null;
-        if($location->location_type != "DIRECT SUPPLIER")
-        {
-            $old_actual_fuel = $location->actual_fuel;
-            $new_fuel = $location->actual_fuel - $request->total_liters;
-            $location->actual_fuel=$new_fuel;
-            $location->save();
-        }
+      
+        $old_actual_fuel = $location->actual_fuel;
+        $new_fuel = $location->actual_fuel - $request->total_liters;
+        $location->actual_fuel=$new_fuel;
+        $location->save();
+        
         $attachment = $request->file('supporting_documents');
         $original_name = $attachment->getClientOriginalName();
         $name = time().'_'.$attachment->getClientOriginalName();
