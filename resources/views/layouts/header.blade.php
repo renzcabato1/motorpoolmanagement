@@ -159,6 +159,9 @@
                     <li @if($header == 'Receivings') class='active' @endif>
                         <a href="{{ url('/receivings') }}" class='active' onclick='show()' ><i class="fa fa-file-code-o"></i> <span class="nav-label">Fuel Receiving</span> </a>
                     </li>
+                    {{-- <li @if($header == 'Transfer') class='active' @endif>
+                        <a href="{{ url('/transfer') }}" class='active' onclick='show()' ><i class="fa fa-share-square-o"></i> <span class="nav-label">Fuel Transfer</span> </a>
+                    </li> --}}
                     @endif
                     @if((auth()->user()->role_id == 1) || (auth()->user()->role_id == 7))
                     <li @if($header == 'Fuel Monitoring Report') class='active' @endif>

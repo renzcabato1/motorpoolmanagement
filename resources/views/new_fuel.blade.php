@@ -27,8 +27,10 @@
         var item = locations.find(item => item.id === idSample);
         if(item.location_type == "DIRECT SUPPLIER")
         {
-            document.getElementById("total_liters").max = "";
-        }
+            document.getElementById("total_liters").max = item.actual_fuel;
+
+            var d = item.actual_fuel;
+            document.getElementById("available_fuel").value = d;
         else
         {
             document.getElementById("total_liters").max = item.actual_fuel;

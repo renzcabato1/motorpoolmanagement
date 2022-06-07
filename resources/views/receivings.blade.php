@@ -174,10 +174,10 @@
             else
             {
                 var total_liters = parseFloat(item.actual_fuel);
-            document.getElementById("capacity").value = numberWithCommas(item.capacity);
-            document.getElementById("running_balance").value = numberWithCommas(item.actual_fuel);
-            document.getElementById("total_liters").max = "";
-            }
+                document.getElementById("capacity").value = numberWithCommas(item.capacity);
+                document.getElementById("running_balance").value = numberWithCommas(item.actual_fuel);
+                document.getElementById("total_liters").max = "";
+            }   
         
         }
 
