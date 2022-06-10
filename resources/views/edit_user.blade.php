@@ -25,7 +25,7 @@
                      </div>
                     <div class='col-md-12'>
                         Company :
-                        <select name='company' class='form-control-sm form-control category' required>
+                        <select name='company' class='form-control-sm form-control cat' required>
                             <option value=""></option>
                             @foreach($companies as $company)
                                 @if($company->status)
@@ -37,7 +37,7 @@
                      </div>
                     <div class='col-md-12'>
                         Department :
-                        <select name='department' class='form-control-sm form-control category' required>
+                        <select name='department' class='form-control-sm form-control cat' required>
                             <option value=""></option>
                             @foreach($departments as $dep)
                                 @if($dep->status)
@@ -49,7 +49,7 @@
                      </div>
                     <div class='col-md-12'>
                         Role :
-                        <select name='role' class='form-control-sm form-control category' onchange='changeapproverEdit(this.value,{{$user->id}})' required>
+                        <select name='role' class='form-control-sm form-control cat' onchange='changeapproverEdit(this.value,{{$user->id}})' required>
                             <option value=""></option>
                             @foreach($roles as $role)
                                
@@ -61,7 +61,7 @@
                     @if($user->approver_id != "")
                     <div class='col-md-12' id='edit_approver_id{{$user->id}}'>
                         Approver :
-                        <select name='approver' id='approver{{$user->id}}' class='form-control-sm form-control category' >
+                        <select name='approver' id='approver{{$user->id}}' class='form-control-sm form-control cat' >
                             <option value=""></option>
                             @foreach($users as $us)
                                 @if($us->status != 1)

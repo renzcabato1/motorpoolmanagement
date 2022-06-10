@@ -116,6 +116,7 @@ class FuelController extends Controller
         $fuel->previous_fuel = $old_actual_fuel;
         $fuel->attachment_file = $file_name;
         $fuel->type = "receivings";
+        $fuel->remarks = $request->remarks;
         $fuel->user_id = auth()->user()->id;
         $fuel->save();
         $request->session()->flash('status','Successfully created');
@@ -221,5 +222,73 @@ class FuelController extends Controller
             'locations' => $locations,
             'receivings' => $receivings,
         ));
+    }
+    public function transfer()
+    {
+        $fuels = Fuel::where('user_id',auth()->user()->id)->with('equipment','user','locations','company','generator')->orderBy('id','desc')->where('transfer',1)->get();
+        $locations = Location::where('status',"Active")->get();
+        return view('transfer',
+        array(
+            'subheader' => '',
+            'header' => "Transfer",
+            'fuels' => $fuels,
+            'locations' => $locations,
+        ));
+    }
+    public function transfertransaction(Request $request)
+    {
+        // dd($request->all());
+        $location = Location::where('id',$request->location)->first();
+      
+        $old_actual_fuel = $location->actual_fuel;
+        $new_fuel = $location->actual_fuel - $request->total_liters;
+        $location->actual_fuel=$new_fuel;
+        $location->save();
+        
+        $attachment = $request->file('supporting_documents');
+        $original_name = $attachment->getClientOriginalName();
+        $name = time().'_'.$attachment->getClientOriginalName();
+        $attachment->move(public_path().'/receiving_documents/', $name);
+        $file_name = '/receiving_documents/'.$name;
+
+        $fuel = new Fuel;
+        $fuel->request_type = $request->type_requests;
+        $fuel->date_fuel = $request->date_fuel;
+        $fuel->location = $request->location;
+        $fuel->driver_name = $request->driver;
+        $fuel->previous_fuel = $old_actual_fuel;
+        $fuel->liters = $request->total_liters;
+        $fuel->ending_odometer = $request->ending_odometer;
+        $fuel->reference_number = $request->issuance_number;
+        $fuel->remarks = "TRANSFER OUT - ".$request->remarks;
+        $fuel->attachment_file = $file_name;
+        $fuel->transfer = 1;
+        $fuel->user_id = auth()->user()->id;
+        $fuel->save();
+
+        $location_to = Location::where('id',$request->location_to)->first();
+        $old_actual_fuel_to = $location_to->actual_fuel;
+        $new_fuel = $location_to->actual_fuel + $request->total_liters;
+        $location_to->actual_fuel=$new_fuel;
+        $location_to->save();
+       
+
+        $fuel_to = new Fuel;
+        $fuel_to->date_fuel = $request->date_fuel;
+        $fuel_to->received_by = "TRANSFER";
+        $fuel_to->location = $request->location;
+        $fuel_to->liters = $request->total_liters;
+        $fuel_to->vendor_name = "TRANSFER";
+        $fuel_to->reference_number = $request->issuance_number;
+        $fuel_to->previous_fuel = $old_actual_fuel_to;
+        $fuel_to->attachment_file = $file_name;
+        $fuel_to->transfer = 1;
+        $fuel_to->remarks = "TRANSFER IN - ".$request->remarks;
+        $fuel_to->type = "receivings";
+        $fuel_to->user_id = auth()->user()->id;
+        $fuel_to->save();
+        $request->session()->flash('status','Successfully transfer');
+        return back();
+
     }
 }
