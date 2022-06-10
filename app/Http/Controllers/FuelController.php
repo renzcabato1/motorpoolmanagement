@@ -276,7 +276,7 @@ class FuelController extends Controller
         $fuel_to = new Fuel;
         $fuel_to->date_fuel = $request->date_fuel;
         $fuel_to->received_by = "TRANSFER";
-        $fuel_to->location = $request->location;
+        $fuel_to->location = $request->location_to;
         $fuel_to->liters = $request->total_liters;
         $fuel_to->vendor_name = "TRANSFER";
         $fuel_to->reference_number = $request->issuance_number;
