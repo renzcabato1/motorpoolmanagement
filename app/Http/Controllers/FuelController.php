@@ -259,7 +259,7 @@ class FuelController extends Controller
         $fuel->previous_fuel = $old_actual_fuel;
         $fuel->liters = $request->total_liters;
         $fuel->ending_odometer = $request->ending_odometer;
-        $fuel->reference_number = $request->issuance_number;
+        $fuel->reference_number = $request->reference_number;
         $fuel->remarks = "TRANSFER OUT - ".$request->remarks;
         $fuel->attachment_file = $file_name;
         $fuel->transfer = 1;
@@ -279,7 +279,7 @@ class FuelController extends Controller
         $fuel_to->location = $request->location_to;
         $fuel_to->liters = $request->total_liters;
         $fuel_to->vendor_name = "TRANSFER";
-        $fuel_to->reference_number = $request->issuance_number;
+        $fuel_to->reference_number = $request->reference_number;
         $fuel_to->previous_fuel = $old_actual_fuel_to;
         $fuel_to->attachment_file = $file_name;
         $fuel_to->transfer = 1;
