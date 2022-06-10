@@ -63,7 +63,7 @@
                                     <select name='generator_category' id='generator_category' class='form-control-sm form-control category'  >
                                         <option value=""></option>
                                         @foreach($generators as $generator)
-                                            <option value="{{$generator->id}}">{{$generator->site}} - {{$generator->brand}} - {{$generator->model}}</option>
+                                            <option value="{{$generator->id}}">{{$generator->site}} - {{$generator->brand}} - {{$generator->model}} - {{$generator->serial_number}}</option>
                                         @endforeach
                                     </select>
                                 </div>
