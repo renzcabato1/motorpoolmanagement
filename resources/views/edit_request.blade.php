@@ -37,7 +37,7 @@
                     <div class='row'>
                         <div class='col-md-6'>
                             Equipment Class :
-                            <select name='equipment_category' class='form-control-sm form-control category' required>
+                            <select name='equipment_category' class='form-control-sm form-control cat' required>
                                 <option value=""></option>
                                 @foreach($classes as $key => $class )
                                     @if($class->status)
@@ -54,7 +54,7 @@
                         </div>
                         <div class='col-md-3' id='project_id_data{{$request->id}}' @if($request->is_project == "") style='display:none;' @endif  >
                             Project ID : 
-                            <select name='project_id' id='project_id{{$request->id}}' class='form-control-sm form-control category'  onchange='select_project_edit(this.value,{{$request->id}})' @if($request->is_project == 1) required @else readonly @endif >
+                            <select name='project_id' id='project_id{{$request->id}}' class='form-control-sm form-control cat'  onchange='select_project_edit(this.value,{{$request->id}})' @if($request->is_project == 1) required @else readonly @endif >
                                 <option value="" ></option>
                                 @foreach($projects as $project)
                                 <option value="{{$project->id}}" @if($project->id == $request->project_id) selected @endif>{{$project->project_id}}</option>

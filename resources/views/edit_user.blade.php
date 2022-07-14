@@ -77,7 +77,7 @@
                      @else
                      <div class='col-md-12' id='edit_approver_id{{$user->id}}' style='display:none'>
                         Approver :
-                        <select name='approver' id='approver{{$user->id}}' class='form-control-sm form-control category' >
+                        <select name='approver' id='approver{{$user->id}}' class='form-control-sm form-control cat' >
                             <option value=""></option>
                             @foreach($users as $user)
                                 @if($user->status != 1)

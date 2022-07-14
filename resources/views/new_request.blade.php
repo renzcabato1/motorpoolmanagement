@@ -38,7 +38,7 @@
                         <div class='col-md-6'>
                             <button class="btn btn-primary btn-sm mb-2" onclick='add_equipment();' type="button"><i class="fa fa-plus"></i></button> Equipment Class :
                             <div id='equipments_datas'>
-                                <select name='equipment_category[]' id='1' class='form-control-sm form-control category' required>
+                                <select name='equipment_category[]' id='1' class='form-control-sm form-control cat' required>
                                     <option value=""></option>
                                     @foreach($classes as $key => $class )
                                         @if($class->status)
@@ -56,7 +56,7 @@
                         </div>
                         <div class='col-md-4' id='project_id_data' style='display:none;'>
                             Project ID : 
-                            <select name='project_id' id='project_id' class='form-control-sm form-control category'  onchange='select_project(this.value)' readonly="readonly">
+                            <select name='project_id' id='project_id' class='form-control-sm form-control cat'  onchange='select_project(this.value)' readonly="readonly">
                                 <option value="" ></option>
                                 @foreach($projects as $project)
                                 <option value="{{$project->id}}" >{{$project->project_id}}</option>
@@ -180,7 +180,7 @@
     { 
         var idEquipment = $('#equipments_datas').children().last().attr('id');
         var idEquipmentData = parseInt(idEquipment) + 1;
-        var equip_select = "<div class='input-group mt-3' id='"+idEquipmentData+"'><select name='equipment_category[]'  class='form-control-sm form-control category mt-2' required>";
+        var equip_select = "<div class='input-group mt-3' id='"+idEquipmentData+"'><select name='equipment_category[]'  class='form-control-sm form-control cat mt-2' required>";
             equip_select+= "<option value=''></option>";
             equip_select+= "@foreach($classes as $key => $class )";
             equip_select+= "@if($class->status)";
@@ -192,7 +192,7 @@
             equip_select+= "<span onclick='remove_equipment("+idEquipmentData+")' class='btn btn-danger  btn-outline'><i  class='fa fa-window-close-o'></i></span></div></div>";
             
         $("#equipments_datas").append(equip_select);
-        $('.category').chosen();
+        $('.cat').chosen({width: "100%"});
     }
     function remove_equipment(data)
     { 
