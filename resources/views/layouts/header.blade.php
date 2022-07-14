@@ -170,6 +170,10 @@
                     <li @if($header == 'Fuel Report') class='active' @endif>
                         <a href="{{ url('/fuels-report') }}" class='active' onclick='show()' ><i class="fa fa-free-code-camp"></i> <span class="nav-label">Fuel Report</span> </a>
                     </li>
+                    
+                    <li @if($header == 'Edit Fuel') class='active' @endif>
+                        <a href="{{ url('/edit-fuel') }}" class='active' onclick='show()' ><i class="fa fa-edit"></i> <span class="nav-label">Edit Fuel</span> </a>
+                    </li>
                     <li @if($header == 'Locations') class='active' @endif>
                         <a href="{{ url('/locations') }}" class='active' onclick='show()' ><i class="fa fa-location-arrow"></i> <span class="nav-label">Locations</span> </a>
                     </li>

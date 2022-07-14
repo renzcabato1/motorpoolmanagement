@@ -141,7 +141,7 @@
                             </div>
                             <div class='row'>
                                 <div class='col-md-12'>
-                                Supporting Document <i>(Max of 10MB)</i> :
+                                    Supporting Document <i>(Max of 10MB)</i> :
                                     <input type="file" class="form-control"  name="supporting_documents"   required/>
                                 </div>
                             </div>

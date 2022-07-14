@@ -312,8 +312,6 @@ var equipments = {!! json_encode($equipments->toArray()) !!};
 var active_equipment = {!! json_encode($active_equipment) !!};
 var for_repair_equipment = {!! json_encode($for_repair_equipment) !!};
 var inactive_equipment = {!! json_encode($inactive_equipment) !!};
-//  console.log(active_equipment);
-//  console.log(companies);
         var comp = [];
         var active_per_comp = [];
         var inactive_per_comp = [];
@@ -328,7 +326,6 @@ var inactive_equipment = {!! json_encode($inactive_equipment) !!};
             var repair_comp = 0;
             for(var z=0;z< equipments.length;z++)
             {
-                // console.log(active_equipment[z].company_id);
                 if((companies[i].id == equipments[z].company_id))
                 {
                     total_comp = total_comp + 1;

@@ -291,4 +291,21 @@ class FuelController extends Controller
         return back();
 
     }
+    public function editFuels()
+    {
+        $date_from = date("Y-m-d", strtotime("-7 days", strtotime(date('Y-m-d'))));
+        $fuels = Fuel::with('equipment','user','locations','company','generator')->where('type','=',null)->orderBy('id','desc')->whereBetween('date_fuel',[$date_from,date('Y-m-d')])->get();
+        $companies = Company::where('status',Null)->get();
+        $locations = Location::where('status',"Active")->get();
+        $generators = Generator::get();
+        return view('edit_fuel',
+        array(
+            'subheader' => '',
+            'header' => "Edit Fuel",
+            'fuels' => $fuels,
+            'locations' => $locations,
+            'companies' => $companies,
+            'generators' => $generators,
+        ));
+    }
 }

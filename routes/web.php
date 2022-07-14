@@ -111,6 +111,7 @@ Route::group( ['middleware' => 'auth'], function()
      Route::get('fuels-report','FuelController@fuels_report');
      Route::get('transfer','FuelController@transfer');
      Route::post('tansfer-data','FuelController@transfertransaction');
+     Route::get('edit-fuel','FuelController@editFuels');
 
     
 
