@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(User::class,"approver_id","id");
     }
+
+    public function userlocations()
+    {
+        return $this->hasMany(UserLocation::class,'user_id','id');
+    }
 }

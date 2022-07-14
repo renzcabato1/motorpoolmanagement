@@ -61,7 +61,9 @@
                                         <option value=""></option>
                                         @foreach($locations as $key => $location)
                                             @if(($location->location_type == "FUEL TANKER") || ($location->location_type == "MEGA DRUM"))
-                                                <option value='{{$location->id}}'>{{$location->location}}</option>
+                                                @if(in_array($location->id,((auth()->user()->userLocations)->pluck('location_id'))->toArray()))
+                                                    <option value='{{$location->id}}'>{{$location->location}}</option>
+                                                @endif
                                             @endif
                                         @endforeach
                                     </select>

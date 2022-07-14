@@ -47,6 +47,7 @@
                                     <td>@if($user->approver){{$user->approver->name}}@endif</td>
                                     <td  id='statususer{{$user->id}}'>@if($user->status) <small class="label label-danger">Inactive</small>  @else <small class="label label-primary">Active</small> @endif</td>
                                     <td data-id='{{$user->id}}' id='actionuser{{$user->id}}'>
+
                                             @if($user->status)
                                         <button class="btn btn-sm btn-primary activate-user" title="Activate"><i class="fa fa-check"></i></button>
                                             @else

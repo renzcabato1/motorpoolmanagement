@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 use App\User;
 use App\Company;
+use App\Location;
 use App\Department;
+use App\UserLocation;
 use App\Role;
 use DB;
 use Illuminate\Http\Request;
@@ -13,10 +15,11 @@ class UserController extends Controller
     //
     public function users()
     {
-        $users = User::with('department','company','role','approver')->orderBy('status')->get();
+        $users = User::with('department','company','role','approver','userlocations')->orderBy('status')->get();
         // dd($users); 
         // dd($users);
         $companies = Company::get();
+        $locations = Location::get();
         $departments = Department::get();
         $roles = Role::get();
         return view('users',
@@ -26,6 +29,7 @@ class UserController extends Controller
             'users' => $users,
             'companies' => $companies,
             'departments' => $departments,
+            'locations' => $locations,
             'roles' => $roles,
         ));
     }
@@ -112,7 +116,9 @@ class UserController extends Controller
         $this->validate($request, [
             'email' => 'unique:users,email,' . $id,
         ]);
+        $userLocations = UserLocation::where('user_id',$id)->delete();
 
+        
         $account = User::where('id',$id)->first();
         $account->name = $request->name;
         $account->email = $request->email;
@@ -122,6 +128,15 @@ class UserController extends Controller
         $account->role_id = $request->role;
         // $new_account->role = 1;
         $account->save();
+
+        foreach($request->locations as $loc)
+        {
+            $new_location_user = new UserLocation;
+            $new_location_user->location_id = $loc;
+            $new_location_user->user_id = $id;
+            $new_location_user->encode_by = auth()->user()->id;
+            $new_location_user->save();
+        }
         $request->session()->flash('status','Successfully updated');
         return back();
     }

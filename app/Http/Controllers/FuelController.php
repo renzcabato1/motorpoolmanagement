@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Fuel;
 use App\Company;
 use App\Generator;
+use App\UserLocation;
 use PDF;
 use App\EquipmentData;
 use App\Location;

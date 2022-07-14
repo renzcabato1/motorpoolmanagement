@@ -46,7 +46,7 @@
                                 @endif
                             @endforeach
                         </select>
-                     </div>
+                    </div>
                     <div class='col-md-12'>
                         Role :
                         <select name='role' class='form-control-sm form-control cat' onchange='changeapproverEdit(this.value,{{$user->id}})' required>
@@ -57,7 +57,16 @@
                             
                             @endforeach
                         </select>
-                     </div>
+                    </div>
+                    <div class='col-md-12'>
+                        Locations : 
+                            <select name='locations[]' class='form-control-sm form-control cat' multiple >
+                            <option value=""></option>
+                            @foreach($locations as $location)
+                                <option value='{{$location->id}}'  @if(in_array($location->id,(($user->userlocations)->pluck('location_id'))->toArray())) selected @endif >{{$location->location}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     @if($user->approver_id != "")
                     <div class='col-md-12' id='edit_approver_id{{$user->id}}'>
                         Approver :

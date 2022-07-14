@@ -91,8 +91,9 @@
                                     <select name='location' class='form-control-sm form-control category' onchange='get_fuel_active(this.value)'  required>
                                         <option value=""></option>
                                         @foreach($locations as $key => $location )
-                                            <option value='{{$location->id}}'>{{$location->location}}</option>
-                                        
+                                            @if(in_array($location->id,((auth()->user()->userLocations)->pluck('location_id'))->toArray()))
+                                                <option value='{{$location->id}}' >{{$location->location}}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
@@ -158,7 +159,7 @@
         <div class="col-lg-8">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Fuels
+                    <h5>Fuels 
                         {{-- <button class="btn btn-primary" data-target="#new_fuel" data-toggle="modal" type="button"><i class="fa fa-plus-circle"></i>&nbsp;</button> --}}
                     </h5>
                     <div ibox-tools></div>
@@ -171,8 +172,9 @@
                             <select name='location' class='form-control-sm form-control location' onchange='get_fuel_balance(this.value)'  required>
                                 <option value="">Location</option>
                                 @foreach($locations as $key => $location )
+                                @if(in_array($location->id,((auth()->user()->userLocations)->pluck('location_id'))->toArray()))
                                     <option value='{{$location->id}}'>{{$location->location}}</option>
-                                
+                                @endif
                                 @endforeach
                             </select>
                         </div>
