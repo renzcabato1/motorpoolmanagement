@@ -61,12 +61,12 @@
                      </div>
                     <div class='col-md-12' id='approver_id_data' style='display:none;'>
                         Approver :
-                        <select name='approver' id='approver' class='form-control-sm form-control category' >
+                        <select name='approver' id='approver' class='form-control-sm form-control cat' >
                             <option value=""></option>
                             @foreach($users as $u)
                                 @if($u->status != 1)
                                     @if($u->id != Auth::user()->id)
-                                        @if(($u->role_id == 4))
+                                        @if(($u->role_id == 4) ||($u->role_id == 5))
                                             <option value='{{$u->id}}'>{{$u->name}}</option>
                                         @endif
                                     @endif                                            
