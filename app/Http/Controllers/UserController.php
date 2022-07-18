@@ -82,7 +82,7 @@ class UserController extends Controller
     public function changepass(Request $request)
     {
         $this->validate($request, [
-            'password' => 'required|confirmed|min:6',
+            'password' => 'required|confirmed',
         ]);
 
         $user = User::where('id',auth()->user()->id)->first();
