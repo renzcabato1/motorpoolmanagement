@@ -68,10 +68,11 @@
                                 <th>Encode By</th>
                                 <th>In</th>
                                 <th>Out</th>
-                                <th>Balance</th>
+                                {{-- <th>Balance</th> --}}
                             </tr>
                         </thead>
                         <tbody>
+                            
                             @foreach($fuels as $fuel)
                                 <tr>
                                     <td>{{$fuel->locations->location}}</td>
@@ -124,13 +125,13 @@
                                         <td>{{$fuel->user->name}}</td>
                                         <td>@if($fuel->type == "receivings"){{number_format($fuel->liters,2)}}@endif</td>
                                         <td>@if($fuel->type != "receivings"){{number_format($fuel->liters,2)}}@endif</td>
-                                        <td>
+                                        {{-- <td>
                                             @if($fuel->type == "receivings")
                                                 {{number_format($fuel->liters+$fuel->previous_fuel,2)}}
                                             @else
                                                 {{number_format($fuel->previous_fuel-$fuel->liters,2)}}
                                             @endif
-                                        </td>
+                                        </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>

@@ -44,7 +44,7 @@
             <th>ENCODE BY</th>
             <th>IN</th>
             <th>OUT</th>
-            <th>BALANCE</th>
+            {{-- <th>BALANCE</th> --}}
         </tr>
         @foreach($fuels as $fuel)
         <tr >
@@ -76,12 +76,12 @@
             <td>{{$fuel->user->name}}</td>
             <td>@if($fuel->type == "receivings"){{number_format($fuel->liters,2)}}@endif</td>
             <td>@if($fuel->type != "receivings"){{number_format($fuel->liters,2)}}@endif</td>
-            <td>
+            {{-- <td>
                 @if($fuel->type == "receivings")
                     {{number_format($fuel->liters+$fuel->previous_fuel,2)}}
                 @else
                     {{number_format($fuel->previous_fuel-$fuel->liters,2)}}
-                @endif</td>
+                @endif</td> --}}
         </tr>
     @endforeach
       

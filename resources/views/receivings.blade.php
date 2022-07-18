@@ -125,7 +125,7 @@
                             <th>Region</th>
                             <th>Area</th>
                             <th>Total Liters Received</th>
-                            <th>Running Balance</th>
+                            {{-- <th>Running Balance</th> --}}
                             <th>Reference Number</th>
                             <th>Attachment</th>
                         </tr>
@@ -142,7 +142,7 @@
                                 <td>{{$receive->locations->region}}</td>
                                 <td>{{$receive->locations->area}}</td>
                                 <td>{{number_format($receive->liters,2)}} L</td>
-                                <td>{{number_format($receive->previous_fuel+$receive->liters,2)}} L</td>
+                                {{-- <td>{{number_format($receive->previous_fuel+$receive->liters,2)}} L</td> --}}
                                 <td>{{$receive->reference_number}}</td>
                                 <td>@if($receive->attachment_file)<a href="{{url($receive->attachment_file)}}" target="_blank">Attachment</a>@endif</td>
                             </tr>

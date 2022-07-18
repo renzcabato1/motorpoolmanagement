@@ -140,8 +140,8 @@
                             <th>Date Encode</th>
                             <th>Location</th>
                             <th>Total Liters </th>
-                            <th>Previous Balance </th>
-                            <th>Running Balance</th>
+                            {{-- <th>Previous Balance </th>
+                            <th>Running Balance</th> --}}
                             <th>Remarks</th>
                         </tr>
                         </thead>
@@ -153,8 +153,8 @@
                                 <td>{{date('M d, Y',strtotime($fuel->created_at))}}</td>
                                 <td>{{$fuel->locations->location}}</td>
                                 <td>{{number_format($fuel->liters,2)}} L</td>
-                                <td>{{number_format($fuel->previous_fuel,2)}} L</td>
-                                <td>{{number_format($fuel->previous_fuel+$fuel->liters,2)}} L</td>
+                                {{-- <td>{{number_format($fuel->previous_fuel,2)}} L</td> --}}
+                                {{-- <td>{{number_format($fuel->previous_fuel+$fuel->liters,2)}} L</td> --}}
                                 <td>{{$fuel->remarks}}</td>
                             </tr>
                             @endforeach
