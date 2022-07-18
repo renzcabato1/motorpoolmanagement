@@ -22,8 +22,8 @@
                 </div>
             @endif
             <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
-            <a href="{{ route('password.request') }}" onclick='show()'><small>Forgot password?</small></a> <br>
-            <a href="" target='_blank' onclick='show()'><small>How to use portal?</small></a>
+            {{-- <a href="{{ route('password.request') }}" onclick='show()'><small>Forgot password?</small></a> <br> --}}
+            {{-- <a href="" target='_blank' onclick='show()'><small>How to use portal?</small></a> --}}
         </form>
         <p class="m-t"> <small>Copyright &copy; {{date('Y')}}</small> </p> 
     </div>
