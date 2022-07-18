@@ -49,14 +49,17 @@
                                     <td data-id='{{$user->id}}' id='actionuser{{$user->id}}'>
 
                                             @if($user->status)
-                                        <button class="btn btn-sm btn-primary activate-user" title="Activate"><i class="fa fa-check"></i></button>
+
+                                        <button class="btn btn-sm btn-primary activate-user" title="Activate"><i class="fa fa-user-circle"></i></button>
                                             @else
+                                            <button class="btn btn-sm btn-warning" data-target="#change_pass{{$user->id}}" data-toggle="modal" title='change password' ><i class="fa fa-user-circle"></i></button>
                                         <button class="btn btn-sm btn-info"  title='Edit' data-target="#editUser{{$user->id}}" data-toggle="modal"><i class="fa fa-edit"></i></button>
                                             @if(Auth::user()->id != $user->id)<button class="btn btn-sm btn-danger deactivate-user" title='Deactivate' ><i class="fa fa-trash"></i></button>@endif
                                         @endif
                                     </td>
                                 </tr>
                                 @include('edit_user') 
+                                @include('changepassword') 
                             @endforeach
                         </tbody>
                     </table>

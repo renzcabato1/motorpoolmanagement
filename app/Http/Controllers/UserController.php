@@ -70,7 +70,7 @@ class UserController extends Controller
     public function changepassword(Request $request,$id)
     {
         $this->validate($request, [
-            'password' => 'required|confirmed|min:6',
+            'password' => 'required|confirmed',
         ]);
 
         $user = User::where('id',$id)->first();
