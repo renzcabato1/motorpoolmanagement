@@ -16,7 +16,7 @@
         else
         {
             console.log(fuel[0].date_fuel);
-            document.getElementById("date_fuel").min = fuel[0].date_fuel;
+            document.getElementById("date_fuel").min = fuel[0].date_fuel+1;
             document.getElementById("starting_odometer").value = fuel[0].ending_odometer;
             document.getElementById("ending_odometer").min = fuel[0].ending_odometer;
         }

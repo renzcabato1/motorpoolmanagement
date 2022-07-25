@@ -108,7 +108,7 @@
                             <div class='row'>
                                 <div class='col-md-12'>
                                 Issuance Number :
-                                    <input type="text" class="input-sm form-control"  name="issuance_number" autocomplete="off" required/>
+                                    <input type="text" class="input-sm form-control"  name="reference_number" autocomplete="off" required/>
                                 </div>
                             </div>
                             <div class='row'>

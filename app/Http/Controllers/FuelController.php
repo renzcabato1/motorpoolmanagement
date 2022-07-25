@@ -36,7 +36,9 @@ class FuelController extends Controller
     public function new_fuel(Request $request)
     {
         // dd($request->all());
-       
+        $this->validate($request, [
+            'reference_number' => 'unique:fuels',
+        ]);
 
         $location = Location::where('id',$request->location)->first();
       
@@ -80,7 +82,7 @@ class FuelController extends Controller
         $fuel->previous_fuel = $old_actual_fuel;
         $fuel->liters = $request->total_liters;
         $fuel->ending_odometer = $request->ending_odometer;
-        $fuel->reference_number = $request->issuance_number;
+        $fuel->reference_number = $request->reference_number;
         $fuel->remarks = $request->remarks;
         if($request->starting_odometer != "No previous data")
         {
@@ -93,7 +95,9 @@ class FuelController extends Controller
     }
     public function new_received(Request $request)
     {
-       
+        $this->validate($request, [
+            'reference_number' => 'unique:fuels',
+        ]);
         $location = Location::where('id',$request->location)->first();
         $old_actual_fuel = $location->actual_fuel;
         $new_fuel = $location->actual_fuel + $request->total_liters;
