@@ -38,8 +38,10 @@
                                     <select name='location' class='form-control-sm form-control category' onchange='get_fuel_active(this.value)'   required>
                                         <option value=""></option>
                                         @foreach($locations as $key => $location)
-                                            @if($location->location_type == "FUEL STATION")
-                                                <option value='{{$location->id}}'>{{$location->location}}</option>
+                                            @if(($location->location_type == "FUEL STATION") || ($location->location_type == "DEPOT"))
+                                                @if(in_array($location->id,((auth()->user()->userLocations)->pluck('location_id'))->toArray()))
+                                                    <option value='{{$location->id}}'>{{$location->location}}</option>
+                                                @endif
                                             @endif
                                         @endforeach
                                     </select>
