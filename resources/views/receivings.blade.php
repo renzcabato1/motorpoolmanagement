@@ -28,7 +28,8 @@
                             <div class='row'>
                                 <div class='col-md-6'>
                                     Received Date :
-                                    <input type="date" class="input-sm form-control"  name="date_fuel" id='date_fuel' autocomplete="off" min="{{date( "Y-m-d", strtotime( "-5 days" ))}}" max="{{date('Y-m-d')}}" value="{{date('Y-m-d')}}" required/>
+                                    <input type="date" class="input-sm form-control"  name="date_fuel" id='date_fuel' autocomplete="off"  max="{{date('Y-m-d')}}" value="{{date('Y-m-d')}}" required/>
+                                    {{-- <input type="date" class="input-sm form-control"  name="date_fuel" id='date_fuel' autocomplete="off" min="{{date( "Y-m-d", strtotime( "-5 days" ))}}" max="{{date('Y-m-d')}}" value="{{date('Y-m-d')}}" required/> --}}
                                 </div>
                             </div>
                             <div class='row'>
