@@ -103,7 +103,7 @@
                             </div>
                             <div class='row'>
                                 <div class='col-md-12'>
-                                Remarks  :
+                                Purpose  :
                                     <textarea type="text" class="form-control"  name="remarks" id='remarks' required></textarea>
                                 </div>
                                
