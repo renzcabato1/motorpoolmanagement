@@ -21,10 +21,11 @@ class Fuel extends Model
     }
     public function company()
     {
-        return $this->hasOne(Company::class,'id','affiliates_id');
+        return $this->belongsTo(Company::class,'id','affiliates_id');
     }
     public function generator()
     {
         return $this->hasOne(Generator::class,'id','generator_id');
     }
 }
+
