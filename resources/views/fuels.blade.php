@@ -212,7 +212,7 @@
                                         @elseif($fuel->request_type == "Generator")
                                         Generator  :     {{($fuel->generator->brand)}} -  {{($fuel->generator->model)}}<br>
                                         @elseif($fuel->request_type == "Affiliates")
-                                        Company  : {{$fuel->company->company_code}}
+                                        Company  : {{$fuel->company}}
                                         @else
                                             {{$fuel->others}}
                                         @endif
