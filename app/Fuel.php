@@ -19,9 +19,9 @@ class Fuel extends Model
     {
         return $this->belongsTo(Location::class,'location','id');
     }
-    public function company()
+    public function company_details()
     {
-        return $this->belongsTo(Company::class,'id','affiliates_id');
+        return $this->belongsTo(Company::class,'affiliates_id','id');
     }
     public function generator()
     {

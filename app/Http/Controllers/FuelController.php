@@ -15,7 +15,7 @@ class FuelController extends Controller
     //
     public function view_fuel()
     {
-        $fuels = Fuel::where('user_id',auth()->user()->id)->with('equipment','user','locations','company','generator')->where('type','=',null)->orderBy('id','desc')->get();
+        $fuels = Fuel::where('user_id',auth()->user()->id)->with('equipment','user','locations','company_details','generator')->where('type','=',null)->orderBy('id','desc')->get();
         $companies = Company::where('status',Null)->get();
         $locations = Location::where('status',"Active")->get();
         $generators = Generator::get();
