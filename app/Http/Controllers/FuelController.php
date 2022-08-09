@@ -231,7 +231,7 @@ class FuelController extends Controller
     }
     public function transfer()
     {
-        $fuels = Fuel::where('user_id',auth()->user()->id)->with('equipment','user','locations','company','generator')->orderBy('id','desc')->where('transfer',1)->get();
+        $fuels = Fuel::where('user_id',auth()->user()->id)->with('equipment','user','locations','generator')->orderBy('id','desc')->where('transfer',1)->get();
         $locations = Location::where('status',"Active")->get();
         return view('transfer',
         array(
