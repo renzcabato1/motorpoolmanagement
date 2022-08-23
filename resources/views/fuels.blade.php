@@ -12,7 +12,7 @@
 @endif
 @include('error')
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-6">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>New
@@ -157,7 +157,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-6">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>Fuels 
