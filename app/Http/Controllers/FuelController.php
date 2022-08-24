@@ -178,7 +178,7 @@ class FuelController extends Controller
     }
     public function export_report(Request $request)
     {
-        $equipment = EquipmentData::where('id',$request->equipment_category)->where('type','!=','receivings')->with('category','class','company','brand','insurance','fuel')->first();
+        $equipment = EquipmentData::where('id',$request->equipment_category)->with('category','class','company','brand','insurance','fuel')->first();
         $fuels = Fuel::where('equipment_id',$request->equipment_category)->where('type','=',null)->whereBetween('date_fuel',[$request->date_from,$request->date_to])->with('equipment','user','locations')->get();
        
         $date_from = $request->date_from;

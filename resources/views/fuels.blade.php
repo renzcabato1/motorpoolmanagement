@@ -38,7 +38,7 @@
                                     <select name='type_requests' class='form-control-sm form-control category' onchange='type_request(value)' required>
                                         <option value=""></option>
                                         <option value="Equipment">Equipment</option>
-                                        <option value="Generator">Generator</option>
+                                        <option value="Generator">Generator / Pumps / Towerlights</option>
                                         <option value="Affiliates">Affiliates</option>
                                         <option value="Production">Production</option>
                                         <option value="External">External</option>
