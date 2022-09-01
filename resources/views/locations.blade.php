@@ -23,7 +23,7 @@
                 <div class="ibox-content">
                     {{-- Locations --}}
                     {{-- <button class="btn btn-primary" data-target="#new_brand" data-toggle="modal" type="button"><i class="fa fa-plus-circle"></i>&nbsp;</button> --}}
-                    <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
+                    <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-equipments">
                         <thead>
                         <tr>
                             {{-- <th>Logo</th> --}}
