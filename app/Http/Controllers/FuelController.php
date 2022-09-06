@@ -157,7 +157,7 @@ class FuelController extends Controller
         }
         else
         {
-        $fuels = Fuel::with('locations')->where('location',$request->equipment_category)->whereBetween('date_fuel',[$request->date_from,$request->date_to])->with('equipment','user','locations')->orderBy('location','desc')->orderBy('id','desc')->get();
+        $fuels = Fuel::with('locations')->where('location',$request->equipment_category)->whereBetween('date_fuel',[$request->date_from,$request->date_to])->with('equipment','user','locations','company_details')->orderBy('location','desc')->orderBy('id','desc')->get();
         }
         $equipments = EquipmentData::with('category','class','company','brand','insurance','fuel')->get();
         $locations = Location::get();
