@@ -126,7 +126,7 @@
                                         <td>{{$fuel->user->name}}</td>
                                         <td>@if($fuel->type == "receivings"){{number_format($fuel->liters,2)}}@endif</td>
                                         <td>@if($fuel->type != "receivings"){{number_format($fuel->liters,2)}}@endif</td>
-                                        <td>@if($fuel->attachment_file)<a href='{{url($fuel->attachment)}}' target='_blank'>Attachment </a>@endif</td>
+                                        <td>@if($fuel->attachment_file)<a href='{{url($fuel->attachment_file)}}' target='_blank'>Attachment </a>@endif</td>
                                         {{-- <td>
                                             @if($fuel->type == "receivings")
                                                 {{number_format($fuel->liters+$fuel->previous_fuel,2)}}
