@@ -75,7 +75,7 @@ class FuelController extends Controller
         {
             $fuel->others = $request->others_category;
         }
-      
+        $fuel->attachment_file = $file_name;
         $fuel->request_type = $request->type_requests;
         $fuel->date_fuel = $request->date_fuel;
         $fuel->location = $request->location;
