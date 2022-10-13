@@ -15,8 +15,6 @@
             <form method='post' action='new-category' onsubmit='show();'  enctype="multipart/form-data" >
                 <div class="modal-body">
                     {{ csrf_field() }}
-                   
-                    
                     <div class='col-md-12'>
                         Category Code :
                         <input type="text" class="form-control-sm form-control "  value="{{ old('category_code') }}"  name="category_code" required/>

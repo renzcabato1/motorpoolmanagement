@@ -210,7 +210,7 @@
                                         Old Code :  {{$fuel->equipment->old_code}}
                                         Ending Odometer : {{number_format($fuel->ending_odometer)}} KM
                                         @elseif($fuel->request_type == "Generator") 
-                                        Generator  :     {{($fuel->generator->brand)}} -  {{($fuel->generator->model)}}<br>
+                                        Generator  :     @if($fuel->generator){{($fuel->generator->brand)}} -  {{($fuel->generator->model)}}@endif<br>
                                         @elseif($fuel->request_type == "Affiliates")
                                         Company  :@if($fuel->company_details != null) {{$fuel->company_details->company_code}} @endif
                                         @else
